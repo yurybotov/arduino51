@@ -14,7 +14,6 @@ void SerialPort0_ISR(void) __interrupt(4) {
             endBuffer = 0;
         lengthBuffer++;
     }
-    //if(TI == 1) clr_TI;
 }
 
 void SerialBegin(word speed) {

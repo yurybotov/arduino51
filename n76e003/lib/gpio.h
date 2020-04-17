@@ -54,18 +54,22 @@
 #define OPENDRAIN 3
 #define BIDIRECTIONAL 0
 
+// called on start in main.c
 void pwm_init(void);
 
+// pin mode set
 void pinMode(byte pin, byte mode);
 
+// reads state of Dxx pins
 byte digitalRead(byte pin);
 
+// write value to Dxx pins
 void digitalWrite(byte pin, byte value);
 
-// read range [0...4095]
+// read ADC value on Axx pin, read range [0...4095]
 word analogRead(byte pin);
 
-// PWM value can be in range of [0...2047]
+// set PWM value to PWMxx pin, value can be in range of [0...2047]
 void analogWrite(byte pin, word value);
 
 #endif
