@@ -1,6 +1,6 @@
 #ifndef __SDCC_51_A_TIMER__
 #define __SDCC_51_A_TIMER__
-#include "exttypes.h"
+#include "../../common/exttypes.h"
 #include "stdbool.h"
 
 #define MSBFIRST 1

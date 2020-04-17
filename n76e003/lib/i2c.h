@@ -1,6 +1,6 @@
 #ifndef __SDCC_51_A_I2C__
 #define __SDCC_51_A_I2C__
-#include "exttypes.h"
+#include "../../common/exttypes.h"
 
 void I2CBegin(byte address);
 void I2CBeginTransmission(byte address);

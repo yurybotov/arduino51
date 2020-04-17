@@ -1,0 +1,24 @@
+-muwx
+-i arduino.ihx
+-M
+-Y
+-X 0x0300
+-C 0x4800
+-b HOME = 0x0000
+-b ISEG = 0x0000
+-b BSEG = 0x0000
+-k /usr/bin/../share/sdcc/lib/small-stack-auto
+-k /usr/share/sdcc/lib/small-stack-auto
+-l mcs51
+-l libsdcc
+-l libint
+-l liblong
+-l libfloat
+main.rel
+gpio.rel
+ticker.rel
+uart.rel
+spi.rel
+sketch.rel
+
+-e

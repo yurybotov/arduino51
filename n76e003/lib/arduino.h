@@ -4,8 +4,8 @@
 #define FOSC_160000
 
 #include "N76E003.h"
-#include "exttypes.h"
-#include "utility.h"
+#include "../../common/exttypes.h"
+#include "../../common/utility.h"
 
 #include "gpio.h"
 #include "spi.h"

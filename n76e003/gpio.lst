@@ -1,0 +1,2104 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ANSI-C Compiler
+                                      3 ; Version 3.5.0 #9253 (Apr  3 2018) (Linux)
+                                      4 ; This file was generated Fri Apr 17 19:44:45 2020
+                                      5 ;--------------------------------------------------------
+                                      6 	.module gpio
+                                      7 	.optsdcc -mmcs51 --model-small
+                                      8 	
+                                      9 ;--------------------------------------------------------
+                                     10 ; Public variables in this module
+                                     11 ;--------------------------------------------------------
+                                     12 	.globl _MOSI
+                                     13 	.globl _P00
+                                     14 	.globl _MISO
+                                     15 	.globl _P01
+                                     16 	.globl _RXD_1
+                                     17 	.globl _P02
+                                     18 	.globl _P03
+                                     19 	.globl _STADC
+                                     20 	.globl _P04
+                                     21 	.globl _P05
+                                     22 	.globl _TXD
+                                     23 	.globl _P06
+                                     24 	.globl _RXD
+                                     25 	.globl _P07
+                                     26 	.globl _IT0
+                                     27 	.globl _IE0
+                                     28 	.globl _IT1
+                                     29 	.globl _IE1
+                                     30 	.globl _TR0
+                                     31 	.globl _TF0
+                                     32 	.globl _TR1
+                                     33 	.globl _TF1
+                                     34 	.globl _P10
+                                     35 	.globl _P11
+                                     36 	.globl _P12
+                                     37 	.globl _SCL
+                                     38 	.globl _P13
+                                     39 	.globl _SDA
+                                     40 	.globl _P14
+                                     41 	.globl _P15
+                                     42 	.globl _TXD_1
+                                     43 	.globl _P16
+                                     44 	.globl _P17
+                                     45 	.globl _RI
+                                     46 	.globl _TI
+                                     47 	.globl _RB8
+                                     48 	.globl _TB8
+                                     49 	.globl _REN
+                                     50 	.globl _SM2
+                                     51 	.globl _SM1
+                                     52 	.globl _FE
+                                     53 	.globl _SM0
+                                     54 	.globl _P20
+                                     55 	.globl _EX0
+                                     56 	.globl _ET0
+                                     57 	.globl _EX1
+                                     58 	.globl _ET1
+                                     59 	.globl _ES
+                                     60 	.globl _EBOD
+                                     61 	.globl _EADC
+                                     62 	.globl _EA
+                                     63 	.globl _P30
+                                     64 	.globl _PX0
+                                     65 	.globl _PT0
+                                     66 	.globl _PX1
+                                     67 	.globl _PT1
+                                     68 	.globl _PS
+                                     69 	.globl _PBOD
+                                     70 	.globl _PADC
+                                     71 	.globl _I2CPX
+                                     72 	.globl _AA
+                                     73 	.globl _SI
+                                     74 	.globl _STO
+                                     75 	.globl _STA
+                                     76 	.globl _I2CEN
+                                     77 	.globl _CM_RL2
+                                     78 	.globl _TR2
+                                     79 	.globl _TF2
+                                     80 	.globl _P
+                                     81 	.globl _OV
+                                     82 	.globl _RS0
+                                     83 	.globl _RS1
+                                     84 	.globl _F0
+                                     85 	.globl _AC
+                                     86 	.globl _CY
+                                     87 	.globl _CLRPWM
+                                     88 	.globl _PWMF
+                                     89 	.globl _LOAD
+                                     90 	.globl _PWMRUN
+                                     91 	.globl _ADCHS0
+                                     92 	.globl _ADCHS1
+                                     93 	.globl _ADCHS2
+                                     94 	.globl _ADCHS3
+                                     95 	.globl _ETGSEL0
+                                     96 	.globl _ETGSEL1
+                                     97 	.globl _ADCS
+                                     98 	.globl _ADCF
+                                     99 	.globl _RI_1
+                                    100 	.globl _TI_1
+                                    101 	.globl _RB8_1
+                                    102 	.globl _TB8_1
+                                    103 	.globl _REN_1
+                                    104 	.globl _SM2_1
+                                    105 	.globl _SM1_1
+                                    106 	.globl _FE_1
+                                    107 	.globl _SM0_1
+                                    108 	.globl _EIPH1
+                                    109 	.globl _EIP1
+                                    110 	.globl _PMD
+                                    111 	.globl _PMEN
+                                    112 	.globl _PDTCNT
+                                    113 	.globl _PDTEN
+                                    114 	.globl _SCON_1
+                                    115 	.globl _EIPH
+                                    116 	.globl _AINDIDS
+                                    117 	.globl _SPDR
+                                    118 	.globl _SPSR
+                                    119 	.globl _SPCR2
+                                    120 	.globl _SPCR
+                                    121 	.globl _CAPCON4
+                                    122 	.globl _CAPCON3
+                                    123 	.globl _B
+                                    124 	.globl _EIP
+                                    125 	.globl _C2H
+                                    126 	.globl _C2L
+                                    127 	.globl _PIF
+                                    128 	.globl _PIPEN
+                                    129 	.globl _PINEN
+                                    130 	.globl _PICON
+                                    131 	.globl _ADCCON0
+                                    132 	.globl _C1H
+                                    133 	.globl _C1L
+                                    134 	.globl _C0H
+                                    135 	.globl _C0L
+                                    136 	.globl _ADCDLY
+                                    137 	.globl _ADCCON2
+                                    138 	.globl _ADCCON1
+                                    139 	.globl _ACC
+                                    140 	.globl _PWMCON1
+                                    141 	.globl _PIOCON0
+                                    142 	.globl _PWM3L
+                                    143 	.globl _PWM2L
+                                    144 	.globl _PWM1L
+                                    145 	.globl _PWM0L
+                                    146 	.globl _PWMPL
+                                    147 	.globl _PWMCON0
+                                    148 	.globl _FBD
+                                    149 	.globl _PNP
+                                    150 	.globl _PWM3H
+                                    151 	.globl _PWM2H
+                                    152 	.globl _PWM1H
+                                    153 	.globl _PWM0H
+                                    154 	.globl _PWMPH
+                                    155 	.globl _PSW
+                                    156 	.globl _ADCMPH
+                                    157 	.globl _ADCMPL
+                                    158 	.globl _PWM5L
+                                    159 	.globl _TH2
+                                    160 	.globl _PWM4L
+                                    161 	.globl _TL2
+                                    162 	.globl _RCMP2H
+                                    163 	.globl _RCMP2L
+                                    164 	.globl _T2MOD
+                                    165 	.globl _T2CON
+                                    166 	.globl _TA
+                                    167 	.globl _PIOCON1
+                                    168 	.globl _RH3
+                                    169 	.globl _PWM5H
+                                    170 	.globl _RL3
+                                    171 	.globl _PWM4H
+                                    172 	.globl _T3CON
+                                    173 	.globl _ADCRH
+                                    174 	.globl _ADCRL
+                                    175 	.globl _I2ADDR
+                                    176 	.globl _I2CON
+                                    177 	.globl _I2TOC
+                                    178 	.globl _I2CLK
+                                    179 	.globl _I2STAT
+                                    180 	.globl _I2DAT
+                                    181 	.globl _SADDR_1
+                                    182 	.globl _SADEN_1
+                                    183 	.globl _SADEN
+                                    184 	.globl _IP
+                                    185 	.globl _PWMINTC
+                                    186 	.globl _IPH
+                                    187 	.globl _P2S
+                                    188 	.globl _P1SR
+                                    189 	.globl _P1M2
+                                    190 	.globl _P1S
+                                    191 	.globl _P1M1
+                                    192 	.globl _P0SR
+                                    193 	.globl _P0M2
+                                    194 	.globl _P0S
+                                    195 	.globl _P0M1
+                                    196 	.globl _P3
+                                    197 	.globl _IAPCN
+                                    198 	.globl _IAPFD
+                                    199 	.globl _P3SR
+                                    200 	.globl _P3M2
+                                    201 	.globl _P3S
+                                    202 	.globl _P3M1
+                                    203 	.globl _BODCON1
+                                    204 	.globl _WDCON
+                                    205 	.globl _SADDR
+                                    206 	.globl _IE
+                                    207 	.globl _IAPAH
+                                    208 	.globl _IAPAL
+                                    209 	.globl _IAPUEN
+                                    210 	.globl _IAPTRG
+                                    211 	.globl _BODCON0
+                                    212 	.globl _AUXR1
+                                    213 	.globl _P2
+                                    214 	.globl _CHPCON
+                                    215 	.globl _EIE1
+                                    216 	.globl _EIE
+                                    217 	.globl _SBUF_1
+                                    218 	.globl _SBUF
+                                    219 	.globl _SCON
+                                    220 	.globl _CKEN
+                                    221 	.globl _CKSWT
+                                    222 	.globl _CKDIV
+                                    223 	.globl _CAPCON2
+                                    224 	.globl _CAPCON1
+                                    225 	.globl _CAPCON0
+                                    226 	.globl _SFRS
+                                    227 	.globl _P1
+                                    228 	.globl _WKCON
+                                    229 	.globl _CKCON
+                                    230 	.globl _TH1
+                                    231 	.globl _TH0
+                                    232 	.globl _TL1
+                                    233 	.globl _TL0
+                                    234 	.globl _TMOD
+                                    235 	.globl _TCON
+                                    236 	.globl _PCON
+                                    237 	.globl _RWK
+                                    238 	.globl _RCTRIM1
+                                    239 	.globl _RCTRIM0
+                                    240 	.globl _DPH
+                                    241 	.globl _DPL
+                                    242 	.globl _SP
+                                    243 	.globl _P0
+                                    244 	.globl _pwm_init
+                                    245 	.globl _pinMode
+                                    246 	.globl _digitalRead
+                                    247 	.globl _digitalWrite
+                                    248 	.globl _analogRead
+                                    249 	.globl _analogWrite
+                                    250 ;--------------------------------------------------------
+                                    251 ; special function registers
+                                    252 ;--------------------------------------------------------
+                                    253 	.area RSEG    (ABS,DATA)
+      000000                        254 	.org 0x0000
+                           000080   255 _P0	=	0x0080
+                           000081   256 _SP	=	0x0081
+                           000082   257 _DPL	=	0x0082
+                           000083   258 _DPH	=	0x0083
+                           000084   259 _RCTRIM0	=	0x0084
+                           000085   260 _RCTRIM1	=	0x0085
+                           000086   261 _RWK	=	0x0086
+                           000087   262 _PCON	=	0x0087
+                           000088   263 _TCON	=	0x0088
+                           000089   264 _TMOD	=	0x0089
+                           00008A   265 _TL0	=	0x008a
+                           00008B   266 _TL1	=	0x008b
+                           00008C   267 _TH0	=	0x008c
+                           00008D   268 _TH1	=	0x008d
+                           00008E   269 _CKCON	=	0x008e
+                           00008F   270 _WKCON	=	0x008f
+                           000090   271 _P1	=	0x0090
+                           000091   272 _SFRS	=	0x0091
+                           000092   273 _CAPCON0	=	0x0092
+                           000093   274 _CAPCON1	=	0x0093
+                           000094   275 _CAPCON2	=	0x0094
+                           000095   276 _CKDIV	=	0x0095
+                           000096   277 _CKSWT	=	0x0096
+                           000097   278 _CKEN	=	0x0097
+                           000098   279 _SCON	=	0x0098
+                           000099   280 _SBUF	=	0x0099
+                           00009A   281 _SBUF_1	=	0x009a
+                           00009B   282 _EIE	=	0x009b
+                           00009C   283 _EIE1	=	0x009c
+                           00009F   284 _CHPCON	=	0x009f
+                           0000A0   285 _P2	=	0x00a0
+                           0000A2   286 _AUXR1	=	0x00a2
+                           0000A3   287 _BODCON0	=	0x00a3
+                           0000A4   288 _IAPTRG	=	0x00a4
+                           0000A5   289 _IAPUEN	=	0x00a5
+                           0000A6   290 _IAPAL	=	0x00a6
+                           0000A7   291 _IAPAH	=	0x00a7
+                           0000A8   292 _IE	=	0x00a8
+                           0000A9   293 _SADDR	=	0x00a9
+                           0000AA   294 _WDCON	=	0x00aa
+                           0000AB   295 _BODCON1	=	0x00ab
+                           0000AC   296 _P3M1	=	0x00ac
+                           0000AC   297 _P3S	=	0x00ac
+                           0000AD   298 _P3M2	=	0x00ad
+                           0000AD   299 _P3SR	=	0x00ad
+                           0000AE   300 _IAPFD	=	0x00ae
+                           0000AF   301 _IAPCN	=	0x00af
+                           0000B0   302 _P3	=	0x00b0
+                           0000B1   303 _P0M1	=	0x00b1
+                           0000B1   304 _P0S	=	0x00b1
+                           0000B2   305 _P0M2	=	0x00b2
+                           0000B2   306 _P0SR	=	0x00b2
+                           0000B3   307 _P1M1	=	0x00b3
+                           0000B3   308 _P1S	=	0x00b3
+                           0000B4   309 _P1M2	=	0x00b4
+                           0000B4   310 _P1SR	=	0x00b4
+                           0000B5   311 _P2S	=	0x00b5
+                           0000B7   312 _IPH	=	0x00b7
+                           0000B7   313 _PWMINTC	=	0x00b7
+                           0000B8   314 _IP	=	0x00b8
+                           0000B9   315 _SADEN	=	0x00b9
+                           0000BA   316 _SADEN_1	=	0x00ba
+                           0000BB   317 _SADDR_1	=	0x00bb
+                           0000BC   318 _I2DAT	=	0x00bc
+                           0000BD   319 _I2STAT	=	0x00bd
+                           0000BE   320 _I2CLK	=	0x00be
+                           0000BF   321 _I2TOC	=	0x00bf
+                           0000C0   322 _I2CON	=	0x00c0
+                           0000C1   323 _I2ADDR	=	0x00c1
+                           0000C2   324 _ADCRL	=	0x00c2
+                           0000C3   325 _ADCRH	=	0x00c3
+                           0000C4   326 _T3CON	=	0x00c4
+                           0000C4   327 _PWM4H	=	0x00c4
+                           0000C5   328 _RL3	=	0x00c5
+                           0000C5   329 _PWM5H	=	0x00c5
+                           0000C6   330 _RH3	=	0x00c6
+                           0000C6   331 _PIOCON1	=	0x00c6
+                           0000C7   332 _TA	=	0x00c7
+                           0000C8   333 _T2CON	=	0x00c8
+                           0000C9   334 _T2MOD	=	0x00c9
+                           0000CA   335 _RCMP2L	=	0x00ca
+                           0000CB   336 _RCMP2H	=	0x00cb
+                           0000CC   337 _TL2	=	0x00cc
+                           0000CC   338 _PWM4L	=	0x00cc
+                           0000CD   339 _TH2	=	0x00cd
+                           0000CD   340 _PWM5L	=	0x00cd
+                           0000CE   341 _ADCMPL	=	0x00ce
+                           0000CF   342 _ADCMPH	=	0x00cf
+                           0000D0   343 _PSW	=	0x00d0
+                           0000D1   344 _PWMPH	=	0x00d1
+                           0000D2   345 _PWM0H	=	0x00d2
+                           0000D3   346 _PWM1H	=	0x00d3
+                           0000D4   347 _PWM2H	=	0x00d4
+                           0000D5   348 _PWM3H	=	0x00d5
+                           0000D6   349 _PNP	=	0x00d6
+                           0000D7   350 _FBD	=	0x00d7
+                           0000D8   351 _PWMCON0	=	0x00d8
+                           0000D9   352 _PWMPL	=	0x00d9
+                           0000DA   353 _PWM0L	=	0x00da
+                           0000DB   354 _PWM1L	=	0x00db
+                           0000DC   355 _PWM2L	=	0x00dc
+                           0000DD   356 _PWM3L	=	0x00dd
+                           0000DE   357 _PIOCON0	=	0x00de
+                           0000DF   358 _PWMCON1	=	0x00df
+                           0000E0   359 _ACC	=	0x00e0
+                           0000E1   360 _ADCCON1	=	0x00e1
+                           0000E2   361 _ADCCON2	=	0x00e2
+                           0000E3   362 _ADCDLY	=	0x00e3
+                           0000E4   363 _C0L	=	0x00e4
+                           0000E5   364 _C0H	=	0x00e5
+                           0000E6   365 _C1L	=	0x00e6
+                           0000E7   366 _C1H	=	0x00e7
+                           0000E8   367 _ADCCON0	=	0x00e8
+                           0000E9   368 _PICON	=	0x00e9
+                           0000EA   369 _PINEN	=	0x00ea
+                           0000EB   370 _PIPEN	=	0x00eb
+                           0000EC   371 _PIF	=	0x00ec
+                           0000ED   372 _C2L	=	0x00ed
+                           0000EE   373 _C2H	=	0x00ee
+                           0000EF   374 _EIP	=	0x00ef
+                           0000F0   375 _B	=	0x00f0
+                           0000F1   376 _CAPCON3	=	0x00f1
+                           0000F2   377 _CAPCON4	=	0x00f2
+                           0000F3   378 _SPCR	=	0x00f3
+                           0000F3   379 _SPCR2	=	0x00f3
+                           0000F4   380 _SPSR	=	0x00f4
+                           0000F5   381 _SPDR	=	0x00f5
+                           0000F6   382 _AINDIDS	=	0x00f6
+                           0000F7   383 _EIPH	=	0x00f7
+                           0000F8   384 _SCON_1	=	0x00f8
+                           0000F9   385 _PDTEN	=	0x00f9
+                           0000FA   386 _PDTCNT	=	0x00fa
+                           0000FB   387 _PMEN	=	0x00fb
+                           0000FC   388 _PMD	=	0x00fc
+                           0000FE   389 _EIP1	=	0x00fe
+                           0000FF   390 _EIPH1	=	0x00ff
+                                    391 ;--------------------------------------------------------
+                                    392 ; special function bits
+                                    393 ;--------------------------------------------------------
+                                    394 	.area RSEG    (ABS,DATA)
+      000000                        395 	.org 0x0000
+                           0000FF   396 _SM0_1	=	0x00ff
+                           0000FF   397 _FE_1	=	0x00ff
+                           0000FE   398 _SM1_1	=	0x00fe
+                           0000FD   399 _SM2_1	=	0x00fd
+                           0000FC   400 _REN_1	=	0x00fc
+                           0000FB   401 _TB8_1	=	0x00fb
+                           0000FA   402 _RB8_1	=	0x00fa
+                           0000F9   403 _TI_1	=	0x00f9
+                           0000F8   404 _RI_1	=	0x00f8
+                           0000EF   405 _ADCF	=	0x00ef
+                           0000EE   406 _ADCS	=	0x00ee
+                           0000ED   407 _ETGSEL1	=	0x00ed
+                           0000EC   408 _ETGSEL0	=	0x00ec
+                           0000EB   409 _ADCHS3	=	0x00eb
+                           0000EA   410 _ADCHS2	=	0x00ea
+                           0000E9   411 _ADCHS1	=	0x00e9
+                           0000E8   412 _ADCHS0	=	0x00e8
+                           0000DF   413 _PWMRUN	=	0x00df
+                           0000DE   414 _LOAD	=	0x00de
+                           0000DD   415 _PWMF	=	0x00dd
+                           0000DC   416 _CLRPWM	=	0x00dc
+                           0000D7   417 _CY	=	0x00d7
+                           0000D6   418 _AC	=	0x00d6
+                           0000D5   419 _F0	=	0x00d5
+                           0000D4   420 _RS1	=	0x00d4
+                           0000D3   421 _RS0	=	0x00d3
+                           0000D2   422 _OV	=	0x00d2
+                           0000D0   423 _P	=	0x00d0
+                           0000CF   424 _TF2	=	0x00cf
+                           0000CA   425 _TR2	=	0x00ca
+                           0000C8   426 _CM_RL2	=	0x00c8
+                           0000C6   427 _I2CEN	=	0x00c6
+                           0000C5   428 _STA	=	0x00c5
+                           0000C4   429 _STO	=	0x00c4
+                           0000C3   430 _SI	=	0x00c3
+                           0000C2   431 _AA	=	0x00c2
+                           0000C0   432 _I2CPX	=	0x00c0
+                           0000BE   433 _PADC	=	0x00be
+                           0000BD   434 _PBOD	=	0x00bd
+                           0000BC   435 _PS	=	0x00bc
+                           0000BB   436 _PT1	=	0x00bb
+                           0000BA   437 _PX1	=	0x00ba
+                           0000B9   438 _PT0	=	0x00b9
+                           0000B8   439 _PX0	=	0x00b8
+                           0000B0   440 _P30	=	0x00b0
+                           0000AF   441 _EA	=	0x00af
+                           0000AE   442 _EADC	=	0x00ae
+                           0000AD   443 _EBOD	=	0x00ad
+                           0000AC   444 _ES	=	0x00ac
+                           0000AB   445 _ET1	=	0x00ab
+                           0000AA   446 _EX1	=	0x00aa
+                           0000A9   447 _ET0	=	0x00a9
+                           0000A8   448 _EX0	=	0x00a8
+                           0000A0   449 _P20	=	0x00a0
+                           00009F   450 _SM0	=	0x009f
+                           00009F   451 _FE	=	0x009f
+                           00009E   452 _SM1	=	0x009e
+                           00009D   453 _SM2	=	0x009d
+                           00009C   454 _REN	=	0x009c
+                           00009B   455 _TB8	=	0x009b
+                           00009A   456 _RB8	=	0x009a
+                           000099   457 _TI	=	0x0099
+                           000098   458 _RI	=	0x0098
+                           000097   459 _P17	=	0x0097
+                           000096   460 _P16	=	0x0096
+                           000096   461 _TXD_1	=	0x0096
+                           000095   462 _P15	=	0x0095
+                           000094   463 _P14	=	0x0094
+                           000094   464 _SDA	=	0x0094
+                           000093   465 _P13	=	0x0093
+                           000093   466 _SCL	=	0x0093
+                           000092   467 _P12	=	0x0092
+                           000091   468 _P11	=	0x0091
+                           000090   469 _P10	=	0x0090
+                           00008F   470 _TF1	=	0x008f
+                           00008E   471 _TR1	=	0x008e
+                           00008D   472 _TF0	=	0x008d
+                           00008C   473 _TR0	=	0x008c
+                           00008B   474 _IE1	=	0x008b
+                           00008A   475 _IT1	=	0x008a
+                           000089   476 _IE0	=	0x0089
+                           000088   477 _IT0	=	0x0088
+                           000087   478 _P07	=	0x0087
+                           000087   479 _RXD	=	0x0087
+                           000086   480 _P06	=	0x0086
+                           000086   481 _TXD	=	0x0086
+                           000085   482 _P05	=	0x0085
+                           000084   483 _P04	=	0x0084
+                           000084   484 _STADC	=	0x0084
+                           000083   485 _P03	=	0x0083
+                           000082   486 _P02	=	0x0082
+                           000082   487 _RXD_1	=	0x0082
+                           000081   488 _P01	=	0x0081
+                           000081   489 _MISO	=	0x0081
+                           000080   490 _P00	=	0x0080
+                           000080   491 _MOSI	=	0x0080
+                                    492 ;--------------------------------------------------------
+                                    493 ; overlayable register banks
+                                    494 ;--------------------------------------------------------
+                                    495 	.area REG_BANK_0	(REL,OVR,DATA)
+      000000                        496 	.ds 8
+                                    497 ;--------------------------------------------------------
+                                    498 ; internal ram data
+                                    499 ;--------------------------------------------------------
+                                    500 	.area DSEG    (DATA)
+                                    501 ;--------------------------------------------------------
+                                    502 ; overlayable items in internal ram 
+                                    503 ;--------------------------------------------------------
+                                    504 ;--------------------------------------------------------
+                                    505 ; indirectly addressable internal ram data
+                                    506 ;--------------------------------------------------------
+                                    507 	.area ISEG    (DATA)
+                                    508 ;--------------------------------------------------------
+                                    509 ; absolute internal ram data
+                                    510 ;--------------------------------------------------------
+                                    511 	.area IABS    (ABS,DATA)
+                                    512 	.area IABS    (ABS,DATA)
+                                    513 ;--------------------------------------------------------
+                                    514 ; bit data
+                                    515 ;--------------------------------------------------------
+                                    516 	.area BSEG    (BIT)
+                                    517 ;--------------------------------------------------------
+                                    518 ; paged external ram data
+                                    519 ;--------------------------------------------------------
+                                    520 	.area PSEG    (PAG,XDATA)
+                                    521 ;--------------------------------------------------------
+                                    522 ; external ram data
+                                    523 ;--------------------------------------------------------
+                                    524 	.area XSEG    (XDATA)
+                                    525 ;--------------------------------------------------------
+                                    526 ; absolute external ram data
+                                    527 ;--------------------------------------------------------
+                                    528 	.area XABS    (ABS,XDATA)
+                                    529 ;--------------------------------------------------------
+                                    530 ; external initialized ram data
+                                    531 ;--------------------------------------------------------
+                                    532 	.area XISEG   (XDATA)
+                                    533 	.area HOME    (CODE)
+                                    534 	.area GSINIT0 (CODE)
+                                    535 	.area GSINIT1 (CODE)
+                                    536 	.area GSINIT2 (CODE)
+                                    537 	.area GSINIT3 (CODE)
+                                    538 	.area GSINIT4 (CODE)
+                                    539 	.area GSINIT5 (CODE)
+                                    540 	.area GSINIT  (CODE)
+                                    541 	.area GSFINAL (CODE)
+                                    542 	.area CSEG    (CODE)
+                                    543 ;--------------------------------------------------------
+                                    544 ; global & static initialisations
+                                    545 ;--------------------------------------------------------
+                                    546 	.area HOME    (CODE)
+                                    547 	.area GSINIT  (CODE)
+                                    548 	.area GSFINAL (CODE)
+                                    549 	.area GSINIT  (CODE)
+                                    550 ;--------------------------------------------------------
+                                    551 ; Home
+                                    552 ;--------------------------------------------------------
+                                    553 	.area HOME    (CODE)
+                                    554 	.area HOME    (CODE)
+                                    555 ;--------------------------------------------------------
+                                    556 ; code
+                                    557 ;--------------------------------------------------------
+                                    558 	.area CSEG    (CODE)
+                                    559 ;------------------------------------------------------------
+                                    560 ;Allocation info for local variables in function 'pwm_init'
+                                    561 ;------------------------------------------------------------
+                                    562 ;	lib/gpio.c:8: void pwm_init(void) {
+                                    563 ;	-----------------------------------------
+                                    564 ;	 function pwm_init
+                                    565 ;	-----------------------------------------
+      000000                        566 _pwm_init:
+                           000007   567 	ar7 = 0x07
+                           000006   568 	ar6 = 0x06
+                           000005   569 	ar5 = 0x05
+                           000004   570 	ar4 = 0x04
+                           000003   571 	ar3 = 0x03
+                           000002   572 	ar2 = 0x02
+                           000001   573 	ar1 = 0x01
+                           000000   574 	ar0 = 0x00
+                                    575 ;	lib/gpio.c:9: PWM_CLOCK_FSYS;
+      000000 53 8E BF         [24]  576 	anl	_CKCON,#0xBF
+                                    577 ;	lib/gpio.c:10: PWM_IMDEPENDENT_MODE;
+      000003 53 DF 3F         [24]  578 	anl	_PWMCON1,#0x3F
+                                    579 ;	lib/gpio.c:11: PWM_CLOCK_DIV_4;
+      000006 43 DF 02         [24]  580 	orl	_PWMCON1,#0x02
+      000009 53 DF FA         [24]  581 	anl	_PWMCON1,#0xFA
+                                    582 ;	lib/gpio.c:12: PWMPH = 0x07;
+      00000C 75 D1 07         [24]  583 	mov	_PWMPH,#0x07
+                                    584 ;	lib/gpio.c:13: PWMPL = 0xCF;
+      00000F 75 D9 CF         [24]  585 	mov	_PWMPL,#0xCF
+                                    586 ;	lib/gpio.c:14: set_LOAD;
+      000012 D2 DE            [12]  587 	setb	_LOAD
+      000014 22               [24]  588 	ret
+                                    589 ;------------------------------------------------------------
+                                    590 ;Allocation info for local variables in function 'pinMode'
+                                    591 ;------------------------------------------------------------
+                                    592 ;mode                      Allocated to stack - _bp -3
+                                    593 ;pin                       Allocated to registers r7 
+                                    594 ;------------------------------------------------------------
+                                    595 ;	lib/gpio.c:17: void pinMode(byte pin, byte mode) {
+                                    596 ;	-----------------------------------------
+                                    597 ;	 function pinMode
+                                    598 ;	-----------------------------------------
+      000015                        599 _pinMode:
+      000015 C0*00            [24]  600 	push	_bp
+      000017 85 81*00         [24]  601 	mov	_bp,sp
+                                    602 ;	lib/gpio.c:18: if (GPIO_PORT(pin) == 0) {
+      00001A E5 82            [12]  603 	mov	a,dpl
+      00001C FF               [12]  604 	mov	r7,a
+      00001D 54 03            [12]  605 	anl	a,#0x03
+      00001F 60 03            [24]  606 	jz	00207$
+      000021 02r01rB0         [24]  607 	ljmp	00125$
+      000024                        608 00207$:
+                                    609 ;	lib/gpio.c:19: bitWrite(P0M2, (GPIO_PIN(pin)), (mode & 1));
+      000024 E5*00            [12]  610 	mov	a,_bp
+      000026 24 FD            [12]  611 	add	a,#0xfd
+      000028 F8               [12]  612 	mov	r0,a
+      000029 E6               [12]  613 	mov	a,@r0
+      00002A 30 E0 1B         [24]  614 	jnb	acc.0,00102$
+      00002D EF               [12]  615 	mov	a,r7
+      00002E 03               [12]  616 	rr	a
+      00002F 03               [12]  617 	rr	a
+      000030 54 3F            [12]  618 	anl	a,#0x3F
+      000032 FE               [12]  619 	mov	r6,a
+      000033 74 07            [12]  620 	mov	a,#0x07
+      000035 5E               [12]  621 	anl	a,r6
+      000036 F5 F0            [12]  622 	mov	b,a
+      000038 05 F0            [12]  623 	inc	b
+      00003A 74 01            [12]  624 	mov	a,#0x01
+      00003C 80 02            [24]  625 	sjmp	00211$
+      00003E                        626 00209$:
+      00003E 25 E0            [12]  627 	add	a,acc
+      000040                        628 00211$:
+      000040 D5 F0 FB         [24]  629 	djnz	b,00209$
+      000043 FE               [12]  630 	mov	r6,a
+      000044 42 B2            [12]  631 	orl	_P0M2,a
+      000046 80 1A            [24]  632 	sjmp	00103$
+      000048                        633 00102$:
+      000048 EF               [12]  634 	mov	a,r7
+      000049 03               [12]  635 	rr	a
+      00004A 03               [12]  636 	rr	a
+      00004B 54 3F            [12]  637 	anl	a,#0x3F
+      00004D FE               [12]  638 	mov	r6,a
+      00004E 74 07            [12]  639 	mov	a,#0x07
+      000050 5E               [12]  640 	anl	a,r6
+      000051 F5 F0            [12]  641 	mov	b,a
+      000053 05 F0            [12]  642 	inc	b
+      000055 74 01            [12]  643 	mov	a,#0x01
+      000057 80 02            [24]  644 	sjmp	00214$
+      000059                        645 00212$:
+      000059 25 E0            [12]  646 	add	a,acc
+      00005B                        647 00214$:
+      00005B D5 F0 FB         [24]  648 	djnz	b,00212$
+      00005E F4               [12]  649 	cpl	a
+      00005F FE               [12]  650 	mov	r6,a
+      000060 52 B2            [12]  651 	anl	_P0M2,a
+      000062                        652 00103$:
+                                    653 ;	lib/gpio.c:20: bitWrite(P0M1, (GPIO_PIN(pin)), ((mode >> 1) & 1));
+      000062 E5*00            [12]  654 	mov	a,_bp
+      000064 24 FD            [12]  655 	add	a,#0xfd
+      000066 F8               [12]  656 	mov	r0,a
+      000067 E6               [12]  657 	mov	a,@r0
+      000068 03               [12]  658 	rr	a
+      000069 54 01            [12]  659 	anl	a,#0x01
+      00006B FE               [12]  660 	mov	r6,a
+      00006C 60 1B            [24]  661 	jz	00105$
+      00006E EF               [12]  662 	mov	a,r7
+      00006F 03               [12]  663 	rr	a
+      000070 03               [12]  664 	rr	a
+      000071 54 3F            [12]  665 	anl	a,#0x3F
+      000073 FE               [12]  666 	mov	r6,a
+      000074 74 07            [12]  667 	mov	a,#0x07
+      000076 5E               [12]  668 	anl	a,r6
+      000077 F5 F0            [12]  669 	mov	b,a
+      000079 05 F0            [12]  670 	inc	b
+      00007B 74 01            [12]  671 	mov	a,#0x01
+      00007D 80 02            [24]  672 	sjmp	00218$
+      00007F                        673 00216$:
+      00007F 25 E0            [12]  674 	add	a,acc
+      000081                        675 00218$:
+      000081 D5 F0 FB         [24]  676 	djnz	b,00216$
+      000084 FE               [12]  677 	mov	r6,a
+      000085 42 B1            [12]  678 	orl	_P0M1,a
+      000087 80 1A            [24]  679 	sjmp	00106$
+      000089                        680 00105$:
+      000089 EF               [12]  681 	mov	a,r7
+      00008A 03               [12]  682 	rr	a
+      00008B 03               [12]  683 	rr	a
+      00008C 54 3F            [12]  684 	anl	a,#0x3F
+      00008E FE               [12]  685 	mov	r6,a
+      00008F 74 07            [12]  686 	mov	a,#0x07
+      000091 5E               [12]  687 	anl	a,r6
+      000092 F5 F0            [12]  688 	mov	b,a
+      000094 05 F0            [12]  689 	inc	b
+      000096 74 01            [12]  690 	mov	a,#0x01
+      000098 80 02            [24]  691 	sjmp	00221$
+      00009A                        692 00219$:
+      00009A 25 E0            [12]  693 	add	a,acc
+      00009C                        694 00221$:
+      00009C D5 F0 FB         [24]  695 	djnz	b,00219$
+      00009F F4               [12]  696 	cpl	a
+      0000A0 FE               [12]  697 	mov	r6,a
+      0000A1 52 B1            [12]  698 	anl	_P0M1,a
+      0000A3                        699 00106$:
+                                    700 ;	lib/gpio.c:21: if (GPIO_PWM(pin)) {
+      0000A3 74 80            [12]  701 	mov	a,#0x80
+      0000A5 5F               [12]  702 	anl	a,r7
+      0000A6 FE               [12]  703 	mov	r6,a
+      0000A7 BE 80 02         [24]  704 	cjne	r6,#0x80,00222$
+      0000AA 80 03            [24]  705 	sjmp	00223$
+      0000AC                        706 00222$:
+      0000AC 02r01r36         [24]  707 	ljmp	00122$
+      0000AF                        708 00223$:
+                                    709 ;	lib/gpio.c:22: switch (GPIO_PIN(pin)) {
+      0000AF EF               [12]  710 	mov	a,r7
+      0000B0 03               [12]  711 	rr	a
+      0000B1 03               [12]  712 	rr	a
+      0000B2 54 07            [12]  713 	anl	a,#(0x3F&0x07)
+      0000B4 FE               [12]  714 	mov	r6,a
+      0000B5 24 FA            [12]  715 	add	a,#0xff - 0x05
+      0000B7 50 03            [24]  716 	jnc	00224$
+      0000B9 02r01rB0         [24]  717 	ljmp	00125$
+      0000BC                        718 00224$:
+      0000BC EE               [12]  719 	mov	a,r6
+      0000BD 2E               [12]  720 	add	a,r6
+      0000BE 2E               [12]  721 	add	a,r6
+      0000BF 90r00rC3         [24]  722 	mov	dptr,#00225$
+      0000C2 73               [24]  723 	jmp	@a+dptr
+      0000C3                        724 00225$:
+      0000C3 02r00rD5         [24]  725 	ljmp	00107$
+      0000C6 02r00rDB         [24]  726 	ljmp	00108$
+      0000C9 02r01r33         [24]  727 	ljmp	00112$
+      0000CC 02r00rE1         [24]  728 	ljmp	00109$
+      0000CF 02r00rE7         [24]  729 	ljmp	00110$
+      0000D2 02r01r0D         [24]  730 	ljmp	00111$
+                                    731 ;	lib/gpio.c:23: case 0:
+      0000D5                        732 00107$:
+                                    733 ;	lib/gpio.c:24: PWM3_P00_OUTPUT_ENABLE;
+      0000D5 43 DE 08         [24]  734 	orl	_PIOCON0,#0x08
+                                    735 ;	lib/gpio.c:25: break;
+      0000D8 02r01rB0         [24]  736 	ljmp	00125$
+                                    737 ;	lib/gpio.c:26: case 1:
+      0000DB                        738 00108$:
+                                    739 ;	lib/gpio.c:27: PWM4_P01_OUTPUT_ENABLE;
+      0000DB 43 DE 10         [24]  740 	orl	_PIOCON0,#0x10
+                                    741 ;	lib/gpio.c:28: break;
+      0000DE 02r01rB0         [24]  742 	ljmp	00125$
+                                    743 ;	lib/gpio.c:29: case 3:
+      0000E1                        744 00109$:
+                                    745 ;	lib/gpio.c:30: PWM5_P03_OUTPUT_ENABLE;
+      0000E1 43 DE 20         [24]  746 	orl	_PIOCON0,#0x20
+                                    747 ;	lib/gpio.c:31: break;
+      0000E4 02r01rB0         [24]  748 	ljmp	00125$
+                                    749 ;	lib/gpio.c:32: case 4:
+      0000E7                        750 00110$:
+                                    751 ;	lib/gpio.c:33: PWM3_P04_OUTPUT_ENABLE;
+      0000E7 A2 AF            [12]  752 	mov	c,_EA
+      0000E9 E4               [12]  753 	clr	a
+      0000EA 33               [12]  754 	rlc	a
+      0000EB F5*00            [12]  755 	mov	_BIT_TMP,a
+      0000ED C2 AF            [12]  756 	clr	_EA
+      0000EF 75 C7 AA         [24]  757 	mov	_TA,#0xAA
+      0000F2 75 C7 55         [24]  758 	mov	_TA,#0x55
+      0000F5 43 91 01         [24]  759 	orl	_SFRS,#0x01
+      0000F8 43 C6 08         [24]  760 	orl	_PIOCON1,#0x08
+      0000FB 75 C7 AA         [24]  761 	mov	_TA,#0xAA
+      0000FE 75 C7 55         [24]  762 	mov	_TA,#0x55
+      000101 53 91 FE         [24]  763 	anl	_SFRS,#0xFE
+      000104 E5*00            [12]  764 	mov	a,_BIT_TMP
+      000106 24 FF            [12]  765 	add	a,#0xff
+      000108 92 AF            [24]  766 	mov	_EA,c
+                                    767 ;	lib/gpio.c:34: break;
+      00010A 02r01rB0         [24]  768 	ljmp	00125$
+                                    769 ;	lib/gpio.c:35: case 5:
+      00010D                        770 00111$:
+                                    771 ;	lib/gpio.c:36: PWM2_P05_OUTPUT_ENABLE;
+      00010D A2 AF            [12]  772 	mov	c,_EA
+      00010F E4               [12]  773 	clr	a
+      000110 33               [12]  774 	rlc	a
+      000111 F5*00            [12]  775 	mov	_BIT_TMP,a
+      000113 C2 AF            [12]  776 	clr	_EA
+      000115 75 C7 AA         [24]  777 	mov	_TA,#0xAA
+      000118 75 C7 55         [24]  778 	mov	_TA,#0x55
+      00011B 43 91 01         [24]  779 	orl	_SFRS,#0x01
+      00011E 43 C6 04         [24]  780 	orl	_PIOCON1,#0x04
+      000121 75 C7 AA         [24]  781 	mov	_TA,#0xAA
+      000124 75 C7 55         [24]  782 	mov	_TA,#0x55
+      000127 53 91 FE         [24]  783 	anl	_SFRS,#0xFE
+      00012A E5*00            [12]  784 	mov	a,_BIT_TMP
+      00012C 24 FF            [12]  785 	add	a,#0xff
+      00012E 92 AF            [24]  786 	mov	_EA,c
+                                    787 ;	lib/gpio.c:37: break;
+      000130 02r01rB0         [24]  788 	ljmp	00125$
+                                    789 ;	lib/gpio.c:38: default:
+      000133                        790 00112$:
+                                    791 ;	lib/gpio.c:40: }
+      000133 02r01rB0         [24]  792 	ljmp	00125$
+      000136                        793 00122$:
+                                    794 ;	lib/gpio.c:42: switch (GPIO_PIN(pin)) {
+      000136 EF               [12]  795 	mov	a,r7
+      000137 03               [12]  796 	rr	a
+      000138 03               [12]  797 	rr	a
+      000139 54 07            [12]  798 	anl	a,#(0x3F&0x07)
+      00013B FE               [12]  799 	mov	r6,a
+      00013C 24 FA            [12]  800 	add	a,#0xff - 0x05
+      00013E 40 70            [24]  801 	jc	00125$
+      000140 EE               [12]  802 	mov	a,r6
+      000141 2E               [12]  803 	add	a,r6
+      000142 2E               [12]  804 	add	a,r6
+      000143 90r01r47         [24]  805 	mov	dptr,#00227$
+      000146 73               [24]  806 	jmp	@a+dptr
+      000147                        807 00227$:
+      000147 02r01r59         [24]  808 	ljmp	00114$
+      00014A 02r01r5E         [24]  809 	ljmp	00115$
+      00014D 02r01rB0         [24]  810 	ljmp	00119$
+      000150 02r01r63         [24]  811 	ljmp	00116$
+      000153 02r01r68         [24]  812 	ljmp	00117$
+      000156 02r01r8D         [24]  813 	ljmp	00118$
+                                    814 ;	lib/gpio.c:43: case 0:
+      000159                        815 00114$:
+                                    816 ;	lib/gpio.c:44: PWM3_P00_OUTPUT_DISABLE;
+      000159 53 DE F7         [24]  817 	anl	_PIOCON0,#0xF7
+                                    818 ;	lib/gpio.c:45: break;
+                                    819 ;	lib/gpio.c:46: case 1:
+      00015C 80 52            [24]  820 	sjmp	00125$
+      00015E                        821 00115$:
+                                    822 ;	lib/gpio.c:47: PWM4_P01_OUTPUT_DISABLE;
+      00015E 53 DE EF         [24]  823 	anl	_PIOCON0,#0xEF
+                                    824 ;	lib/gpio.c:48: break;
+                                    825 ;	lib/gpio.c:49: case 3:
+      000161 80 4D            [24]  826 	sjmp	00125$
+      000163                        827 00116$:
+                                    828 ;	lib/gpio.c:50: PWM5_P03_OUTPUT_DISABLE;
+      000163 53 DE DF         [24]  829 	anl	_PIOCON0,#0xDF
+                                    830 ;	lib/gpio.c:51: break;
+                                    831 ;	lib/gpio.c:52: case 4:
+      000166 80 48            [24]  832 	sjmp	00125$
+      000168                        833 00117$:
+                                    834 ;	lib/gpio.c:53: PWM3_P04_OUTPUT_DISABLE;
+      000168 A2 AF            [12]  835 	mov	c,_EA
+      00016A E4               [12]  836 	clr	a
+      00016B 33               [12]  837 	rlc	a
+      00016C F5*00            [12]  838 	mov	_BIT_TMP,a
+      00016E C2 AF            [12]  839 	clr	_EA
+      000170 75 C7 AA         [24]  840 	mov	_TA,#0xAA
+      000173 75 C7 55         [24]  841 	mov	_TA,#0x55
+      000176 43 91 01         [24]  842 	orl	_SFRS,#0x01
+      000179 53 C6 F7         [24]  843 	anl	_PIOCON1,#0xF7
+      00017C 75 C7 AA         [24]  844 	mov	_TA,#0xAA
+      00017F 75 C7 55         [24]  845 	mov	_TA,#0x55
+      000182 53 91 FE         [24]  846 	anl	_SFRS,#0xFE
+      000185 E5*00            [12]  847 	mov	a,_BIT_TMP
+      000187 24 FF            [12]  848 	add	a,#0xff
+      000189 92 AF            [24]  849 	mov	_EA,c
+                                    850 ;	lib/gpio.c:54: break;
+                                    851 ;	lib/gpio.c:55: case 5:
+      00018B 80 23            [24]  852 	sjmp	00125$
+      00018D                        853 00118$:
+                                    854 ;	lib/gpio.c:56: PWM2_P05_OUTPUT_DISABLE;
+      00018D A2 AF            [12]  855 	mov	c,_EA
+      00018F E4               [12]  856 	clr	a
+      000190 33               [12]  857 	rlc	a
+      000191 F5*00            [12]  858 	mov	_BIT_TMP,a
+      000193 C2 AF            [12]  859 	clr	_EA
+      000195 75 C7 AA         [24]  860 	mov	_TA,#0xAA
+      000198 75 C7 55         [24]  861 	mov	_TA,#0x55
+      00019B 43 91 01         [24]  862 	orl	_SFRS,#0x01
+      00019E 53 C6 FB         [24]  863 	anl	_PIOCON1,#0xFB
+      0001A1 75 C7 AA         [24]  864 	mov	_TA,#0xAA
+      0001A4 75 C7 55         [24]  865 	mov	_TA,#0x55
+      0001A7 53 91 FE         [24]  866 	anl	_SFRS,#0xFE
+      0001AA E5*00            [12]  867 	mov	a,_BIT_TMP
+      0001AC 24 FF            [12]  868 	add	a,#0xff
+      0001AE 92 AF            [24]  869 	mov	_EA,c
+                                    870 ;	lib/gpio.c:57: break;
+                                    871 ;	lib/gpio.c:58: default:
+                                    872 ;	lib/gpio.c:60: }
+      0001B0                        873 00119$:
+      0001B0                        874 00125$:
+                                    875 ;	lib/gpio.c:63: if (GPIO_PORT(pin) == 1) {
+      0001B0 74 03            [12]  876 	mov	a,#0x03
+      0001B2 5F               [12]  877 	anl	a,r7
+      0001B3 FE               [12]  878 	mov	r6,a
+      0001B4 BE 01 02         [24]  879 	cjne	r6,#0x01,00228$
+      0001B7 80 03            [24]  880 	sjmp	00229$
+      0001B9                        881 00228$:
+      0001B9 02r03r48         [24]  882 	ljmp	00150$
+      0001BC                        883 00229$:
+                                    884 ;	lib/gpio.c:64: bitWrite(P1M2, (GPIO_PIN(pin)), (mode & 1));
+      0001BC E5*00            [12]  885 	mov	a,_bp
+      0001BE 24 FD            [12]  886 	add	a,#0xfd
+      0001C0 F8               [12]  887 	mov	r0,a
+      0001C1 E6               [12]  888 	mov	a,@r0
+      0001C2 30 E0 1B         [24]  889 	jnb	acc.0,00127$
+      0001C5 EF               [12]  890 	mov	a,r7
+      0001C6 03               [12]  891 	rr	a
+      0001C7 03               [12]  892 	rr	a
+      0001C8 54 3F            [12]  893 	anl	a,#0x3F
+      0001CA FE               [12]  894 	mov	r6,a
+      0001CB 74 07            [12]  895 	mov	a,#0x07
+      0001CD 5E               [12]  896 	anl	a,r6
+      0001CE F5 F0            [12]  897 	mov	b,a
+      0001D0 05 F0            [12]  898 	inc	b
+      0001D2 74 01            [12]  899 	mov	a,#0x01
+      0001D4 80 02            [24]  900 	sjmp	00233$
+      0001D6                        901 00231$:
+      0001D6 25 E0            [12]  902 	add	a,acc
+      0001D8                        903 00233$:
+      0001D8 D5 F0 FB         [24]  904 	djnz	b,00231$
+      0001DB FE               [12]  905 	mov	r6,a
+      0001DC 42 B4            [12]  906 	orl	_P1M2,a
+      0001DE 80 1A            [24]  907 	sjmp	00128$
+      0001E0                        908 00127$:
+      0001E0 EF               [12]  909 	mov	a,r7
+      0001E1 03               [12]  910 	rr	a
+      0001E2 03               [12]  911 	rr	a
+      0001E3 54 3F            [12]  912 	anl	a,#0x3F
+      0001E5 FE               [12]  913 	mov	r6,a
+      0001E6 74 07            [12]  914 	mov	a,#0x07
+      0001E8 5E               [12]  915 	anl	a,r6
+      0001E9 F5 F0            [12]  916 	mov	b,a
+      0001EB 05 F0            [12]  917 	inc	b
+      0001ED 74 01            [12]  918 	mov	a,#0x01
+      0001EF 80 02            [24]  919 	sjmp	00236$
+      0001F1                        920 00234$:
+      0001F1 25 E0            [12]  921 	add	a,acc
+      0001F3                        922 00236$:
+      0001F3 D5 F0 FB         [24]  923 	djnz	b,00234$
+      0001F6 F4               [12]  924 	cpl	a
+      0001F7 FE               [12]  925 	mov	r6,a
+      0001F8 52 B4            [12]  926 	anl	_P1M2,a
+      0001FA                        927 00128$:
+                                    928 ;	lib/gpio.c:65: bitWrite(P1M1, (GPIO_PIN(pin)), ((mode >> 1) & 1));
+      0001FA E5*00            [12]  929 	mov	a,_bp
+      0001FC 24 FD            [12]  930 	add	a,#0xfd
+      0001FE F8               [12]  931 	mov	r0,a
+      0001FF E6               [12]  932 	mov	a,@r0
+      000200 03               [12]  933 	rr	a
+      000201 54 01            [12]  934 	anl	a,#0x01
+      000203 FE               [12]  935 	mov	r6,a
+      000204 60 1B            [24]  936 	jz	00130$
+      000206 EF               [12]  937 	mov	a,r7
+      000207 03               [12]  938 	rr	a
+      000208 03               [12]  939 	rr	a
+      000209 54 3F            [12]  940 	anl	a,#0x3F
+      00020B FE               [12]  941 	mov	r6,a
+      00020C 74 07            [12]  942 	mov	a,#0x07
+      00020E 5E               [12]  943 	anl	a,r6
+      00020F F5 F0            [12]  944 	mov	b,a
+      000211 05 F0            [12]  945 	inc	b
+      000213 74 01            [12]  946 	mov	a,#0x01
+      000215 80 02            [24]  947 	sjmp	00240$
+      000217                        948 00238$:
+      000217 25 E0            [12]  949 	add	a,acc
+      000219                        950 00240$:
+      000219 D5 F0 FB         [24]  951 	djnz	b,00238$
+      00021C FE               [12]  952 	mov	r6,a
+      00021D 42 B3            [12]  953 	orl	_P1M1,a
+      00021F 80 1A            [24]  954 	sjmp	00131$
+      000221                        955 00130$:
+      000221 EF               [12]  956 	mov	a,r7
+      000222 03               [12]  957 	rr	a
+      000223 03               [12]  958 	rr	a
+      000224 54 3F            [12]  959 	anl	a,#0x3F
+      000226 FE               [12]  960 	mov	r6,a
+      000227 74 07            [12]  961 	mov	a,#0x07
+      000229 5E               [12]  962 	anl	a,r6
+      00022A F5 F0            [12]  963 	mov	b,a
+      00022C 05 F0            [12]  964 	inc	b
+      00022E 74 01            [12]  965 	mov	a,#0x01
+      000230 80 02            [24]  966 	sjmp	00243$
+      000232                        967 00241$:
+      000232 25 E0            [12]  968 	add	a,acc
+      000234                        969 00243$:
+      000234 D5 F0 FB         [24]  970 	djnz	b,00241$
+      000237 F4               [12]  971 	cpl	a
+      000238 FE               [12]  972 	mov	r6,a
+      000239 52 B3            [12]  973 	anl	_P1M1,a
+      00023B                        974 00131$:
+                                    975 ;	lib/gpio.c:66: if (GPIO_PWM(pin)) {
+      00023B 74 80            [12]  976 	mov	a,#0x80
+      00023D 5F               [12]  977 	anl	a,r7
+      00023E FE               [12]  978 	mov	r6,a
+      00023F BE 80 02         [24]  979 	cjne	r6,#0x80,00244$
+      000242 80 03            [24]  980 	sjmp	00245$
+      000244                        981 00244$:
+      000244 02r02rCE         [24]  982 	ljmp	00147$
+      000247                        983 00245$:
+                                    984 ;	lib/gpio.c:67: switch (GPIO_PIN(pin)) {
+      000247 EF               [12]  985 	mov	a,r7
+      000248 03               [12]  986 	rr	a
+      000249 03               [12]  987 	rr	a
+      00024A 54 07            [12]  988 	anl	a,#(0x3F&0x07)
+      00024C FE               [12]  989 	mov	r6,a
+      00024D 24 FA            [12]  990 	add	a,#0xff - 0x05
+      00024F 50 03            [24]  991 	jnc	00246$
+      000251 02r03r48         [24]  992 	ljmp	00150$
+      000254                        993 00246$:
+      000254 EE               [12]  994 	mov	a,r6
+      000255 2E               [12]  995 	add	a,r6
+      000256 2E               [12]  996 	add	a,r6
+      000257 90r02r5B         [24]  997 	mov	dptr,#00247$
+      00025A 73               [24]  998 	jmp	@a+dptr
+      00025B                        999 00247$:
+      00025B 02r02r6D         [24] 1000 	ljmp	00132$
+      00025E 02r02r73         [24] 1001 	ljmp	00133$
+      000261 02r02r79         [24] 1002 	ljmp	00134$
+      000264 02r02rCB         [24] 1003 	ljmp	00137$
+      000267 02r02r7F         [24] 1004 	ljmp	00135$
+      00026A 02r02rA5         [24] 1005 	ljmp	00136$
+                                   1006 ;	lib/gpio.c:68: case 0:
+      00026D                       1007 00132$:
+                                   1008 ;	lib/gpio.c:69: PWM2_P10_OUTPUT_ENABLE;
+      00026D 43 DE 04         [24] 1009 	orl	_PIOCON0,#0x04
+                                   1010 ;	lib/gpio.c:70: break;
+      000270 02r03r48         [24] 1011 	ljmp	00150$
+                                   1012 ;	lib/gpio.c:71: case 1:
+      000273                       1013 00133$:
+                                   1014 ;	lib/gpio.c:72: PWM1_P11_OUTPUT_ENABLE;
+      000273 43 DE 02         [24] 1015 	orl	_PIOCON0,#0x02
+                                   1016 ;	lib/gpio.c:73: break;
+      000276 02r03r48         [24] 1017 	ljmp	00150$
+                                   1018 ;	lib/gpio.c:74: case 2:
+      000279                       1019 00134$:
+                                   1020 ;	lib/gpio.c:75: PWM0_P12_OUTPUT_ENABLE;
+      000279 43 DE 01         [24] 1021 	orl	_PIOCON0,#0x01
+                                   1022 ;	lib/gpio.c:76: break;
+      00027C 02r03r48         [24] 1023 	ljmp	00150$
+                                   1024 ;	lib/gpio.c:77: case 4:
+      00027F                       1025 00135$:
+                                   1026 ;	lib/gpio.c:78: PWM1_P14_OUTPUT_ENABLE;
+      00027F A2 AF            [12] 1027 	mov	c,_EA
+      000281 E4               [12] 1028 	clr	a
+      000282 33               [12] 1029 	rlc	a
+      000283 F5*00            [12] 1030 	mov	_BIT_TMP,a
+      000285 C2 AF            [12] 1031 	clr	_EA
+      000287 75 C7 AA         [24] 1032 	mov	_TA,#0xAA
+      00028A 75 C7 55         [24] 1033 	mov	_TA,#0x55
+      00028D 43 91 01         [24] 1034 	orl	_SFRS,#0x01
+      000290 43 C6 02         [24] 1035 	orl	_PIOCON1,#0x02
+      000293 75 C7 AA         [24] 1036 	mov	_TA,#0xAA
+      000296 75 C7 55         [24] 1037 	mov	_TA,#0x55
+      000299 53 91 FE         [24] 1038 	anl	_SFRS,#0xFE
+      00029C E5*00            [12] 1039 	mov	a,_BIT_TMP
+      00029E 24 FF            [12] 1040 	add	a,#0xff
+      0002A0 92 AF            [24] 1041 	mov	_EA,c
+                                   1042 ;	lib/gpio.c:79: break;
+      0002A2 02r03r48         [24] 1043 	ljmp	00150$
+                                   1044 ;	lib/gpio.c:80: case 5:
+      0002A5                       1045 00136$:
+                                   1046 ;	lib/gpio.c:81: PWM5_P15_OUTPUT_ENABLE;
+      0002A5 A2 AF            [12] 1047 	mov	c,_EA
+      0002A7 E4               [12] 1048 	clr	a
+      0002A8 33               [12] 1049 	rlc	a
+      0002A9 F5*00            [12] 1050 	mov	_BIT_TMP,a
+      0002AB C2 AF            [12] 1051 	clr	_EA
+      0002AD 75 C7 AA         [24] 1052 	mov	_TA,#0xAA
+      0002B0 75 C7 55         [24] 1053 	mov	_TA,#0x55
+      0002B3 43 91 01         [24] 1054 	orl	_SFRS,#0x01
+      0002B6 43 C6 20         [24] 1055 	orl	_PIOCON1,#0x20
+      0002B9 75 C7 AA         [24] 1056 	mov	_TA,#0xAA
+      0002BC 75 C7 55         [24] 1057 	mov	_TA,#0x55
+      0002BF 53 91 FE         [24] 1058 	anl	_SFRS,#0xFE
+      0002C2 E5*00            [12] 1059 	mov	a,_BIT_TMP
+      0002C4 24 FF            [12] 1060 	add	a,#0xff
+      0002C6 92 AF            [24] 1061 	mov	_EA,c
+                                   1062 ;	lib/gpio.c:82: break;
+      0002C8 02r03r48         [24] 1063 	ljmp	00150$
+                                   1064 ;	lib/gpio.c:83: default:
+      0002CB                       1065 00137$:
+                                   1066 ;	lib/gpio.c:85: }
+      0002CB 02r03r48         [24] 1067 	ljmp	00150$
+      0002CE                       1068 00147$:
+                                   1069 ;	lib/gpio.c:87: switch (GPIO_PIN(pin)) {
+      0002CE EF               [12] 1070 	mov	a,r7
+      0002CF 03               [12] 1071 	rr	a
+      0002D0 03               [12] 1072 	rr	a
+      0002D1 54 07            [12] 1073 	anl	a,#(0x3F&0x07)
+      0002D3 FE               [12] 1074 	mov	r6,a
+      0002D4 24 FA            [12] 1075 	add	a,#0xff - 0x05
+      0002D6 40 70            [24] 1076 	jc	00150$
+      0002D8 EE               [12] 1077 	mov	a,r6
+      0002D9 2E               [12] 1078 	add	a,r6
+      0002DA 2E               [12] 1079 	add	a,r6
+      0002DB 90r02rDF         [24] 1080 	mov	dptr,#00249$
+      0002DE 73               [24] 1081 	jmp	@a+dptr
+      0002DF                       1082 00249$:
+      0002DF 02r02rF1         [24] 1083 	ljmp	00139$
+      0002E2 02r02rF6         [24] 1084 	ljmp	00140$
+      0002E5 02r02rFB         [24] 1085 	ljmp	00141$
+      0002E8 02r03r48         [24] 1086 	ljmp	00144$
+      0002EB 02r03r00         [24] 1087 	ljmp	00142$
+      0002EE 02r03r25         [24] 1088 	ljmp	00143$
+                                   1089 ;	lib/gpio.c:88: case 0:
+      0002F1                       1090 00139$:
+                                   1091 ;	lib/gpio.c:89: PWM2_P10_OUTPUT_DISABLE;
+      0002F1 53 DE FB         [24] 1092 	anl	_PIOCON0,#0xFB
+                                   1093 ;	lib/gpio.c:90: break;
+                                   1094 ;	lib/gpio.c:91: case 1:
+      0002F4 80 52            [24] 1095 	sjmp	00150$
+      0002F6                       1096 00140$:
+                                   1097 ;	lib/gpio.c:92: PWM1_P11_OUTPUT_DISABLE;
+      0002F6 53 DE FD         [24] 1098 	anl	_PIOCON0,#0xFD
+                                   1099 ;	lib/gpio.c:93: break;
+                                   1100 ;	lib/gpio.c:94: case 2:
+      0002F9 80 4D            [24] 1101 	sjmp	00150$
+      0002FB                       1102 00141$:
+                                   1103 ;	lib/gpio.c:95: PWM0_P12_OUTPUT_DISABLE;
+      0002FB 53 DE FE         [24] 1104 	anl	_PIOCON0,#0xFE
+                                   1105 ;	lib/gpio.c:96: break;
+                                   1106 ;	lib/gpio.c:97: case 4:
+      0002FE 80 48            [24] 1107 	sjmp	00150$
+      000300                       1108 00142$:
+                                   1109 ;	lib/gpio.c:98: PWM1_P14_OUTPUT_DISABLE;
+      000300 A2 AF            [12] 1110 	mov	c,_EA
+      000302 E4               [12] 1111 	clr	a
+      000303 33               [12] 1112 	rlc	a
+      000304 F5*00            [12] 1113 	mov	_BIT_TMP,a
+      000306 C2 AF            [12] 1114 	clr	_EA
+      000308 75 C7 AA         [24] 1115 	mov	_TA,#0xAA
+      00030B 75 C7 55         [24] 1116 	mov	_TA,#0x55
+      00030E 43 91 01         [24] 1117 	orl	_SFRS,#0x01
+      000311 53 C6 FD         [24] 1118 	anl	_PIOCON1,#0xFD
+      000314 75 C7 AA         [24] 1119 	mov	_TA,#0xAA
+      000317 75 C7 55         [24] 1120 	mov	_TA,#0x55
+      00031A 53 91 FE         [24] 1121 	anl	_SFRS,#0xFE
+      00031D E5*00            [12] 1122 	mov	a,_BIT_TMP
+      00031F 24 FF            [12] 1123 	add	a,#0xff
+      000321 92 AF            [24] 1124 	mov	_EA,c
+                                   1125 ;	lib/gpio.c:99: break;
+                                   1126 ;	lib/gpio.c:100: case 5:
+      000323 80 23            [24] 1127 	sjmp	00150$
+      000325                       1128 00143$:
+                                   1129 ;	lib/gpio.c:101: PWM5_P15_OUTPUT_DISABLE;
+      000325 A2 AF            [12] 1130 	mov	c,_EA
+      000327 E4               [12] 1131 	clr	a
+      000328 33               [12] 1132 	rlc	a
+      000329 F5*00            [12] 1133 	mov	_BIT_TMP,a
+      00032B C2 AF            [12] 1134 	clr	_EA
+      00032D 75 C7 AA         [24] 1135 	mov	_TA,#0xAA
+      000330 75 C7 55         [24] 1136 	mov	_TA,#0x55
+      000333 43 91 01         [24] 1137 	orl	_SFRS,#0x01
+      000336 53 C6 DF         [24] 1138 	anl	_PIOCON1,#0xDF
+      000339 75 C7 AA         [24] 1139 	mov	_TA,#0xAA
+      00033C 75 C7 55         [24] 1140 	mov	_TA,#0x55
+      00033F 53 91 FE         [24] 1141 	anl	_SFRS,#0xFE
+      000342 E5*00            [12] 1142 	mov	a,_BIT_TMP
+      000344 24 FF            [12] 1143 	add	a,#0xff
+      000346 92 AF            [24] 1144 	mov	_EA,c
+                                   1145 ;	lib/gpio.c:102: break;
+                                   1146 ;	lib/gpio.c:103: default:
+                                   1147 ;	lib/gpio.c:105: }
+      000348                       1148 00144$:
+      000348                       1149 00150$:
+                                   1150 ;	lib/gpio.c:108: if (GPIO_PORT(pin) == 3) {
+      000348 74 03            [12] 1151 	mov	a,#0x03
+      00034A 5F               [12] 1152 	anl	a,r7
+      00034B FE               [12] 1153 	mov	r6,a
+      00034C BE 03 02         [24] 1154 	cjne	r6,#0x03,00250$
+      00034F 80 03            [24] 1155 	sjmp	00251$
+      000351                       1156 00250$:
+      000351 02r03rD3         [24] 1157 	ljmp	00159$
+      000354                       1158 00251$:
+                                   1159 ;	lib/gpio.c:109: bitWrite(P3M2, (GPIO_PIN(pin)), (mode & 1));
+      000354 E5*00            [12] 1160 	mov	a,_bp
+      000356 24 FD            [12] 1161 	add	a,#0xfd
+      000358 F8               [12] 1162 	mov	r0,a
+      000359 E6               [12] 1163 	mov	a,@r0
+      00035A 30 E0 1B         [24] 1164 	jnb	acc.0,00152$
+      00035D EF               [12] 1165 	mov	a,r7
+      00035E 03               [12] 1166 	rr	a
+      00035F 03               [12] 1167 	rr	a
+      000360 54 3F            [12] 1168 	anl	a,#0x3F
+      000362 FE               [12] 1169 	mov	r6,a
+      000363 74 07            [12] 1170 	mov	a,#0x07
+      000365 5E               [12] 1171 	anl	a,r6
+      000366 F5 F0            [12] 1172 	mov	b,a
+      000368 05 F0            [12] 1173 	inc	b
+      00036A 74 01            [12] 1174 	mov	a,#0x01
+      00036C 80 02            [24] 1175 	sjmp	00255$
+      00036E                       1176 00253$:
+      00036E 25 E0            [12] 1177 	add	a,acc
+      000370                       1178 00255$:
+      000370 D5 F0 FB         [24] 1179 	djnz	b,00253$
+      000373 FE               [12] 1180 	mov	r6,a
+      000374 42 AD            [12] 1181 	orl	_P3M2,a
+      000376 80 1A            [24] 1182 	sjmp	00153$
+      000378                       1183 00152$:
+      000378 EF               [12] 1184 	mov	a,r7
+      000379 03               [12] 1185 	rr	a
+      00037A 03               [12] 1186 	rr	a
+      00037B 54 3F            [12] 1187 	anl	a,#0x3F
+      00037D FE               [12] 1188 	mov	r6,a
+      00037E 74 07            [12] 1189 	mov	a,#0x07
+      000380 5E               [12] 1190 	anl	a,r6
+      000381 F5 F0            [12] 1191 	mov	b,a
+      000383 05 F0            [12] 1192 	inc	b
+      000385 74 01            [12] 1193 	mov	a,#0x01
+      000387 80 02            [24] 1194 	sjmp	00258$
+      000389                       1195 00256$:
+      000389 25 E0            [12] 1196 	add	a,acc
+      00038B                       1197 00258$:
+      00038B D5 F0 FB         [24] 1198 	djnz	b,00256$
+      00038E F4               [12] 1199 	cpl	a
+      00038F FE               [12] 1200 	mov	r6,a
+      000390 52 AD            [12] 1201 	anl	_P3M2,a
+      000392                       1202 00153$:
+                                   1203 ;	lib/gpio.c:110: bitWrite(P3M1, (GPIO_PIN(pin)), ((mode >> 1) & 1));
+      000392 E5*00            [12] 1204 	mov	a,_bp
+      000394 24 FD            [12] 1205 	add	a,#0xfd
+      000396 F8               [12] 1206 	mov	r0,a
+      000397 E6               [12] 1207 	mov	a,@r0
+      000398 03               [12] 1208 	rr	a
+      000399 54 01            [12] 1209 	anl	a,#0x01
+      00039B FE               [12] 1210 	mov	r6,a
+      00039C 60 1B            [24] 1211 	jz	00155$
+      00039E EF               [12] 1212 	mov	a,r7
+      00039F 03               [12] 1213 	rr	a
+      0003A0 03               [12] 1214 	rr	a
+      0003A1 54 3F            [12] 1215 	anl	a,#0x3F
+      0003A3 FE               [12] 1216 	mov	r6,a
+      0003A4 74 07            [12] 1217 	mov	a,#0x07
+      0003A6 5E               [12] 1218 	anl	a,r6
+      0003A7 F5 F0            [12] 1219 	mov	b,a
+      0003A9 05 F0            [12] 1220 	inc	b
+      0003AB 74 01            [12] 1221 	mov	a,#0x01
+      0003AD 80 02            [24] 1222 	sjmp	00262$
+      0003AF                       1223 00260$:
+      0003AF 25 E0            [12] 1224 	add	a,acc
+      0003B1                       1225 00262$:
+      0003B1 D5 F0 FB         [24] 1226 	djnz	b,00260$
+      0003B4 FE               [12] 1227 	mov	r6,a
+      0003B5 42 AC            [12] 1228 	orl	_P3M1,a
+      0003B7 80 1A            [24] 1229 	sjmp	00159$
+      0003B9                       1230 00155$:
+      0003B9 EF               [12] 1231 	mov	a,r7
+      0003BA 03               [12] 1232 	rr	a
+      0003BB 03               [12] 1233 	rr	a
+      0003BC 54 3F            [12] 1234 	anl	a,#0x3F
+      0003BE FF               [12] 1235 	mov	r7,a
+      0003BF 74 07            [12] 1236 	mov	a,#0x07
+      0003C1 5F               [12] 1237 	anl	a,r7
+      0003C2 F5 F0            [12] 1238 	mov	b,a
+      0003C4 05 F0            [12] 1239 	inc	b
+      0003C6 74 01            [12] 1240 	mov	a,#0x01
+      0003C8 80 02            [24] 1241 	sjmp	00265$
+      0003CA                       1242 00263$:
+      0003CA 25 E0            [12] 1243 	add	a,acc
+      0003CC                       1244 00265$:
+      0003CC D5 F0 FB         [24] 1245 	djnz	b,00263$
+      0003CF F4               [12] 1246 	cpl	a
+      0003D0 FF               [12] 1247 	mov	r7,a
+      0003D1 52 AC            [12] 1248 	anl	_P3M1,a
+      0003D3                       1249 00159$:
+      0003D3 D0*00            [24] 1250 	pop	_bp
+      0003D5 22               [24] 1251 	ret
+                                   1252 ;------------------------------------------------------------
+                                   1253 ;Allocation info for local variables in function 'digitalRead'
+                                   1254 ;------------------------------------------------------------
+                                   1255 ;pin                       Allocated to registers r7 
+                                   1256 ;------------------------------------------------------------
+                                   1257 ;	lib/gpio.c:114: byte digitalRead(byte pin) {
+                                   1258 ;	-----------------------------------------
+                                   1259 ;	 function digitalRead
+                                   1260 ;	-----------------------------------------
+      0003D6                       1261 _digitalRead:
+                                   1262 ;	lib/gpio.c:115: if (GPIO_PORT(pin) == 0) {
+      0003D6 E5 82            [12] 1263 	mov	a,dpl
+      0003D8 FF               [12] 1264 	mov	r7,a
+      0003D9 54 03            [12] 1265 	anl	a,#0x03
+      0003DB 60 02            [24] 1266 	jz	00119$
+      0003DD 80 1B            [24] 1267 	sjmp	00102$
+      0003DF                       1268 00119$:
+                                   1269 ;	lib/gpio.c:116: return bitRead(P0, GPIO_PIN(pin));
+      0003DF EF               [12] 1270 	mov	a,r7
+      0003E0 03               [12] 1271 	rr	a
+      0003E1 03               [12] 1272 	rr	a
+      0003E2 54 3F            [12] 1273 	anl	a,#0x3F
+      0003E4 FE               [12] 1274 	mov	r6,a
+      0003E5 74 07            [12] 1275 	mov	a,#0x07
+      0003E7 5E               [12] 1276 	anl	a,r6
+      0003E8 F5 F0            [12] 1277 	mov	b,a
+      0003EA 05 F0            [12] 1278 	inc	b
+      0003EC E5 80            [12] 1279 	mov	a,_P0
+      0003EE 80 02            [24] 1280 	sjmp	00121$
+      0003F0                       1281 00120$:
+      0003F0 C3               [12] 1282 	clr	c
+      0003F1 13               [12] 1283 	rrc	a
+      0003F2                       1284 00121$:
+      0003F2 D5 F0 FB         [24] 1285 	djnz	b,00120$
+      0003F5 54 01            [12] 1286 	anl	a,#0x01
+      0003F7 F5 82            [12] 1287 	mov	dpl,a
+      0003F9 22               [24] 1288 	ret
+      0003FA                       1289 00102$:
+                                   1290 ;	lib/gpio.c:118: if (GPIO_PORT(pin) == 1) {
+      0003FA 74 03            [12] 1291 	mov	a,#0x03
+      0003FC 5F               [12] 1292 	anl	a,r7
+      0003FD FE               [12] 1293 	mov	r6,a
+      0003FE BE 01 1B         [24] 1294 	cjne	r6,#0x01,00104$
+                                   1295 ;	lib/gpio.c:119: return bitRead(P1, GPIO_PIN(pin));
+      000401 EF               [12] 1296 	mov	a,r7
+      000402 03               [12] 1297 	rr	a
+      000403 03               [12] 1298 	rr	a
+      000404 54 3F            [12] 1299 	anl	a,#0x3F
+      000406 FE               [12] 1300 	mov	r6,a
+      000407 74 07            [12] 1301 	mov	a,#0x07
+      000409 5E               [12] 1302 	anl	a,r6
+      00040A F5 F0            [12] 1303 	mov	b,a
+      00040C 05 F0            [12] 1304 	inc	b
+      00040E E5 90            [12] 1305 	mov	a,_P1
+      000410 80 02            [24] 1306 	sjmp	00125$
+      000412                       1307 00124$:
+      000412 C3               [12] 1308 	clr	c
+      000413 13               [12] 1309 	rrc	a
+      000414                       1310 00125$:
+      000414 D5 F0 FB         [24] 1311 	djnz	b,00124$
+      000417 54 01            [12] 1312 	anl	a,#0x01
+      000419 F5 82            [12] 1313 	mov	dpl,a
+      00041B 22               [24] 1314 	ret
+      00041C                       1315 00104$:
+                                   1316 ;	lib/gpio.c:121: if (GPIO_PORT(pin) == 3) {
+      00041C 74 03            [12] 1317 	mov	a,#0x03
+      00041E 5F               [12] 1318 	anl	a,r7
+      00041F FE               [12] 1319 	mov	r6,a
+      000420 BE 03 1B         [24] 1320 	cjne	r6,#0x03,00106$
+                                   1321 ;	lib/gpio.c:122: return bitRead(P3, GPIO_PIN(pin));
+      000423 EF               [12] 1322 	mov	a,r7
+      000424 03               [12] 1323 	rr	a
+      000425 03               [12] 1324 	rr	a
+      000426 54 3F            [12] 1325 	anl	a,#0x3F
+      000428 FF               [12] 1326 	mov	r7,a
+      000429 74 07            [12] 1327 	mov	a,#0x07
+      00042B 5F               [12] 1328 	anl	a,r7
+      00042C F5 F0            [12] 1329 	mov	b,a
+      00042E 05 F0            [12] 1330 	inc	b
+      000430 E5 B0            [12] 1331 	mov	a,_P3
+      000432 80 02            [24] 1332 	sjmp	00129$
+      000434                       1333 00128$:
+      000434 C3               [12] 1334 	clr	c
+      000435 13               [12] 1335 	rrc	a
+      000436                       1336 00129$:
+      000436 D5 F0 FB         [24] 1337 	djnz	b,00128$
+      000439 54 01            [12] 1338 	anl	a,#0x01
+      00043B F5 82            [12] 1339 	mov	dpl,a
+      00043D 22               [24] 1340 	ret
+      00043E                       1341 00106$:
+                                   1342 ;	lib/gpio.c:124: return 0;
+      00043E 75 82 00         [24] 1343 	mov	dpl,#0x00
+      000441 22               [24] 1344 	ret
+                                   1345 ;------------------------------------------------------------
+                                   1346 ;Allocation info for local variables in function 'digitalWrite'
+                                   1347 ;------------------------------------------------------------
+                                   1348 ;value                     Allocated to stack - _bp -3
+                                   1349 ;pin                       Allocated to registers r7 
+                                   1350 ;------------------------------------------------------------
+                                   1351 ;	lib/gpio.c:127: void digitalWrite(byte pin, byte value) {
+                                   1352 ;	-----------------------------------------
+                                   1353 ;	 function digitalWrite
+                                   1354 ;	-----------------------------------------
+      000442                       1355 _digitalWrite:
+      000442 C0*00            [24] 1356 	push	_bp
+      000444 85 81*00         [24] 1357 	mov	_bp,sp
+                                   1358 ;	lib/gpio.c:128: if (GPIO_PORT(pin) == 0) {
+      000447 E5 82            [12] 1359 	mov	a,dpl
+      000449 FF               [12] 1360 	mov	r7,a
+      00044A 54 03            [12] 1361 	anl	a,#0x03
+      00044C 60 02            [24] 1362 	jz	00137$
+      00044E 80 3D            [24] 1363 	sjmp	00105$
+      000450                       1364 00137$:
+                                   1365 ;	lib/gpio.c:129: bitWrite(P0, (GPIO_PIN(pin)), value);
+      000450 E5*00            [12] 1366 	mov	a,_bp
+      000452 24 FD            [12] 1367 	add	a,#0xfd
+      000454 F8               [12] 1368 	mov	r0,a
+      000455 E6               [12] 1369 	mov	a,@r0
+      000456 60 1B            [24] 1370 	jz	00102$
+      000458 EF               [12] 1371 	mov	a,r7
+      000459 03               [12] 1372 	rr	a
+      00045A 03               [12] 1373 	rr	a
+      00045B 54 3F            [12] 1374 	anl	a,#0x3F
+      00045D FE               [12] 1375 	mov	r6,a
+      00045E 74 07            [12] 1376 	mov	a,#0x07
+      000460 5E               [12] 1377 	anl	a,r6
+      000461 F5 F0            [12] 1378 	mov	b,a
+      000463 05 F0            [12] 1379 	inc	b
+      000465 74 01            [12] 1380 	mov	a,#0x01
+      000467 80 02            [24] 1381 	sjmp	00141$
+      000469                       1382 00139$:
+      000469 25 E0            [12] 1383 	add	a,acc
+      00046B                       1384 00141$:
+      00046B D5 F0 FB         [24] 1385 	djnz	b,00139$
+      00046E FE               [12] 1386 	mov	r6,a
+      00046F 42 80            [12] 1387 	orl	_P0,a
+      000471 80 1A            [24] 1388 	sjmp	00105$
+      000473                       1389 00102$:
+      000473 EF               [12] 1390 	mov	a,r7
+      000474 03               [12] 1391 	rr	a
+      000475 03               [12] 1392 	rr	a
+      000476 54 3F            [12] 1393 	anl	a,#0x3F
+      000478 FE               [12] 1394 	mov	r6,a
+      000479 74 07            [12] 1395 	mov	a,#0x07
+      00047B 5E               [12] 1396 	anl	a,r6
+      00047C F5 F0            [12] 1397 	mov	b,a
+      00047E 05 F0            [12] 1398 	inc	b
+      000480 74 01            [12] 1399 	mov	a,#0x01
+      000482 80 02            [24] 1400 	sjmp	00144$
+      000484                       1401 00142$:
+      000484 25 E0            [12] 1402 	add	a,acc
+      000486                       1403 00144$:
+      000486 D5 F0 FB         [24] 1404 	djnz	b,00142$
+      000489 F4               [12] 1405 	cpl	a
+      00048A FE               [12] 1406 	mov	r6,a
+      00048B 52 80            [12] 1407 	anl	_P0,a
+      00048D                       1408 00105$:
+                                   1409 ;	lib/gpio.c:131: if (GPIO_PORT(pin) == 1) {
+      00048D 74 03            [12] 1410 	mov	a,#0x03
+      00048F 5F               [12] 1411 	anl	a,r7
+      000490 FE               [12] 1412 	mov	r6,a
+      000491 BE 01 3D         [24] 1413 	cjne	r6,#0x01,00110$
+                                   1414 ;	lib/gpio.c:132: bitWrite(P1, (GPIO_PIN(pin)), value);
+      000494 E5*00            [12] 1415 	mov	a,_bp
+      000496 24 FD            [12] 1416 	add	a,#0xfd
+      000498 F8               [12] 1417 	mov	r0,a
+      000499 E6               [12] 1418 	mov	a,@r0
+      00049A 60 1B            [24] 1419 	jz	00107$
+      00049C EF               [12] 1420 	mov	a,r7
+      00049D 03               [12] 1421 	rr	a
+      00049E 03               [12] 1422 	rr	a
+      00049F 54 3F            [12] 1423 	anl	a,#0x3F
+      0004A1 FE               [12] 1424 	mov	r6,a
+      0004A2 74 07            [12] 1425 	mov	a,#0x07
+      0004A4 5E               [12] 1426 	anl	a,r6
+      0004A5 F5 F0            [12] 1427 	mov	b,a
+      0004A7 05 F0            [12] 1428 	inc	b
+      0004A9 74 01            [12] 1429 	mov	a,#0x01
+      0004AB 80 02            [24] 1430 	sjmp	00150$
+      0004AD                       1431 00148$:
+      0004AD 25 E0            [12] 1432 	add	a,acc
+      0004AF                       1433 00150$:
+      0004AF D5 F0 FB         [24] 1434 	djnz	b,00148$
+      0004B2 FE               [12] 1435 	mov	r6,a
+      0004B3 42 90            [12] 1436 	orl	_P1,a
+      0004B5 80 1A            [24] 1437 	sjmp	00110$
+      0004B7                       1438 00107$:
+      0004B7 EF               [12] 1439 	mov	a,r7
+      0004B8 03               [12] 1440 	rr	a
+      0004B9 03               [12] 1441 	rr	a
+      0004BA 54 3F            [12] 1442 	anl	a,#0x3F
+      0004BC FE               [12] 1443 	mov	r6,a
+      0004BD 74 07            [12] 1444 	mov	a,#0x07
+      0004BF 5E               [12] 1445 	anl	a,r6
+      0004C0 F5 F0            [12] 1446 	mov	b,a
+      0004C2 05 F0            [12] 1447 	inc	b
+      0004C4 74 01            [12] 1448 	mov	a,#0x01
+      0004C6 80 02            [24] 1449 	sjmp	00153$
+      0004C8                       1450 00151$:
+      0004C8 25 E0            [12] 1451 	add	a,acc
+      0004CA                       1452 00153$:
+      0004CA D5 F0 FB         [24] 1453 	djnz	b,00151$
+      0004CD F4               [12] 1454 	cpl	a
+      0004CE FE               [12] 1455 	mov	r6,a
+      0004CF 52 90            [12] 1456 	anl	_P1,a
+      0004D1                       1457 00110$:
+                                   1458 ;	lib/gpio.c:134: if (GPIO_PORT(pin) == 3) {
+      0004D1 74 03            [12] 1459 	mov	a,#0x03
+      0004D3 5F               [12] 1460 	anl	a,r7
+      0004D4 FE               [12] 1461 	mov	r6,a
+      0004D5 BE 03 3D         [24] 1462 	cjne	r6,#0x03,00116$
+                                   1463 ;	lib/gpio.c:135: bitWrite(P3, (GPIO_PIN(pin)), value);
+      0004D8 E5*00            [12] 1464 	mov	a,_bp
+      0004DA 24 FD            [12] 1465 	add	a,#0xfd
+      0004DC F8               [12] 1466 	mov	r0,a
+      0004DD E6               [12] 1467 	mov	a,@r0
+      0004DE 60 1B            [24] 1468 	jz	00112$
+      0004E0 EF               [12] 1469 	mov	a,r7
+      0004E1 03               [12] 1470 	rr	a
+      0004E2 03               [12] 1471 	rr	a
+      0004E3 54 3F            [12] 1472 	anl	a,#0x3F
+      0004E5 FE               [12] 1473 	mov	r6,a
+      0004E6 74 07            [12] 1474 	mov	a,#0x07
+      0004E8 5E               [12] 1475 	anl	a,r6
+      0004E9 F5 F0            [12] 1476 	mov	b,a
+      0004EB 05 F0            [12] 1477 	inc	b
+      0004ED 74 01            [12] 1478 	mov	a,#0x01
+      0004EF 80 02            [24] 1479 	sjmp	00159$
+      0004F1                       1480 00157$:
+      0004F1 25 E0            [12] 1481 	add	a,acc
+      0004F3                       1482 00159$:
+      0004F3 D5 F0 FB         [24] 1483 	djnz	b,00157$
+      0004F6 FE               [12] 1484 	mov	r6,a
+      0004F7 42 B0            [12] 1485 	orl	_P3,a
+      0004F9 80 1A            [24] 1486 	sjmp	00116$
+      0004FB                       1487 00112$:
+      0004FB EF               [12] 1488 	mov	a,r7
+      0004FC 03               [12] 1489 	rr	a
+      0004FD 03               [12] 1490 	rr	a
+      0004FE 54 3F            [12] 1491 	anl	a,#0x3F
+      000500 FF               [12] 1492 	mov	r7,a
+      000501 74 07            [12] 1493 	mov	a,#0x07
+      000503 5F               [12] 1494 	anl	a,r7
+      000504 F5 F0            [12] 1495 	mov	b,a
+      000506 05 F0            [12] 1496 	inc	b
+      000508 74 01            [12] 1497 	mov	a,#0x01
+      00050A 80 02            [24] 1498 	sjmp	00162$
+      00050C                       1499 00160$:
+      00050C 25 E0            [12] 1500 	add	a,acc
+      00050E                       1501 00162$:
+      00050E D5 F0 FB         [24] 1502 	djnz	b,00160$
+      000511 F4               [12] 1503 	cpl	a
+      000512 FF               [12] 1504 	mov	r7,a
+      000513 52 B0            [12] 1505 	anl	_P3,a
+      000515                       1506 00116$:
+      000515 D0*00            [24] 1507 	pop	_bp
+      000517 22               [24] 1508 	ret
+                                   1509 ;------------------------------------------------------------
+                                   1510 ;Allocation info for local variables in function 'analogRead'
+                                   1511 ;------------------------------------------------------------
+                                   1512 ;pin                       Allocated to registers r7 
+                                   1513 ;result                    Allocated to registers r6 r7 
+                                   1514 ;------------------------------------------------------------
+                                   1515 ;	lib/gpio.c:139: word analogRead(byte pin) {
+                                   1516 ;	-----------------------------------------
+                                   1517 ;	 function analogRead
+                                   1518 ;	-----------------------------------------
+      000518                       1519 _analogRead:
+                                   1520 ;	lib/gpio.c:141: if (GPIO_PORT(pin) == 0) {
+      000518 E5 82            [12] 1521 	mov	a,dpl
+      00051A FF               [12] 1522 	mov	r7,a
+      00051B 54 03            [12] 1523 	anl	a,#0x03
+      00051D 60 03            [24] 1524 	jz	00181$
+      00051F 02r05rD8         [24] 1525 	ljmp	00111$
+      000522                       1526 00181$:
+                                   1527 ;	lib/gpio.c:142: if (GPIO_ADC(pin)) {
+      000522 74 40            [12] 1528 	mov	a,#0x40
+      000524 5F               [12] 1529 	anl	a,r7
+      000525 FE               [12] 1530 	mov	r6,a
+      000526 BE 40 02         [24] 1531 	cjne	r6,#0x40,00182$
+      000529 80 03            [24] 1532 	sjmp	00183$
+      00052B                       1533 00182$:
+      00052B 02r05rD8         [24] 1534 	ljmp	00111$
+      00052E                       1535 00183$:
+                                   1536 ;	lib/gpio.c:143: switch (GPIO_PIN(pin)) {
+      00052E EF               [12] 1537 	mov	a,r7
+      00052F 03               [12] 1538 	rr	a
+      000530 03               [12] 1539 	rr	a
+      000531 54 3F            [12] 1540 	anl	a,#0x3F
+      000533 FE               [12] 1541 	mov	r6,a
+      000534 53 06 07         [24] 1542 	anl	ar6,#0x07
+      000537 BE 03 02         [24] 1543 	cjne	r6,#0x03,00184$
+      00053A 80 17            [24] 1544 	sjmp	00101$
+      00053C                       1545 00184$:
+      00053C BE 04 02         [24] 1546 	cjne	r6,#0x04,00185$
+      00053F 80 2D            [24] 1547 	sjmp	00102$
+      000541                       1548 00185$:
+      000541 BE 05 02         [24] 1549 	cjne	r6,#0x05,00186$
+      000544 80 43            [24] 1550 	sjmp	00103$
+      000546                       1551 00186$:
+      000546 BE 06 02         [24] 1552 	cjne	r6,#0x06,00187$
+      000549 80 59            [24] 1553 	sjmp	00104$
+      00054B                       1554 00187$:
+      00054B BE 07 02         [24] 1555 	cjne	r6,#0x07,00188$
+      00054E 80 6F            [24] 1556 	sjmp	00105$
+      000550                       1557 00188$:
+      000550 02r05rD8         [24] 1558 	ljmp	00111$
+                                   1559 ;	lib/gpio.c:144: case 3:
+      000553                       1560 00101$:
+                                   1561 ;	lib/gpio.c:145: Enable_ADC_AIN6;
+      000553 53 E8 F0         [24] 1562 	anl	_ADCCON0,#0xF0
+      000556 43 E8 06         [24] 1563 	orl	_ADCCON0,#0x06
+      000559 43 B1 08         [24] 1564 	orl	_P0M1,#0x08
+      00055C AE B2            [24] 1565 	mov	r6,_P0M2
+      00055E 74 F7            [12] 1566 	mov	a,#0xF7
+      000560 5E               [12] 1567 	anl	a,r6
+      000561 F5 B2            [12] 1568 	mov	_P0M2,a
+      000563 75 F6 00         [24] 1569 	mov	_AINDIDS,#0x00
+      000566 43 F6 40         [24] 1570 	orl	_AINDIDS,#0x40
+      000569 43 E1 01         [24] 1571 	orl	_ADCCON1,#0x01
+                                   1572 ;	lib/gpio.c:146: break;
+                                   1573 ;	lib/gpio.c:147: case 4:
+      00056C 80 6A            [24] 1574 	sjmp	00111$
+      00056E                       1575 00102$:
+                                   1576 ;	lib/gpio.c:148: Enable_ADC_AIN5;
+      00056E 53 E8 F0         [24] 1577 	anl	_ADCCON0,#0xF0
+      000571 43 E8 05         [24] 1578 	orl	_ADCCON0,#0x05
+      000574 43 B1 10         [24] 1579 	orl	_P0M1,#0x10
+      000577 AE B2            [24] 1580 	mov	r6,_P0M2
+      000579 74 EF            [12] 1581 	mov	a,#0xEF
+      00057B 5E               [12] 1582 	anl	a,r6
+      00057C F5 B2            [12] 1583 	mov	_P0M2,a
+      00057E 75 F6 00         [24] 1584 	mov	_AINDIDS,#0x00
+      000581 43 F6 20         [24] 1585 	orl	_AINDIDS,#0x20
+      000584 43 E1 01         [24] 1586 	orl	_ADCCON1,#0x01
+                                   1587 ;	lib/gpio.c:149: break;
+                                   1588 ;	lib/gpio.c:150: case 5:
+      000587 80 4F            [24] 1589 	sjmp	00111$
+      000589                       1590 00103$:
+                                   1591 ;	lib/gpio.c:151: Enable_ADC_AIN4;
+      000589 53 E8 F0         [24] 1592 	anl	_ADCCON0,#0xF0
+      00058C 43 E8 04         [24] 1593 	orl	_ADCCON0,#0x04
+      00058F 43 B1 20         [24] 1594 	orl	_P0M1,#0x20
+      000592 AE B2            [24] 1595 	mov	r6,_P0M2
+      000594 74 DF            [12] 1596 	mov	a,#0xDF
+      000596 5E               [12] 1597 	anl	a,r6
+      000597 F5 B2            [12] 1598 	mov	_P0M2,a
+      000599 75 F6 00         [24] 1599 	mov	_AINDIDS,#0x00
+      00059C 43 F6 10         [24] 1600 	orl	_AINDIDS,#0x10
+      00059F 43 E1 01         [24] 1601 	orl	_ADCCON1,#0x01
+                                   1602 ;	lib/gpio.c:152: break;
+                                   1603 ;	lib/gpio.c:153: case 6:
+      0005A2 80 34            [24] 1604 	sjmp	00111$
+      0005A4                       1605 00104$:
+                                   1606 ;	lib/gpio.c:154: Enable_ADC_AIN3;
+      0005A4 53 E8 F0         [24] 1607 	anl	_ADCCON0,#0xF0
+      0005A7 43 E8 03         [24] 1608 	orl	_ADCCON0,#0x03
+      0005AA 43 B1 40         [24] 1609 	orl	_P0M1,#0x40
+      0005AD AE B2            [24] 1610 	mov	r6,_P0M2
+      0005AF 74 BF            [12] 1611 	mov	a,#0xBF
+      0005B1 5E               [12] 1612 	anl	a,r6
+      0005B2 F5 B2            [12] 1613 	mov	_P0M2,a
+      0005B4 75 F6 00         [24] 1614 	mov	_AINDIDS,#0x00
+      0005B7 43 F6 08         [24] 1615 	orl	_AINDIDS,#0x08
+      0005BA 43 E1 01         [24] 1616 	orl	_ADCCON1,#0x01
+                                   1617 ;	lib/gpio.c:155: break;
+                                   1618 ;	lib/gpio.c:156: case 7:
+      0005BD 80 19            [24] 1619 	sjmp	00111$
+      0005BF                       1620 00105$:
+                                   1621 ;	lib/gpio.c:157: Enable_ADC_AIN2;
+      0005BF 53 E8 F0         [24] 1622 	anl	_ADCCON0,#0xF0
+      0005C2 43 E8 02         [24] 1623 	orl	_ADCCON0,#0x02
+      0005C5 43 B1 80         [24] 1624 	orl	_P0M1,#0x80
+      0005C8 AE B2            [24] 1625 	mov	r6,_P0M2
+      0005CA 74 7F            [12] 1626 	mov	a,#0x7F
+      0005CC 5E               [12] 1627 	anl	a,r6
+      0005CD F5 B2            [12] 1628 	mov	_P0M2,a
+      0005CF 75 F6 00         [24] 1629 	mov	_AINDIDS,#0x00
+      0005D2 43 F6 04         [24] 1630 	orl	_AINDIDS,#0x04
+      0005D5 43 E1 01         [24] 1631 	orl	_ADCCON1,#0x01
+                                   1632 ;	lib/gpio.c:161: }
+      0005D8                       1633 00111$:
+                                   1634 ;	lib/gpio.c:164: if (GPIO_PORT(pin) == 1) {
+      0005D8 74 03            [12] 1635 	mov	a,#0x03
+      0005DA 5F               [12] 1636 	anl	a,r7
+      0005DB FE               [12] 1637 	mov	r6,a
+      0005DC BE 01 4B         [24] 1638 	cjne	r6,#0x01,00119$
+                                   1639 ;	lib/gpio.c:165: if (GPIO_ADC(pin)) {
+      0005DF 74 40            [12] 1640 	mov	a,#0x40
+      0005E1 5F               [12] 1641 	anl	a,r7
+      0005E2 FE               [12] 1642 	mov	r6,a
+      0005E3 BE 40 44         [24] 1643 	cjne	r6,#0x40,00119$
+                                   1644 ;	lib/gpio.c:166: switch (GPIO_PIN(pin)) {
+      0005E6 EF               [12] 1645 	mov	a,r7
+      0005E7 03               [12] 1646 	rr	a
+      0005E8 03               [12] 1647 	rr	a
+      0005E9 54 3F            [12] 1648 	anl	a,#0x3F
+      0005EB FE               [12] 1649 	mov	r6,a
+      0005EC 53 06 07         [24] 1650 	anl	ar6,#0x07
+      0005EF BE 01 02         [24] 1651 	cjne	r6,#0x01,00193$
+      0005F2 80 05            [24] 1652 	sjmp	00112$
+      0005F4                       1653 00193$:
+                                   1654 ;	lib/gpio.c:167: case 1:
+      0005F4 BE 07 33         [24] 1655 	cjne	r6,#0x07,00119$
+      0005F7 80 1B            [24] 1656 	sjmp	00113$
+      0005F9                       1657 00112$:
+                                   1658 ;	lib/gpio.c:168: Enable_ADC_AIN7;
+      0005F9 53 E8 F0         [24] 1659 	anl	_ADCCON0,#0xF0
+      0005FC 43 E8 07         [24] 1660 	orl	_ADCCON0,#0x07
+      0005FF 43 B3 02         [24] 1661 	orl	_P1M1,#0x02
+      000602 AE B4            [24] 1662 	mov	r6,_P1M2
+      000604 74 FD            [12] 1663 	mov	a,#0xFD
+      000606 5E               [12] 1664 	anl	a,r6
+      000607 F5 B4            [12] 1665 	mov	_P1M2,a
+      000609 75 F6 00         [24] 1666 	mov	_AINDIDS,#0x00
+      00060C 43 F6 80         [24] 1667 	orl	_AINDIDS,#0x80
+      00060F 43 E1 01         [24] 1668 	orl	_ADCCON1,#0x01
+                                   1669 ;	lib/gpio.c:169: break;
+                                   1670 ;	lib/gpio.c:170: case 7:
+      000612 80 16            [24] 1671 	sjmp	00119$
+      000614                       1672 00113$:
+                                   1673 ;	lib/gpio.c:171: Enable_ADC_AIN0;
+      000614 53 E8 F0         [24] 1674 	anl	_ADCCON0,#0xF0
+      000617 43 B3 80         [24] 1675 	orl	_P1M1,#0x80
+      00061A AE B4            [24] 1676 	mov	r6,_P1M2
+      00061C 74 7F            [12] 1677 	mov	a,#0x7F
+      00061E 5E               [12] 1678 	anl	a,r6
+      00061F F5 B4            [12] 1679 	mov	_P1M2,a
+      000621 75 F6 00         [24] 1680 	mov	_AINDIDS,#0x00
+      000624 43 F6 01         [24] 1681 	orl	_AINDIDS,#0x01
+      000627 43 E1 01         [24] 1682 	orl	_ADCCON1,#0x01
+                                   1683 ;	lib/gpio.c:175: }
+      00062A                       1684 00119$:
+                                   1685 ;	lib/gpio.c:178: if (GPIO_PORT(pin) == 3) {
+      00062A 74 03            [12] 1686 	mov	a,#0x03
+      00062C 5F               [12] 1687 	anl	a,r7
+      00062D FE               [12] 1688 	mov	r6,a
+      00062E BE 03 2C         [24] 1689 	cjne	r6,#0x03,00126$
+                                   1690 ;	lib/gpio.c:179: if (GPIO_ADC(pin)) {
+      000631 74 40            [12] 1691 	mov	a,#0x40
+      000633 5F               [12] 1692 	anl	a,r7
+      000634 FE               [12] 1693 	mov	r6,a
+      000635 BE 40 25         [24] 1694 	cjne	r6,#0x40,00126$
+                                   1695 ;	lib/gpio.c:180: switch (GPIO_PIN(pin)) {
+      000638 EF               [12] 1696 	mov	a,r7
+      000639 03               [12] 1697 	rr	a
+      00063A 03               [12] 1698 	rr	a
+      00063B 54 3F            [12] 1699 	anl	a,#0x3F
+      00063D FF               [12] 1700 	mov	r7,a
+      00063E 53 07 07         [24] 1701 	anl	ar7,#0x07
+      000641 BF 00 19         [24] 1702 	cjne	r7,#0x00,00126$
+                                   1703 ;	lib/gpio.c:182: Enable_ADC_AIN1;
+      000644 53 E8 F0         [24] 1704 	anl	_ADCCON0,#0xF0
+      000647 43 E8 01         [24] 1705 	orl	_ADCCON0,#0x01
+      00064A 43 AC 01         [24] 1706 	orl	_P3M1,#0x01
+      00064D AF AD            [24] 1707 	mov	r7,_P3M2
+      00064F 74 FE            [12] 1708 	mov	a,#0xFE
+      000651 5F               [12] 1709 	anl	a,r7
+      000652 F5 AD            [12] 1710 	mov	_P3M2,a
+      000654 75 F6 00         [24] 1711 	mov	_AINDIDS,#0x00
+      000657 43 F6 02         [24] 1712 	orl	_AINDIDS,#0x02
+      00065A 43 E1 01         [24] 1713 	orl	_ADCCON1,#0x01
+                                   1714 ;	lib/gpio.c:186: }
+      00065D                       1715 00126$:
+                                   1716 ;	lib/gpio.c:189: clr_ADCF;
+      00065D C2 EF            [12] 1717 	clr	_ADCF
+                                   1718 ;	lib/gpio.c:190: set_ADCS;
+      00065F D2 EE            [12] 1719 	setb	_ADCS
+                                   1720 ;	lib/gpio.c:191: while (ADCF == 0)
+      000661                       1721 00127$:
+      000661 30 EF FD         [24] 1722 	jnb	_ADCF,00127$
+                                   1723 ;	lib/gpio.c:193: result = ADCRH << 8;
+      000664 AF C3            [24] 1724 	mov	r7,_ADCRH
+      000666 7E 00            [12] 1725 	mov	r6,#0x00
+                                   1726 ;	lib/gpio.c:194: result += ADCRL;
+      000668 AC C2            [24] 1727 	mov	r4,_ADCRL
+      00066A 7D 00            [12] 1728 	mov	r5,#0x00
+      00066C EC               [12] 1729 	mov	a,r4
+      00066D 2E               [12] 1730 	add	a,r6
+      00066E FE               [12] 1731 	mov	r6,a
+      00066F ED               [12] 1732 	mov	a,r5
+      000670 3F               [12] 1733 	addc	a,r7
+      000671 FF               [12] 1734 	mov	r7,a
+                                   1735 ;	lib/gpio.c:195: return result & 0xfff;
+      000672 8E 82            [24] 1736 	mov	dpl,r6
+      000674 74 0F            [12] 1737 	mov	a,#0x0F
+      000676 5F               [12] 1738 	anl	a,r7
+      000677 F5 83            [12] 1739 	mov	dph,a
+      000679 22               [24] 1740 	ret
+                                   1741 ;------------------------------------------------------------
+                                   1742 ;Allocation info for local variables in function 'analogWrite'
+                                   1743 ;------------------------------------------------------------
+                                   1744 ;value                     Allocated to stack - _bp -4
+                                   1745 ;pin                       Allocated to registers r7 
+                                   1746 ;------------------------------------------------------------
+                                   1747 ;	lib/gpio.c:198: void analogWrite(byte pin, word value) {
+                                   1748 ;	-----------------------------------------
+                                   1749 ;	 function analogWrite
+                                   1750 ;	-----------------------------------------
+      00067A                       1751 _analogWrite:
+      00067A C0*00            [24] 1752 	push	_bp
+      00067C 85 81*00         [24] 1753 	mov	_bp,sp
+      00067F AF 82            [24] 1754 	mov	r7,dpl
+                                   1755 ;	lib/gpio.c:199: if (GPIO_PWM(pin)) {
+      000681 74 80            [12] 1756 	mov	a,#0x80
+      000683 5F               [12] 1757 	anl	a,r7
+      000684 FE               [12] 1758 	mov	r6,a
+      000685 BE 80 02         [24] 1759 	cjne	r6,#0x80,00140$
+      000688 80 03            [24] 1760 	sjmp	00141$
+      00068A                       1761 00140$:
+      00068A 02r08r75         [24] 1762 	ljmp	00123$
+      00068D                       1763 00141$:
+                                   1764 ;	lib/gpio.c:200: if (GPIO_PORT(pin) == 0) {
+      00068D EF               [12] 1765 	mov	a,r7
+      00068E 54 03            [12] 1766 	anl	a,#0x03
+      000690 60 03            [24] 1767 	jz	00143$
+      000692 02r07r96         [24] 1768 	ljmp	00119$
+      000695                       1769 00143$:
+                                   1770 ;	lib/gpio.c:201: switch (GPIO_PIN(pin)) {
+      000695 EF               [12] 1771 	mov	a,r7
+      000696 03               [12] 1772 	rr	a
+      000697 03               [12] 1773 	rr	a
+      000698 54 07            [12] 1774 	anl	a,#(0x3F&0x07)
+      00069A FE               [12] 1775 	mov	r6,a
+      00069B 24 FA            [12] 1776 	add	a,#0xff - 0x05
+      00069D 50 03            [24] 1777 	jnc	00144$
+      00069F 02r08r71         [24] 1778 	ljmp	00120$
+      0006A2                       1779 00144$:
+      0006A2 EE               [12] 1780 	mov	a,r6
+      0006A3 2E               [12] 1781 	add	a,r6
+      0006A4 2E               [12] 1782 	add	a,r6
+      0006A5 90r06rA9         [24] 1783 	mov	dptr,#00145$
+      0006A8 73               [24] 1784 	jmp	@a+dptr
+      0006A9                       1785 00145$:
+      0006A9 02r06rBB         [24] 1786 	ljmp	00101$
+      0006AC 02r06rD3         [24] 1787 	ljmp	00102$
+      0006AF 02r07r93         [24] 1788 	ljmp	00106$
+      0006B2 02r07r1B         [24] 1789 	ljmp	00103$
+      0006B5 02r07r63         [24] 1790 	ljmp	00104$
+      0006B8 02r07r7B         [24] 1791 	ljmp	00105$
+                                   1792 ;	lib/gpio.c:202: case 0: //3
+      0006BB                       1793 00101$:
+                                   1794 ;	lib/gpio.c:203: PWM3H = highByte(value);
+      0006BB E5*00            [12] 1795 	mov	a,_bp
+      0006BD 24 FC            [12] 1796 	add	a,#0xfc
+      0006BF F8               [12] 1797 	mov	r0,a
+      0006C0 08               [12] 1798 	inc	r0
+      0006C1 86 06            [24] 1799 	mov	ar6,@r0
+      0006C3 8E D5            [24] 1800 	mov	_PWM3H,r6
+                                   1801 ;	lib/gpio.c:204: PWM3L = lowByte(value);
+      0006C5 E5*00            [12] 1802 	mov	a,_bp
+      0006C7 24 FC            [12] 1803 	add	a,#0xfc
+      0006C9 F8               [12] 1804 	mov	r0,a
+      0006CA 86 05            [24] 1805 	mov	ar5,@r0
+      0006CC 7E 00            [12] 1806 	mov	r6,#0x00
+      0006CE 8D DD            [24] 1807 	mov	_PWM3L,r5
+                                   1808 ;	lib/gpio.c:205: break;
+      0006D0 02r08r71         [24] 1809 	ljmp	00120$
+                                   1810 ;	lib/gpio.c:206: case 1: //4
+      0006D3                       1811 00102$:
+                                   1812 ;	lib/gpio.c:207: set_SFRPAGE;
+      0006D3 A2 AF            [12] 1813 	mov	c,_EA
+      0006D5 E4               [12] 1814 	clr	a
+      0006D6 33               [12] 1815 	rlc	a
+      0006D7 F5*00            [12] 1816 	mov	_BIT_TMP,a
+      0006D9 C2 AF            [12] 1817 	clr	_EA
+      0006DB 75 C7 AA         [24] 1818 	mov	_TA,#0xAA
+      0006DE 75 C7 55         [24] 1819 	mov	_TA,#0x55
+      0006E1 43 91 01         [24] 1820 	orl	_SFRS,#0x01
+      0006E4 E5*00            [12] 1821 	mov	a,_BIT_TMP
+      0006E6 24 FF            [12] 1822 	add	a,#0xff
+      0006E8 92 AF            [24] 1823 	mov	_EA,c
+                                   1824 ;	lib/gpio.c:208: PWM4H = highByte(value);
+      0006EA E5*00            [12] 1825 	mov	a,_bp
+      0006EC 24 FC            [12] 1826 	add	a,#0xfc
+      0006EE F8               [12] 1827 	mov	r0,a
+      0006EF 08               [12] 1828 	inc	r0
+      0006F0 86 06            [24] 1829 	mov	ar6,@r0
+      0006F2 8E C4            [24] 1830 	mov	_PWM4H,r6
+                                   1831 ;	lib/gpio.c:209: PWM4L = lowByte(value);
+      0006F4 E5*00            [12] 1832 	mov	a,_bp
+      0006F6 24 FC            [12] 1833 	add	a,#0xfc
+      0006F8 F8               [12] 1834 	mov	r0,a
+      0006F9 86 05            [24] 1835 	mov	ar5,@r0
+      0006FB 8D CC            [24] 1836 	mov	_PWM4L,r5
+                                   1837 ;	lib/gpio.c:210: clr_SFRPAGE;
+      0006FD A2 AF            [12] 1838 	mov	c,_EA
+      0006FF E4               [12] 1839 	clr	a
+      000700 33               [12] 1840 	rlc	a
+      000701 F5*00            [12] 1841 	mov	_BIT_TMP,a
+      000703 C2 AF            [12] 1842 	clr	_EA
+      000705 75 C7 AA         [24] 1843 	mov	_TA,#0xAA
+      000708 75 C7 55         [24] 1844 	mov	_TA,#0x55
+      00070B AE 91            [24] 1845 	mov	r6,_SFRS
+      00070D 74 FE            [12] 1846 	mov	a,#0xFE
+      00070F 5E               [12] 1847 	anl	a,r6
+      000710 F5 91            [12] 1848 	mov	_SFRS,a
+      000712 E5*00            [12] 1849 	mov	a,_BIT_TMP
+      000714 24 FF            [12] 1850 	add	a,#0xff
+      000716 92 AF            [24] 1851 	mov	_EA,c
+                                   1852 ;	lib/gpio.c:211: break;
+      000718 02r08r71         [24] 1853 	ljmp	00120$
+                                   1854 ;	lib/gpio.c:212: case 3: //5
+      00071B                       1855 00103$:
+                                   1856 ;	lib/gpio.c:213: set_SFRPAGE;
+      00071B A2 AF            [12] 1857 	mov	c,_EA
+      00071D E4               [12] 1858 	clr	a
+      00071E 33               [12] 1859 	rlc	a
+      00071F F5*00            [12] 1860 	mov	_BIT_TMP,a
+      000721 C2 AF            [12] 1861 	clr	_EA
+      000723 75 C7 AA         [24] 1862 	mov	_TA,#0xAA
+      000726 75 C7 55         [24] 1863 	mov	_TA,#0x55
+      000729 43 91 01         [24] 1864 	orl	_SFRS,#0x01
+      00072C E5*00            [12] 1865 	mov	a,_BIT_TMP
+      00072E 24 FF            [12] 1866 	add	a,#0xff
+      000730 92 AF            [24] 1867 	mov	_EA,c
+                                   1868 ;	lib/gpio.c:214: PWM5H = highByte(value);
+      000732 E5*00            [12] 1869 	mov	a,_bp
+      000734 24 FC            [12] 1870 	add	a,#0xfc
+      000736 F8               [12] 1871 	mov	r0,a
+      000737 08               [12] 1872 	inc	r0
+      000738 86 06            [24] 1873 	mov	ar6,@r0
+      00073A 8E C5            [24] 1874 	mov	_PWM5H,r6
+                                   1875 ;	lib/gpio.c:215: PWM5L = lowByte(value);
+      00073C E5*00            [12] 1876 	mov	a,_bp
+      00073E 24 FC            [12] 1877 	add	a,#0xfc
+      000740 F8               [12] 1878 	mov	r0,a
+      000741 86 05            [24] 1879 	mov	ar5,@r0
+      000743 8D CD            [24] 1880 	mov	_PWM5L,r5
+                                   1881 ;	lib/gpio.c:216: clr_SFRPAGE;
+      000745 A2 AF            [12] 1882 	mov	c,_EA
+      000747 E4               [12] 1883 	clr	a
+      000748 33               [12] 1884 	rlc	a
+      000749 F5*00            [12] 1885 	mov	_BIT_TMP,a
+      00074B C2 AF            [12] 1886 	clr	_EA
+      00074D 75 C7 AA         [24] 1887 	mov	_TA,#0xAA
+      000750 75 C7 55         [24] 1888 	mov	_TA,#0x55
+      000753 AE 91            [24] 1889 	mov	r6,_SFRS
+      000755 74 FE            [12] 1890 	mov	a,#0xFE
+      000757 5E               [12] 1891 	anl	a,r6
+      000758 F5 91            [12] 1892 	mov	_SFRS,a
+      00075A E5*00            [12] 1893 	mov	a,_BIT_TMP
+      00075C 24 FF            [12] 1894 	add	a,#0xff
+      00075E 92 AF            [24] 1895 	mov	_EA,c
+                                   1896 ;	lib/gpio.c:217: break;
+      000760 02r08r71         [24] 1897 	ljmp	00120$
+                                   1898 ;	lib/gpio.c:218: case 4: //3
+      000763                       1899 00104$:
+                                   1900 ;	lib/gpio.c:219: PWM3H = highByte(value);
+      000763 E5*00            [12] 1901 	mov	a,_bp
+      000765 24 FC            [12] 1902 	add	a,#0xfc
+      000767 F8               [12] 1903 	mov	r0,a
+      000768 08               [12] 1904 	inc	r0
+      000769 86 06            [24] 1905 	mov	ar6,@r0
+      00076B 8E D5            [24] 1906 	mov	_PWM3H,r6
+                                   1907 ;	lib/gpio.c:220: PWM3L = lowByte(value);
+      00076D E5*00            [12] 1908 	mov	a,_bp
+      00076F 24 FC            [12] 1909 	add	a,#0xfc
+      000771 F8               [12] 1910 	mov	r0,a
+      000772 86 05            [24] 1911 	mov	ar5,@r0
+      000774 7E 00            [12] 1912 	mov	r6,#0x00
+      000776 8D DD            [24] 1913 	mov	_PWM3L,r5
+                                   1914 ;	lib/gpio.c:221: break;
+      000778 02r08r71         [24] 1915 	ljmp	00120$
+                                   1916 ;	lib/gpio.c:222: case 5: //2
+      00077B                       1917 00105$:
+                                   1918 ;	lib/gpio.c:223: PWM2H = highByte(value);
+      00077B E5*00            [12] 1919 	mov	a,_bp
+      00077D 24 FC            [12] 1920 	add	a,#0xfc
+      00077F F8               [12] 1921 	mov	r0,a
+      000780 08               [12] 1922 	inc	r0
+      000781 86 06            [24] 1923 	mov	ar6,@r0
+      000783 8E D4            [24] 1924 	mov	_PWM2H,r6
+                                   1925 ;	lib/gpio.c:224: PWM2L = lowByte(value);
+      000785 E5*00            [12] 1926 	mov	a,_bp
+      000787 24 FC            [12] 1927 	add	a,#0xfc
+      000789 F8               [12] 1928 	mov	r0,a
+      00078A 86 05            [24] 1929 	mov	ar5,@r0
+      00078C 7E 00            [12] 1930 	mov	r6,#0x00
+      00078E 8D DC            [24] 1931 	mov	_PWM2L,r5
+                                   1932 ;	lib/gpio.c:225: break;
+      000790 02r08r71         [24] 1933 	ljmp	00120$
+                                   1934 ;	lib/gpio.c:226: default:
+      000793                       1935 00106$:
+                                   1936 ;	lib/gpio.c:228: }
+      000793 02r08r71         [24] 1937 	ljmp	00120$
+      000796                       1938 00119$:
+                                   1939 ;	lib/gpio.c:229: } else if (GPIO_PORT(pin) == 1) {
+      000796 74 03            [12] 1940 	mov	a,#0x03
+      000798 5F               [12] 1941 	anl	a,r7
+      000799 FE               [12] 1942 	mov	r6,a
+      00079A BE 01 02         [24] 1943 	cjne	r6,#0x01,00146$
+      00079D 80 03            [24] 1944 	sjmp	00147$
+      00079F                       1945 00146$:
+      00079F 02r08r6F         [24] 1946 	ljmp	00116$
+      0007A2                       1947 00147$:
+                                   1948 ;	lib/gpio.c:230: switch (GPIO_PIN(pin)) {
+      0007A2 EF               [12] 1949 	mov	a,r7
+      0007A3 03               [12] 1950 	rr	a
+      0007A4 03               [12] 1951 	rr	a
+      0007A5 54 07            [12] 1952 	anl	a,#(0x3F&0x07)
+      0007A7 FF               [12] 1953 	mov	r7,a
+      0007A8 24 FA            [12] 1954 	add	a,#0xff - 0x05
+      0007AA 50 03            [24] 1955 	jnc	00148$
+      0007AC 02r08r71         [24] 1956 	ljmp	00120$
+      0007AF                       1957 00148$:
+      0007AF EF               [12] 1958 	mov	a,r7
+      0007B0 2F               [12] 1959 	add	a,r7
+      0007B1 2F               [12] 1960 	add	a,r7
+      0007B2 90r07rB6         [24] 1961 	mov	dptr,#00149$
+      0007B5 73               [24] 1962 	jmp	@a+dptr
+      0007B6                       1963 00149$:
+      0007B6 02r07rC8         [24] 1964 	ljmp	00108$
+      0007B9 02r07rE0         [24] 1965 	ljmp	00109$
+      0007BC 02r07rF8         [24] 1966 	ljmp	00110$
+      0007BF 02r08r6D         [24] 1967 	ljmp	00113$
+      0007C2 02r08r0F         [24] 1968 	ljmp	00111$
+      0007C5 02r08r26         [24] 1969 	ljmp	00112$
+                                   1970 ;	lib/gpio.c:231: case 0: //2
+      0007C8                       1971 00108$:
+                                   1972 ;	lib/gpio.c:232: PWM2H = highByte(value);
+      0007C8 E5*00            [12] 1973 	mov	a,_bp
+      0007CA 24 FC            [12] 1974 	add	a,#0xfc
+      0007CC F8               [12] 1975 	mov	r0,a
+      0007CD 08               [12] 1976 	inc	r0
+      0007CE 86 07            [24] 1977 	mov	ar7,@r0
+      0007D0 8F D4            [24] 1978 	mov	_PWM2H,r7
+                                   1979 ;	lib/gpio.c:233: PWM2L = lowByte(value);
+      0007D2 E5*00            [12] 1980 	mov	a,_bp
+      0007D4 24 FC            [12] 1981 	add	a,#0xfc
+      0007D6 F8               [12] 1982 	mov	r0,a
+      0007D7 86 06            [24] 1983 	mov	ar6,@r0
+      0007D9 7F 00            [12] 1984 	mov	r7,#0x00
+      0007DB 8E DC            [24] 1985 	mov	_PWM2L,r6
+                                   1986 ;	lib/gpio.c:234: break;
+      0007DD 02r08r71         [24] 1987 	ljmp	00120$
+                                   1988 ;	lib/gpio.c:235: case 1: //1
+      0007E0                       1989 00109$:
+                                   1990 ;	lib/gpio.c:236: PWM2H = highByte(value);
+      0007E0 E5*00            [12] 1991 	mov	a,_bp
+      0007E2 24 FC            [12] 1992 	add	a,#0xfc
+      0007E4 F8               [12] 1993 	mov	r0,a
+      0007E5 08               [12] 1994 	inc	r0
+      0007E6 86 07            [24] 1995 	mov	ar7,@r0
+      0007E8 8F D4            [24] 1996 	mov	_PWM2H,r7
+                                   1997 ;	lib/gpio.c:237: PWM2L = lowByte(value);
+      0007EA E5*00            [12] 1998 	mov	a,_bp
+      0007EC 24 FC            [12] 1999 	add	a,#0xfc
+      0007EE F8               [12] 2000 	mov	r0,a
+      0007EF 86 06            [24] 2001 	mov	ar6,@r0
+      0007F1 7F 00            [12] 2002 	mov	r7,#0x00
+      0007F3 8E DC            [24] 2003 	mov	_PWM2L,r6
+                                   2004 ;	lib/gpio.c:238: break;
+      0007F5 02r08r71         [24] 2005 	ljmp	00120$
+                                   2006 ;	lib/gpio.c:239: case 2: //0
+      0007F8                       2007 00110$:
+                                   2008 ;	lib/gpio.c:240: PWM0H = highByte(value);
+      0007F8 E5*00            [12] 2009 	mov	a,_bp
+      0007FA 24 FC            [12] 2010 	add	a,#0xfc
+      0007FC F8               [12] 2011 	mov	r0,a
+      0007FD 08               [12] 2012 	inc	r0
+      0007FE 86 07            [24] 2013 	mov	ar7,@r0
+      000800 8F D2            [24] 2014 	mov	_PWM0H,r7
+                                   2015 ;	lib/gpio.c:241: PWM0L = lowByte(value);
+      000802 E5*00            [12] 2016 	mov	a,_bp
+      000804 24 FC            [12] 2017 	add	a,#0xfc
+      000806 F8               [12] 2018 	mov	r0,a
+      000807 86 06            [24] 2019 	mov	ar6,@r0
+      000809 7F 00            [12] 2020 	mov	r7,#0x00
+      00080B 8E DA            [24] 2021 	mov	_PWM0L,r6
+                                   2022 ;	lib/gpio.c:242: break;
+                                   2023 ;	lib/gpio.c:243: case 4: //1
+      00080D 80 62            [24] 2024 	sjmp	00120$
+      00080F                       2025 00111$:
+                                   2026 ;	lib/gpio.c:244: PWM1H = highByte(value);
+      00080F E5*00            [12] 2027 	mov	a,_bp
+      000811 24 FC            [12] 2028 	add	a,#0xfc
+      000813 F8               [12] 2029 	mov	r0,a
+      000814 08               [12] 2030 	inc	r0
+      000815 86 07            [24] 2031 	mov	ar7,@r0
+      000817 8F D3            [24] 2032 	mov	_PWM1H,r7
+                                   2033 ;	lib/gpio.c:245: PWM1L = lowByte(value);
+      000819 E5*00            [12] 2034 	mov	a,_bp
+      00081B 24 FC            [12] 2035 	add	a,#0xfc
+      00081D F8               [12] 2036 	mov	r0,a
+      00081E 86 06            [24] 2037 	mov	ar6,@r0
+      000820 7F 00            [12] 2038 	mov	r7,#0x00
+      000822 8E DB            [24] 2039 	mov	_PWM1L,r6
+                                   2040 ;	lib/gpio.c:246: break;
+                                   2041 ;	lib/gpio.c:247: case 5: //5
+      000824 80 4B            [24] 2042 	sjmp	00120$
+      000826                       2043 00112$:
+                                   2044 ;	lib/gpio.c:248: set_SFRPAGE;
+      000826 A2 AF            [12] 2045 	mov	c,_EA
+      000828 E4               [12] 2046 	clr	a
+      000829 33               [12] 2047 	rlc	a
+      00082A F5*00            [12] 2048 	mov	_BIT_TMP,a
+      00082C C2 AF            [12] 2049 	clr	_EA
+      00082E 75 C7 AA         [24] 2050 	mov	_TA,#0xAA
+      000831 75 C7 55         [24] 2051 	mov	_TA,#0x55
+      000834 43 91 01         [24] 2052 	orl	_SFRS,#0x01
+      000837 E5*00            [12] 2053 	mov	a,_BIT_TMP
+      000839 24 FF            [12] 2054 	add	a,#0xff
+      00083B 92 AF            [24] 2055 	mov	_EA,c
+                                   2056 ;	lib/gpio.c:249: PWM5H = highByte(value);
+      00083D E5*00            [12] 2057 	mov	a,_bp
+      00083F 24 FC            [12] 2058 	add	a,#0xfc
+      000841 F8               [12] 2059 	mov	r0,a
+      000842 08               [12] 2060 	inc	r0
+      000843 86 07            [24] 2061 	mov	ar7,@r0
+      000845 8F C5            [24] 2062 	mov	_PWM5H,r7
+                                   2063 ;	lib/gpio.c:250: PWM5L = lowByte(value);
+      000847 E5*00            [12] 2064 	mov	a,_bp
+      000849 24 FC            [12] 2065 	add	a,#0xfc
+      00084B F8               [12] 2066 	mov	r0,a
+      00084C 86 06            [24] 2067 	mov	ar6,@r0
+      00084E 8E CD            [24] 2068 	mov	_PWM5L,r6
+                                   2069 ;	lib/gpio.c:251: clr_SFRPAGE;
+      000850 A2 AF            [12] 2070 	mov	c,_EA
+      000852 E4               [12] 2071 	clr	a
+      000853 33               [12] 2072 	rlc	a
+      000854 F5*00            [12] 2073 	mov	_BIT_TMP,a
+      000856 C2 AF            [12] 2074 	clr	_EA
+      000858 75 C7 AA         [24] 2075 	mov	_TA,#0xAA
+      00085B 75 C7 55         [24] 2076 	mov	_TA,#0x55
+      00085E AF 91            [24] 2077 	mov	r7,_SFRS
+      000860 74 FE            [12] 2078 	mov	a,#0xFE
+      000862 5F               [12] 2079 	anl	a,r7
+      000863 F5 91            [12] 2080 	mov	_SFRS,a
+      000865 E5*00            [12] 2081 	mov	a,_BIT_TMP
+      000867 24 FF            [12] 2082 	add	a,#0xff
+      000869 92 AF            [24] 2083 	mov	_EA,c
+                                   2084 ;	lib/gpio.c:252: break;
+                                   2085 ;	lib/gpio.c:253: default:
+      00086B 80 04            [24] 2086 	sjmp	00120$
+      00086D                       2087 00113$:
+                                   2088 ;	lib/gpio.c:255: }
+      00086D 80 02            [24] 2089 	sjmp	00120$
+      00086F                       2090 00116$:
+                                   2091 ;	lib/gpio.c:257: return;
+      00086F 80 04            [24] 2092 	sjmp	00123$
+      000871                       2093 00120$:
+                                   2094 ;	lib/gpio.c:258: set_LOAD;
+      000871 D2 DE            [12] 2095 	setb	_LOAD
+                                   2096 ;	lib/gpio.c:259: set_PWMRUN;
+      000873 D2 DF            [12] 2097 	setb	_PWMRUN
+      000875                       2098 00123$:
+      000875 D0*00            [24] 2099 	pop	_bp
+      000877 22               [24] 2100 	ret
+                                   2101 	.area CSEG    (CODE)
+                                   2102 	.area CONST   (CODE)
+                                   2103 	.area XINIT   (CODE)
+                                   2104 	.area CABS    (ABS,CODE)
