@@ -1,4 +1,4 @@
-#include "ardun76e003.h"
+#include "arduino.h"
 
 void Timer0_ISR(void) __interrupt(1);
 void SerialPort0_ISR(void) __interrupt(4);

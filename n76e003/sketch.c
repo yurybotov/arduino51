@@ -1,4 +1,4 @@
-#include "ardun76e003.h"
+#include "arduino.h"
 
 void setup() {
     SerialBegin(57600);
