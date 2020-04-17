@@ -2,8 +2,8 @@
 #define __SDCC_51_A__
 
 #include "gpio.h"
-#include "lib/ch554.h"
-#include "lib/debug.h"
+#include "ch554.h"
+#include "debug.h"
 #include "ticker.h"
 
 #endif

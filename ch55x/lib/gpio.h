@@ -1,7 +1,7 @@
 #ifndef __SDCC_51_A_GPIO__
 #define __SDCC_51_A_GPIO__
 
-#include "exttypes.h"
+#include "../../common/exttypes.h"
 #include "stdbool.h"
 
 #define GPIO_PXX(PORT, PIN) (PORT + (PIN << 4))

@@ -1,4 +1,4 @@
-#include "lib/ch554.h"
+#include "ch554.h"
 #include "gpio.h"
 
 void pinMode(byte pin, byte mode) {

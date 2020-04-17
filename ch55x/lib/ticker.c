@@ -1,5 +1,7 @@
 #include "ticker.h"
-#include "ch554/ch554.h"
+#include "gpio.h"
+#include "../../common/utility.h"
+#include "ch554.h"
 
 #define LED1_PIN 7
 SBIT(LED, 0x90, LED1_PIN);
@@ -30,9 +32,4 @@ void ticker_init(void) {
     TR0 = 1;
 }
 
-unsigned long millis() { return milliseconds; }
-
-void delay(unsigned long time) {
-    volatile unsigned long waitto = millis() + time;
-    while(waitto > millis());
-}
+#include "../../common/ticker.c"
