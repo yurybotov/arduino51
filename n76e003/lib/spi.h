@@ -17,7 +17,7 @@
 
 #define SPIBegin() SPCR = 0x50
 #define SPIBeginTransaction(mode) SPCR = mode | 0x50
-#define SPISettings(speed, msblsb, mode) ((speed)|(msblsb)|(mode))
+#define SPISettings(speed, msblsb, mode) ((speed) | (msblsb) | (mode))
 #define SPIEndTransaction() SPCR &= ~(0x50)
 #define SPIEnd() SPCR &= ~(0x50)
 byte SPITransfer(byte c);

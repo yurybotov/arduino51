@@ -17,8 +17,7 @@ byte I2CRequestFrom(byte address, byte quantity, byte stop);
 
 void I2CSetClock();
 
-void I2COnReceive( void (*handler)(byte)); // if master
-void I2COnRequest( void (*handler)(byte)); // if slave
-
+void I2COnReceive(void (*handler)(byte)); // if master
+void I2COnRequest(void (*handler)(byte)); // if slave
 
 #endif

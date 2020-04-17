@@ -9,7 +9,6 @@ All function define inital setting file for Nuvoton N76E003
 
 #define nop _nop_();
 
-
 //16 --> 8 x 2
 #define HIBYTE(v1)              ((UINT8)((v1)>>8))                      //v1 is UINT16
 #define LOBYTE(v1)              ((UINT8)((v1)&0xFF))
@@ -522,4 +521,3 @@ All function define inital setting file for Nuvoton N76E003
 #define		SPICLK_DIV16						set_SPR0;set_SPR1
 #define		Enable_SPI_Interrupt		set_ESPI;set_EA
 #define		SS		P15
-

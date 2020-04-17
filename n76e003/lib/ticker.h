@@ -6,7 +6,6 @@
 #define MSBFIRST 1
 #define LSBFIRST 0
 
-
 void ticker_init(void);
 
 dword millis();

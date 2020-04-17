@@ -8,7 +8,7 @@ void SerialBegin(word speed);
 void putc(byte c);
 
 // supports (%d %x %o)<long (%b)<short
-void uprintf(byte *str, ...);
+void uprintf(byte* str, ...);
 
 byte getc(void);
 
