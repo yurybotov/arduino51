@@ -21,3 +21,5 @@ void I2COnReceive(void (*handler)(byte)); // if master
 void I2COnRequest(void (*handler)(byte)); // if slave
 
 #endif
+
+// not realised!
