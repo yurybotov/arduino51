@@ -1,6 +1,6 @@
 #ifndef __SDCC_51_A_SPI__
 #define __SDCC_51_A_SPI__
-#include "exttypes.h"
+#include "../../common/exttypes.h"
 
 #define MSBFIRST 0x00
 #define LSBFIRST 0x20

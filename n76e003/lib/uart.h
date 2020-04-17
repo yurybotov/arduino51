@@ -1,6 +1,6 @@
 #ifndef __SDCC_51_A_UART__
 #define __SDCC_51_A_UART__
-#include "exttypes.h"
+#include "../../common/exttypes.h"
 #include "stdarg.h"
 
 void SerialBegin(word speed);
