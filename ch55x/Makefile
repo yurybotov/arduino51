@@ -5,6 +5,7 @@ C_FILES = \
 	lib/gpio.c \
 	lib/ticker.c \
 	lib/cdc.c \
+	lib/adc.c \
 	sketch.c
 
 pre-flash:

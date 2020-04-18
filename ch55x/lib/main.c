@@ -3,9 +3,9 @@
 void Timer0_ISR(void) __interrupt (INT_NO_TMR0);
 void DeviceInterrupt(void) __interrupt (INT_NO_USB);
 //void Uart1_ISR(void) __interrupt (INT_NO_UART1);
+void PWMInterrupt(void) __interrupt (INT_NO_PWMX);
 
-void	CfgFsys( )  
-{
+void CfgFsys() {
 // 		SAFE_MOD = 0x55;
 // 		SAFE_MOD = 0xAA;
 //     CLOCK_CFG |= bOSC_EN_XT;                          //使能外部晶振
@@ -40,6 +40,7 @@ void	CfgFsys( )
 void main() {
     CfgFsys();
     ticker_init();
+	pwm_init();
     CDC_init();
     setup();
     while(1) { 
