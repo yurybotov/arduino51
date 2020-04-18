@@ -3,7 +3,7 @@
 #include "N76E003.h"
 #include "SFR_macro.h"
 
-byte SerialBuffer[32];
+__idata byte SerialBuffer[32];
 byte beginBuffer = 0, endBuffer = 0, lengthBuffer = 0;
 
 void SerialPort0_ISR(void) __interrupt(4) {

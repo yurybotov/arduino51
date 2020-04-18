@@ -2,7 +2,7 @@
 
 void Timer0_ISR(void) __interrupt (INT_NO_TMR0);
 void DeviceInterrupt(void) __interrupt (INT_NO_USB);
-void Uart1_ISR(void) __interrupt (INT_NO_UART1);
+//void Uart1_ISR(void) __interrupt (INT_NO_UART1);
 
 void	CfgFsys( )  
 {
@@ -43,6 +43,7 @@ void main() {
     CDC_init();
     setup();
     while(1) { 
+        CDC_loop();
         loop();
     }
 }

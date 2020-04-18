@@ -72,7 +72,7 @@ unsigned char  __code Manuf_Des[]={
 __xdata uint8_t LineCoding[7]={0x00,0xe1,0x00,0x00,0x00,0x00,0x08};   //初始化波特率为57600，1停止位，无校验，8数据位。
 
 #define UART_REV_LEN  64                 //串口接收缓冲区大小
-__idata uint8_t Receive_Uart_Buf[UART_REV_LEN];   //串口接收缓冲区
+//__idata uint8_t Receive_Uart_Buf[UART_REV_LEN];   //串口接收缓冲区
 volatile __idata uint8_t Uart_Input_Point = 0;   //循环缓冲区写入指针，总线复位需要初始化为0
 volatile __idata uint8_t Uart_Output_Point = 0;  //循环缓冲区取出指针，总线复位需要初始化为0
 volatile __idata uint8_t UartByteCount = 0;      //当前缓冲区剩余待取字节数
@@ -144,12 +144,12 @@ void USBDeviceEndPointCfg() {
 * Output         : None
 * Return         : None
 *******************************************************************************/
-void UART1Setup() {
+/*void UART1Setup() {
    U1SM0 = 0;                                                                   //UART1选择8位数据位
    U1SMOD = 1;                                                                  //快速模式
    U1REN = 1;                                                                   //使能接收
-   SBAUD1 = 256 - FREQ_SYS/16/UART1_BAUD;
-}
+   SBAUD1 = 256 - (byte)(FREQ_SYS/16/UART1_BAUD);
+}*/
 /*******************************************************************************
 * Function Name  : Config_Uart1(uint8_t *cfg_uart)
 * Description    : 配置串口1参数
@@ -157,7 +157,7 @@ void UART1Setup() {
 * Output         : None
 * Return         : None
 *******************************************************************************/
-void Config_Uart1(uint8_t cfg_uart[]) {
+/*void Config_Uart1(uint8_t cfg_uart[]) {
     uint32_t uart1_buad = 0;
     *((uint8_t *)&uart1_buad) = cfg_uart[0];
     *((uint8_t *)&uart1_buad+1) = cfg_uart[1];
@@ -165,7 +165,7 @@ void Config_Uart1(uint8_t cfg_uart[]) {
     *((uint8_t *)&uart1_buad+3) = cfg_uart[3];
     SBAUD1 = 256 - FREQ_SYS/16/uart1_buad; //  SBAUD1 = 256 - Fsys / 16 / baud rate
     IE_UART1 = 1;
-}
+}*/
 /*******************************************************************************
 * Function Name  : DeviceInterrupt()
 * Description    : CH559USB中断处理函数
@@ -475,7 +475,7 @@ void DeviceInterrupt(void) __interrupt (INT_NO_USB) {                      //USB
                 if( U_TOG_OK )
                 {
                     memcpy(LineCoding,UsbSetupBuf,USB_RX_LEN);
-                    Config_Uart1(LineCoding);
+                    //Config_Uart1(LineCoding);-------------------------------------------------------------------???????????????????
                     UEP0_T_LEN = 0;
                     UEP0_CTRL |= UEP_R_RES_ACK | UEP_T_RES_ACK;  // 准备上传0包
                 }
@@ -543,7 +543,7 @@ void DeviceInterrupt(void) __interrupt (INT_NO_USB) {                      //USB
 * Function Name  : Uart1_ISR()
 * Description    : 串口接收中断函数，实现循环缓冲接收
 *******************************************************************************/
-void Uart1_ISR(void) __interrupt (INT_NO_UART1)
+/*void Uart1_ISR(void) __interrupt (INT_NO_UART1)
 {
     if(U1RI)   //收到数据
     {
@@ -554,17 +554,16 @@ void Uart1_ISR(void) __interrupt (INT_NO_UART1)
         U1RI =0;
     }
 
-}
+}*/
 
 //主函数
 void CDC_init()
 {
 //    uint8_t length;
     uint8_t Uart_Timeout = 0;
-    CfgFsys( );                                                           //CH559时钟选择配置
     delay(5);                                                          //修改主频等待内部晶振稳定,必加
     //mInitSTDIO( );                                                        //串口0,可以用于调试
-    UART1Setup( );                                                        //用于CDC
+//    UART1Setup( );                                                        //用于CDC
 
 #ifdef DE_PRINTF
     printf("start ...\n");
@@ -575,43 +574,80 @@ void CDC_init()
     UEP0_T_LEN = 0;
     UEP1_T_LEN = 0;                                                       //预使用发送长度一定要清空
     UEP2_T_LEN = 0;                                                       //预使用发送长度一定要清空
-/*
-    while(1)
-    {
-        if(UsbConfig)
-        {
-            if(USBByteCount)   //USB接收端点有数据 если во входном буфере CDC есть символы
-            {
-                CH554UART1SendByte(Ep2Buffer[USBBufOutPoint++]); //послать один символ в UART
-                USBByteCount--;
-                if(USBByteCount==0)
-                    UEP2_CTRL = UEP2_CTRL & ~ MASK_UEP_R_RES | UEP_R_RES_ACK;
+}
 
-            }
-            if(UartByteCount) // если в буфере UART есть символы
-                Uart_Timeout++; // подождать
-            if(!UpPoint2_Busy)   //端点不繁忙（空闲后的第一包数据，只用作触发上传）
-            { // если CDC освободился
-                length = UartByteCount;
-                if(length>0) // и есть вообще чего передавать
-                {
-                    if(length>39 || Uart_Timeout>100) // если достаточно много в буфере или таймаут
-                    { // то передать
-                        Uart_Timeout = 0;
-                        if(Uart_Output_Point+length>UART_REV_LEN)
-                            length = UART_REV_LEN-Uart_Output_Point;
-                        UartByteCount -= length;
-                        //写上传端点
-                        memcpy(Ep2Buffer+MAX_PACKET_SIZE,&Receive_Uart_Buf[Uart_Output_Point],length);
-                        Uart_Output_Point+=length;
-                        if(Uart_Output_Point>=UART_REV_LEN)
-                            Uart_Output_Point = 0;
-                        UEP2_T_LEN = length;                                                    //预使用发送长度一定要清空
-                        UEP2_CTRL = UEP2_CTRL & ~ MASK_UEP_T_RES | UEP_T_RES_ACK;            //应答ACK
-                        UpPoint2_Busy = 1;
+__idata byte SerialReceiveBuffer[64];
+byte beginReceiveBuffer = 0, endReceiveBuffer = 0, lengthReceiveBuffer = 0;
+__idata byte SerialSendBuffer[64];
+byte beginSendBuffer = 0, endSendBuffer = 0, lengthSendBuffer = 0;
+byte sendTimeout;
+void CDC_loop(void) {
+    uint8_t length, i;
+    if(UsbConfig) {
+        if(USBByteCount) {   //USB接收端点有数据 если во входном буфере CDC есть символы
+            //CH554UART1SendByte(Ep2Buffer[USBBufOutPoint++]); //послать один символ в UART
+            SerialReceiveBuffer[endReceiveBuffer++] = Ep2Buffer[USBBufOutPoint++];
+            if (endReceiveBuffer == 32)
+                endReceiveBuffer = 0;
+            lengthReceiveBuffer++;
+            USBByteCount--;
+            if(USBByteCount==0)
+                UEP2_CTRL = UEP2_CTRL & ~ MASK_UEP_R_RES | UEP_R_RES_ACK;
+
+        }
+        if(lengthSendBuffer) // если в буфере UART есть символы
+            sendTimeout++; // подождать
+        if(!UpPoint2_Busy)   //端点不繁忙（空闲后的第一包数据，只用作触发上传）
+        { // если CDC освободился
+            //length = UartByteCount;
+            length = lengthSendBuffer;
+            if(length>0) // и есть вообще чего передавать
+            {
+                if(length>39 || sendTimeout > 100) // если достаточно много в буфере или таймаут
+                { // то передать
+                    sendTimeout = 0;
+                    for(i = 0; i < length; i++) {
+                        *(Ep2Buffer+MAX_PACKET_SIZE+i) = SerialSendBuffer[beginSendBuffer++];
+                        if(beginSendBuffer == 64) beginSendBuffer = 0;
+                        lengthSendBuffer--;
                     }
+                    //if(Uart_Output_Point+length>UART_REV_LEN)
+                    //    length = UART_REV_LEN-Uart_Output_Point;
+                    //UartByteCount -= length;
+                    //写上传端点
+                    //memcpy(Ep2Buffer+MAX_PACKET_SIZE,&Receive_Uart_Buf[Uart_Output_Point],length);
+                    //Uart_Output_Point+=length;
+                    //if(Uart_Output_Point>=UART_REV_LEN)
+                    //    Uart_Output_Point = 0;
+                    UEP2_T_LEN = length;                                                    //预使用发送长度一定要清空
+                    UEP2_CTRL = UEP2_CTRL & ~ MASK_UEP_T_RES | UEP_T_RES_ACK;            //应答ACK
+                    UpPoint2_Busy = 1;
                 }
             }
         }
-    }*/
+    }
 }
+
+void SerialBegin(word speed) { (speed); }
+
+// print byte to Serial (CDC)
+void putc(byte c) {
+    SerialSendBuffer[endSendBuffer++] = c;
+    if (endSendBuffer == 64)
+        endSendBuffer = 0;
+    lengthSendBuffer++;
+}
+
+// print string or format string with digits to CDC. Supports (%d %x %o)<long (%b)<short
+void uprintf(byte* str, ...) {}
+
+// read byte from Serial
+byte getc(void) {
+    byte res = SerialReceiveBuffer[beginReceiveBuffer++];
+    if(beginReceiveBuffer == 64) beginReceiveBuffer = 0;
+    lengthReceiveBuffer--;
+    return res;
+}
+
+// Check. If in Serial buffer has chars, return it qwantity, else 0.
+word SerialAvailable() { return lengthReceiveBuffer;}
