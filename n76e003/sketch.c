@@ -2,10 +2,12 @@
 
 void setup() {
     SerialBegin(57600);
+
+    pinMode(D14, BIDIRECTIONAL);
 }
 
 void loop() {
-    int i, j;
+   /* int i, j;
     int adc0 = analogRead(A17);
     uprintf("ADC0: %d\n", adc0);
     pinMode(D14, BIDIRECTIONAL);
@@ -22,4 +24,9 @@ void loop() {
             delay(1);
         }
     }
+    */
+    digitalWrite(D14, 0);
+    delay(100);
+    digitalWrite(D14, 1);
+    delay(100);
 }
