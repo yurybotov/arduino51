@@ -3,7 +3,11 @@
 
 #include "gpio.h"
 #include "ch554.h"
-#include "debug.h"
+//#include "debug.h"
 #include "ticker.h"
+#include "cdc.h"
+
+void setup(void);
+void loop(void);
 
 #endif
