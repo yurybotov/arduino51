@@ -3,7 +3,7 @@
 #include "../../common/utility.h"
 #include "ch554.h"
 
-const byte period = 0x61;
+const byte period = 0x12;
 
 volatile unsigned long milliseconds;
 volatile unsigned char microsecondsTens;
