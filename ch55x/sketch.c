@@ -9,9 +9,7 @@ void setup() {
 
 void loop() {
     digitalWrite(P14,1);
-    mDelaymS(100);
     delay(100);
     digitalWrite(P14,0);
-    mDelaymS(100);
     delay(100);
 }
