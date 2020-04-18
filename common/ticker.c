@@ -1,9 +1,17 @@
 
 dword millis() { return milliseconds; }
 
+dword micros() { return milliseconds*1000 + microsecondsTens*10; }
+
 void delay(dword time) {
     volatile dword waitTo = millis() + time;
     while (waitTo > millis())
+        ;
+}
+
+void delayMicroseconds(dword time) {
+    volatile dword waitTo = micros() + time;
+    while (waitTo > micros())
         ;
 }
 
