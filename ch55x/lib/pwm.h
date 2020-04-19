@@ -2,26 +2,29 @@
 #define PWM_INTERRUPT   1
  
 #if PWM_INTERRUPT
-extern void  PWMInterruptEnable();                                            //PWMÖÐ¶ÏÊ¹ÄÜ
+extern void  PWMInterruptEnable();                                            //PWMï¿½Ð¶ï¿½Ê¹ï¿½ï¿½
 #endif
 
-#define SetPWMClk(CK_SE) (PWM_CK_SE = CK_SE)                                  //·ÖÆµ,Ä¬ÈÏÊ±ÖÓFsys    
+#define SetPWMClk(CK_SE) (PWM_CK_SE = CK_SE)                                  //ï¿½ï¿½Æµ,Ä¬ï¿½ï¿½Ê±ï¿½ï¿½Fsys    
 
-#define SetPWM1Dat(dat)  (PWM_DATA1 = dat)                                    //ÉèÖÃPWMÊä³öÕ¼¿Õ±È
+#define SetPWM1Dat(dat)  (PWM_DATA1 = dat)                                    //ï¿½ï¿½ï¿½ï¿½PWMï¿½ï¿½ï¿½Õ¼ï¿½Õ±ï¿½
 #define SetPWM2Dat(dat)  (PWM_DATA2 = dat)
 
-#define PWM1PINAlter( )  {PIN_FUNC |= bPWM1_PIN_X;}                           //PWMÓ³Éä½ÅP30
-#define PWM2PINAlter( )  {PIN_FUNC |= bPWM2_PIN_X;}                           //PWMÓ³Éä½ÅP31
+#define PWM1PINAlter( )  {PIN_FUNC |= bPWM1_PIN_X;}                           //PWMÓ³ï¿½ï¿½ï¿½P30
+#define PWM2PINAlter( )  {PIN_FUNC |= bPWM2_PIN_X;}                           //PWMÓ³ï¿½ï¿½ï¿½P31
 
-#define ForceClearPWMFIFO( ) {PWM_CTRL |= bPWM_CLR_ALL;}                      //Ç¿ÖÆÇå³ýPWM FIFOºÍCOUNT
-#define CancleClearPWMFIFO( ) {PWM_CTRL &= ~bPWM_CLR_ALL;}                    //È¡ÏûÇå³ýPWM FIFOºÍCOUNT
+#define PWM1PINCasual( )  {PIN_FUNC &= ~bPWM1_PIN_X;}                           
+#define PWM2PINCasual( )  {PIN_FUNC &= ~bPWM2_PIN_X;}                           
 
-#define PWM1OutEnable()  (PWM_CTRL |= bPWM1_OUT_EN)                           //ÔÊÐíPWM1Êä³ö                           
-#define PWM2OutEnable()  (PWM_CTRL |= bPWM2_OUT_EN)                           //ÔÊÐíPWM2Êä³ö  
-#define DsiablePWM1Out() (PWM_CTRL &= ~bPWM1_OUT_EN)                          //¹Ø±ÕPWM1Êä³ö                           
-#define DisablePWM2Out() (PWM_CTRL &= ~bPWM2_OUT_EN)                          //¹Ø±ÕPWM2Êä³ö  
+#define ForceClearPWMFIFO( ) {PWM_CTRL |= bPWM_CLR_ALL;}                      //Ç¿ï¿½ï¿½ï¿½ï¿½ï¿½PWM FIFOï¿½ï¿½COUNT
+#define CancleClearPWMFIFO( ) {PWM_CTRL &= ~bPWM_CLR_ALL;}                    //È¡ï¿½ï¿½ï¿½ï¿½ï¿½PWM FIFOï¿½ï¿½COUNT
 
-#define PWM1OutPolarHighAct()(PWM_CTRL &= ~bPWM1_POLAR)                       //PWM1Êä³öÄ¬ÈÏµÍ£¬¸ßÓÐÐ§                           
-#define PWM2OutPolarHighAct()(PWM_CTRL &= ~bPWM2_POLAR)                       //PWM2Êä³öÄ¬ÈÏµÍ£¬¸ßÓÐÐ§  
-#define PWM1OutPolarLowAct() (PWM_CTRL |= bPWM1_POLAR)                        //PWM1Êä³öÄ¬ÈÏ¸ß£¬µÍÓÐÐ§                         
-#define PWM2OutPolarLowAct() (PWM_CTRL |= bPWM2_POLAR)                        //PWM2Êä³öÄ¬ÈÏ¸ß£¬µÍÓÐÐ§   
+#define PWM1OutEnable()  (PWM_CTRL |= bPWM1_OUT_EN)                           //ï¿½ï¿½ï¿½ï¿½PWM1ï¿½ï¿½ï¿½                           
+#define PWM2OutEnable()  (PWM_CTRL |= bPWM2_OUT_EN)                           //ï¿½ï¿½ï¿½ï¿½PWM2ï¿½ï¿½ï¿½  
+#define DisablePWM1Out() (PWM_CTRL &= ~bPWM1_OUT_EN)                          //ï¿½Ø±ï¿½PWM1ï¿½ï¿½ï¿½                           
+#define DisablePWM2Out() (PWM_CTRL &= ~bPWM2_OUT_EN)                          //ï¿½Ø±ï¿½PWM2ï¿½ï¿½ï¿½  
+
+#define PWM1OutPolarHighAct()(PWM_CTRL &= ~bPWM1_POLAR)                       //PWM1ï¿½ï¿½ï¿½Ä¬ï¿½ÏµÍ£ï¿½ï¿½ï¿½ï¿½ï¿½Ð§                           
+#define PWM2OutPolarHighAct()(PWM_CTRL &= ~bPWM2_POLAR)                       //PWM2ï¿½ï¿½ï¿½Ä¬ï¿½ÏµÍ£ï¿½ï¿½ï¿½ï¿½ï¿½Ð§  
+#define PWM1OutPolarLowAct() (PWM_CTRL |= bPWM1_POLAR)                        //PWM1ï¿½ï¿½ï¿½Ä¬ï¿½Ï¸ß£ï¿½ï¿½ï¿½ï¿½ï¿½Ð§                         
+#define PWM2OutPolarLowAct() (PWM_CTRL |= bPWM2_POLAR)                        //PWM2ï¿½ï¿½ï¿½Ä¬ï¿½Ï¸ß£ï¿½ï¿½ï¿½ï¿½ï¿½Ð§   

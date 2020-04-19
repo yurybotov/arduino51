@@ -3,7 +3,7 @@
 #include "gpio.h"
 #include "pwm.h"
 
-byte pwm1value = 0, pwm2value = 0;
+byte pwm1value = 10, pwm2value = 10;
 
 void PWMInterrupt(void) __interrupt (INT_NO_PWMX) {
     PWM_CTRL |= bPWM_IF_END;
@@ -26,10 +26,60 @@ void pinMode(byte pin, byte mode) {
     if(GPIO_PORT(pin) == 1) {
         bitWrite(P1_DIR_PU,GPIO_PIN(pin),(mode & 1));
         bitWrite(P1_MOD_OC,GPIO_PIN(pin),((mode>>1) & 1));
+        if (GPIO_PWM(pin)) {
+            switch (GPIO_PIN(pin)) {
+            case 5:
+                PWM1PINCasual();
+                PWM1OutEnable();
+                break;
+            default:
+                break;
+            }
+        } else {
+            switch (GPIO_PIN(pin)) {
+            case 5:
+                DisablePWM1Out();
+                break;
+            default:
+                break;
+            }
+        }
     }
     if(GPIO_PORT(pin) == 3) {
         bitWrite(P3_DIR_PU,GPIO_PIN(pin),(mode & 1));
         bitWrite(P3_MOD_OC,GPIO_PIN(pin),((mode>>1) & 1));
+        if (GPIO_PWM(pin)) {
+            switch (GPIO_PIN(pin)) {
+            case 0:
+                PWM1PINAlter();
+                PWM1OutEnable();
+                break;
+            case 4:
+                PWM2PINCasual();
+                PWM2OutEnable();
+                break;
+            case 1:
+                PWM2PINAlter();
+                PWM2OutEnable();
+                break;
+            default:
+                break;
+            }
+        } else {
+            switch (GPIO_PIN(pin)) {
+            case 0:
+                DisablePWM1Out();
+                break;
+            case 4:
+                DisablePWM2Out();
+                break;
+            case 1:
+                DisablePWM2Out();
+                break;                                
+            default:
+                break;
+            }
+        }        
     }
 }
 

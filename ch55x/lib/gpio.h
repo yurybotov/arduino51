@@ -51,10 +51,10 @@ byte digitalRead(byte pin);
 // write value to Dxx pins
 void digitalWrite(byte pin, byte value);
 
-// read ADC value on Axx pin, read range [0...4095]
+// read ADC value on Axx pin, read range [0...255]
 word analogRead(byte pin);
 
-// set PWM value to PWMxx pin, value can be in range of [0...2047]
+// set PWM value to PWMxx pin, value can be in range of [0...255]
 void analogWrite(byte pin, word value);
 
 #endif
