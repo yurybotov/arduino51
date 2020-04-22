@@ -15,8 +15,6 @@ void SerialBegin(word speed);
 // print byte to Serial (CDC)
 void CDC_putc(byte c);
 
-// print string or format string with digits to CDC. Supports (%d %x %o)<long (%b)<short
-void uprintf(void (*putc)(byte), byte* str, ...);
 
 void SerialPrintf(byte* format,...);
 

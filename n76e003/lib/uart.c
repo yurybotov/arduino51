@@ -2,8 +2,9 @@
 #include "Function_define.h"
 #include "N76E003.h"
 #include "SFR_macro.h"
+#include <stdio.h>
 
-__idata byte SerialBuffer[32];
+__xdata byte SerialBuffer[32];
 byte beginBuffer = 0, endBuffer = 0, lengthBuffer = 0;
 
 void SerialPort0_ISR(void) __interrupt(4) {
@@ -55,11 +56,10 @@ word SerialAvailable() {
     return lengthBuffer;
 }
 
+static void UART0_send_char(char c, void* p) { (p); UART0_putc(c); }
 void SerialPrintf(const byte* format,...) {
     va_list args;
     va_start(args,format);
-    uprintf(UART0_putc,format,args);
+    _print_format( UART0_send_char, NULL, format, args );
     va_end(args);
 }
-
-#include "../../common/uart.c"

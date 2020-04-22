@@ -556,21 +556,16 @@ void DeviceInterrupt(void) __interrupt (INT_NO_USB) {                      //USB
 
 }*/
 
-//主函数
-void CDC_init()
-{
-//    uint8_t length;
+void CDC_init() {
     uint8_t Uart_Timeout = 0;
-    delay(5);                                                          //修改主频等待内部晶振稳定,必加
-    //mInitSTDIO( );                                                        //串口0,可以用于调试
-//    UART1Setup( );                                                        //用于CDC
+    delay(5);
 
     USBDeviceCfg();
-    USBDeviceEndPointCfg();                                               //端点配置
-    USBDeviceIntCfg();                                                    //中断初始化
+    USBDeviceEndPointCfg();
+    USBDeviceIntCfg();
     UEP0_T_LEN = 0;
-    UEP1_T_LEN = 0;                                                       //预使用发送长度一定要清空
-    UEP2_T_LEN = 0;                                                       //预使用发送长度一定要清空
+    UEP1_T_LEN = 0;
+    UEP2_T_LEN = 0;
 }
 
 __xdata byte SerialReceiveBuffer[64];
@@ -581,8 +576,7 @@ byte sendTimeout;
 void CDC_loop(void) {
     uint8_t length, i;
     if(UsbConfig) {
-        if(USBByteCount) {   //USB接收端点有数据 если во входном буфере CDC есть символы
-            //CH554UART1SendByte(Ep2Buffer[USBBufOutPoint++]); //послать один символ в UART
+        if(USBByteCount) {
             SerialReceiveBuffer[endReceiveBuffer++] = Ep2Buffer[USBBufOutPoint++];
             if (endReceiveBuffer == 32)
                 endReceiveBuffer = 0;
@@ -592,32 +586,20 @@ void CDC_loop(void) {
                 UEP2_CTRL = UEP2_CTRL & ~ MASK_UEP_R_RES | UEP_R_RES_ACK;
 
         }
-        if(lengthSendBuffer) // если в буфере UART есть символы
-            sendTimeout++; // подождать
-        if(!UpPoint2_Busy)   //端点不繁忙（空闲后的第一包数据，只用作触发上传）
-        { // если CDC освободился
-            //length = UartByteCount;
+        if(lengthSendBuffer)
+            sendTimeout++;
+        if(!UpPoint2_Busy) {
             length = lengthSendBuffer;
-            if(length>0) // и есть вообще чего передавать
-            {
-                if(length>39 || sendTimeout > 100) // если достаточно много в буфере или таймаут
-                { // то передать
+            if(length>0) {
+                if(length>39 || sendTimeout > 100) {
                     sendTimeout = 0;
                     for(i = 0; i < length; i++) {
                         *(Ep2Buffer+MAX_PACKET_SIZE+i) = SerialSendBuffer[beginSendBuffer++];
                         if(beginSendBuffer == 64) beginSendBuffer = 0;
                         lengthSendBuffer--;
                     }
-                    //if(Uart_Output_Point+length>UART_REV_LEN)
-                    //    length = UART_REV_LEN-Uart_Output_Point;
-                    //UartByteCount -= length;
-                    //写上传端点
-                    //memcpy(Ep2Buffer+MAX_PACKET_SIZE,&Receive_Uart_Buf[Uart_Output_Point],length);
-                    //Uart_Output_Point+=length;
-                    //if(Uart_Output_Point>=UART_REV_LEN)
-                    //    Uart_Output_Point = 0;
-                    UEP2_T_LEN = length;                                                    //预使用发送长度一定要清空
-                    UEP2_CTRL = UEP2_CTRL & ~ MASK_UEP_T_RES | UEP_T_RES_ACK;            //应答ACK
+                    UEP2_T_LEN = length;
+                    UEP2_CTRL = UEP2_CTRL & ~ MASK_UEP_T_RES | UEP_T_RES_ACK;
                     UpPoint2_Busy = 1;
                 }
             }
@@ -638,11 +620,9 @@ void CDC_putc(byte c) {
 }
 
 static void CDC_send_char(char c, void* p) { (p); CDC_putc(c); }
-// print string or format string with digits to CDC. Supports (%d %x %o)<long (%b)<short
 void SerialPrintf(byte* format,...) {
     va_list args;
     va_start(args,format);
-    //uprintf(CDC_putc,format,args);
     _print_format( CDC_send_char, NULL, format, args );
     va_end(args);
 }

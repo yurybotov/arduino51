@@ -9,8 +9,6 @@ void SerialBegin(word speed);
 void UART0_putc(byte c);
 #define SerialPutc(c) UART0_putc(c)
 
-// print string or format string with digits to Serial. Supports (%d %x %o)<long (%b)<short
-void uprintf(void (*putc)(byte), byte* str, ...);
 
 void SerialPrintf(const byte* format,...);
 
