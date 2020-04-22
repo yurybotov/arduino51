@@ -17,10 +17,11 @@
 Serial.begin() -> `SerialBegin()`
 for(int i = 0;...) -> `int i; for(i = 0;...)`
 И так далее.
+Поскольку С не поддерживает функций с одним именем и различными типами параметров, `Serial.print()` пришлось заменить на  `SerialPrintf("format line %d", var)`.
 Поскольку у микросхем нет привязки к конкретным pin ардуино, мне пришлось обращаться к ним в зависимости от номера порта. Так вывод `D14` это доступ к 4 пину порта 1. Причем чтобы задать пин аналогового ввода надо обращаться к выводу `A{тут 2 цифры}`, а для "аналогового" выхода надо подключиться к `PWM{тут 2 цифры}`:
-`pinMode(PWM14,OUTPUT);`
-`pinMode(A12,INPUT);`
-`pinMode(D14,INPUT);`
-`a = digitalRead(D14);`
-`b = analogRead(A12);`
+-`pinMode(PWM14,OUTPUT);`
+-`pinMode(A12,INPUT);`
+-`pinMode(D14,INPUT);`
+-`a = digitalRead(D14);`
+-`b = analogRead(A12);`
 К слову, режимы отличаются от ардуино: `BIDIRECTIONAL,OUTPUT==PUSHPULL,INPUT`
