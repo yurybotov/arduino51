@@ -3,8 +3,10 @@
 #include "../../common/exttypes.h"
 #include "stdbool.h"
 
+#ifndef MSBFIRST
 #define MSBFIRST 1
 #define LSBFIRST 0
+#endif
 
 // called on start in main.c
 void ticker_init(void);

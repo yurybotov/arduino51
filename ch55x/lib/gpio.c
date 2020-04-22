@@ -3,7 +3,7 @@
 #include "gpio.h"
 #include "pwm.h"
 
-byte pwm1value = 10, pwm2value = 10;
+__idata byte pwm1value = 10, pwm2value = 10;
 
 void PWMInterrupt(void) __interrupt (INT_NO_PWMX) {
     PWM_CTRL |= bPWM_IF_END;

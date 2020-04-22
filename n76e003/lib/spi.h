@@ -2,8 +2,8 @@
 #define __SDCC_51_A_SPI__
 #include "../../common/exttypes.h"
 
-#define MSBFIRST 0x00
-#define LSBFIRST 0x20
+#define SPI_MSBFIRST 0x00
+#define SPI_LSBFIRST 0x20
 
 #define SPI_MODE0 0x0
 #define SPI_MODE1 0x4

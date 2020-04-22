@@ -32,11 +32,34 @@ void SerialBegin(word speed) {
     set_EA;
 }
 
-void putc(byte c) {
+void UART0_putc(byte c) {
     TI = 0;
     SBUF = c;
     while (TI == 0)
         ;
+}
+
+byte UART0_getc(void) {
+    if (lengthBuffer > 0) {
+        byte c = SerialBuffer[beginBuffer++];
+        if (beginBuffer == 32)
+            beginBuffer = 0;
+        lengthBuffer--;
+        return c;
+    } else {
+        return 0;
+    }
+}
+
+word SerialAvailable() {
+    return lengthBuffer;
+}
+
+void SerialPrintf(const byte* format,...) {
+    va_list args;
+    va_start(args,format);
+    uprintf(UART0_putc,format,args);
+    va_end(args);
 }
 
 #include "../../common/uart.c"

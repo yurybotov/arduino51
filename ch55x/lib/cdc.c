@@ -11,7 +11,7 @@
 
 #include <ch554.h>
 #include <ch554_usb.h>
-//#include <debug.h>
+#include <stdio.h>
 #include "ticker.h"
 #include "cdc.h"
 
@@ -73,15 +73,15 @@ __xdata uint8_t LineCoding[7]={0x00,0xe1,0x00,0x00,0x00,0x00,0x08};   //初始�
 
 #define UART_REV_LEN  64                 //串口接收缓冲区大小
 //__idata uint8_t Receive_Uart_Buf[UART_REV_LEN];   //串口接收缓冲区
-volatile __idata uint8_t Uart_Input_Point = 0;   //循环缓冲区写入指针，总线复位需要初始化为0
-volatile __idata uint8_t Uart_Output_Point = 0;  //循环缓冲区取出指针，总线复位需要初始化为0
-volatile __idata uint8_t UartByteCount = 0;      //当前缓冲区剩余待取字节数
+//volatile __idata uint8_t Uart_Input_Point = 0;   //循环缓冲区写入指针，总线复位需要初始化为0
+//volatile __idata uint8_t Uart_Output_Point = 0;  //循环缓冲区取出指针，总线复位需要初始化为0
+//volatile __idata uint8_t UartByteCount = 0;      //当前缓冲区剩余待取字节数
 
 
-volatile __idata uint8_t USBByteCount = 0;      //代表USB端点接收到的数据
-volatile __idata uint8_t USBBufOutPoint = 0;    //取数据指针
+volatile __xdata uint8_t USBByteCount = 0;      //代表USB端点接收到的数据
+volatile __xdata uint8_t USBBufOutPoint = 0;    //取数据指针
 
-volatile __idata uint8_t UpPoint2_Busy  = 0;   //上传端点是否忙标志
+volatile __xdata uint8_t UpPoint2_Busy  = 0;   //上传端点是否忙标志
 
 
 /*******************************************************************************
@@ -506,9 +506,9 @@ void DeviceInterrupt(void) __interrupt (INT_NO_USB) {                      //USB
         UIF_SUSPEND = 0;
         UIF_TRANSFER = 0;
         UIF_BUS_RST = 0;                                                             //清中断标志
-        Uart_Input_Point = 0;   //循环缓冲区输入指针
-        Uart_Output_Point = 0;  //循环缓冲区读出指针
-        UartByteCount = 0;      //当前缓冲区剩余待取字节数
+        //Uart_Input_Point = 0;   //循环缓冲区输入指针
+        //Uart_Output_Point = 0;  //循环缓冲区读出指针
+        //UartByteCount = 0;      //当前缓冲区剩余待取字节数
         USBByteCount = 0;       //USB端点收到的长度
         UsbConfig = 0;          //清除配置值
         UpPoint2_Busy = 0;
@@ -565,9 +565,6 @@ void CDC_init()
     //mInitSTDIO( );                                                        //串口0,可以用于调试
 //    UART1Setup( );                                                        //用于CDC
 
-#ifdef DE_PRINTF
-    printf("start ...\n");
-#endif
     USBDeviceCfg();
     USBDeviceEndPointCfg();                                               //端点配置
     USBDeviceIntCfg();                                                    //中断初始化
@@ -576,9 +573,9 @@ void CDC_init()
     UEP2_T_LEN = 0;                                                       //预使用发送长度一定要清空
 }
 
-__idata byte SerialReceiveBuffer[64];
+__xdata byte SerialReceiveBuffer[64];
 byte beginReceiveBuffer = 0, endReceiveBuffer = 0, lengthReceiveBuffer = 0;
-__idata byte SerialSendBuffer[64];
+__xdata byte SerialSendBuffer[64];
 byte beginSendBuffer = 0, endSendBuffer = 0, lengthSendBuffer = 0;
 byte sendTimeout;
 void CDC_loop(void) {
@@ -630,19 +627,28 @@ void CDC_loop(void) {
 
 void SerialBegin(word speed) { (speed); }
 
+uint8_t charCounter = 0;
 // print byte to Serial (CDC)
-void putc(byte c) {
+void CDC_putc(byte c) {
     SerialSendBuffer[endSendBuffer++] = c;
     if (endSendBuffer == 64)
         endSendBuffer = 0;
     lengthSendBuffer++;
+    if(++charCounter%8 == 0) CDC_loop();
 }
 
+static void CDC_send_char(char c, void* p) { (p); CDC_putc(c); }
 // print string or format string with digits to CDC. Supports (%d %x %o)<long (%b)<short
-void uprintf(byte* str, ...) {}
+void SerialPrintf(byte* format,...) {
+    va_list args;
+    va_start(args,format);
+    //uprintf(CDC_putc,format,args);
+    _print_format( CDC_send_char, NULL, format, args );
+    va_end(args);
+}
 
 // read byte from Serial
-byte getc(void) {
+byte CDC_getc(void) {
     byte res = SerialReceiveBuffer[beginReceiveBuffer++];
     if(beginReceiveBuffer == 64) beginReceiveBuffer = 0;
     lengthReceiveBuffer--;
@@ -651,3 +657,5 @@ byte getc(void) {
 
 // Check. If in Serial buffer has chars, return it qwantity, else 0.
 word SerialAvailable() { return lengthReceiveBuffer;}
+
+//#include "../../common/uart.c"

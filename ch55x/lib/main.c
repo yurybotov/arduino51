@@ -42,6 +42,7 @@ void main() {
     ticker_init();
 	pwm_init();
     CDC_init();
+	delay(100);
     setup();
     while(1) { 
         CDC_loop();

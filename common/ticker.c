@@ -3,11 +3,13 @@ dword millis() { return milliseconds; }
 
 dword micros() { return milliseconds*1000 + microsecondsTens*10; }
 
+#ifndef SPECIAL_DELAY
 void delay(dword time) {
     volatile dword waitTo = millis() + time;
     while (waitTo > millis())
         ;
 }
+#endif
 
 void delayMicroseconds(dword time) {
     volatile dword waitTo = micros() + time;

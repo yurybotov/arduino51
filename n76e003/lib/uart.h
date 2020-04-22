@@ -6,14 +6,17 @@
 void SerialBegin(word speed);
 
 // print byte to Serial (UART0)
-void putc(byte c);
+void UART0_putc(byte c);
+#define SerialPutc(c) UART0_putc(c)
 
 // print string or format string with digits to Serial. Supports (%d %x %o)<long (%b)<short
-void uprintf(byte* str, ...);
+void uprintf(void (*putc)(byte), byte* str, ...);
+
+void SerialPrintf(const byte* format,...);
 
 // read byte from serial
-byte getc(void);
-#define SerialRead getc
+byte UART0_getc(void);
+#define SerialRead UART0_getc
 
 // Check. If in Serial buffer has chars, return it qwantity, else 0.
 word SerialAvailable();
