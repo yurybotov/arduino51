@@ -5,22 +5,26 @@
 #include "gpio.h"
 #include "../../common/utility.h"
 
-volatile dword milliseconds;
+const byte period = 0x5F;
 
-const byte th0 = 0xfa;
-const byte tl0 = 0xca;
+volatile unsigned long milliseconds;
+volatile unsigned char microsecondsTens;
 
 void Timer0_ISR(void) __interrupt(1) {
-    TH0 = th0;
-    TL0 = tl0;
-    milliseconds++;
+    microsecondsTens++;
+    if(microsecondsTens == 100) {
+        microsecondsTens = 0;
+        milliseconds++;
+    } 
 }
 
 void ticker_init(void) {
+    microsecondsTens = 0;
     milliseconds = 0;
-    TIMER0_MODE1_ENABLE;
-    TH0 = th0;
-    TL0 = tl0;
+    TIMER0_MODE2_ENABLE;
+    TH0 = period;
+    TL0 = period;
+    set_T0M;
     set_ET0;
     set_EA;
     set_TR0;

@@ -3,28 +3,41 @@
 #include "../../common/utility.h"
 #include "ch554.h"
 
-const byte th0 = 0xfa;
-const byte tl0 = 0xca;
+const byte period = 0x12;
 
-volatile unsigned long milliseconds;    // ISR counter variable.
-volatile unsigned char quarta;
+__data volatile unsigned long milliseconds;
+__data volatile unsigned char microsecondsTens;
 
 void Timer0_ISR(void) __interrupt (INT_NO_TMR0) {
-    TH0 = th0;
-    TL0 = tl0;
-    milliseconds++;        // Increment counter variable.
+    microsecondsTens++;
+    if(microsecondsTens == 100) {
+        microsecondsTens = 0;
+        milliseconds++;
+    } 
 }
 
 void ticker_init(void) {
+    microsecondsTens = 0;
     milliseconds = 0;
     TR0 = 0;
     TF0 = 0;
-    TMOD = 1;
-    TH0 = th0;
-    TL0 = tl0;
+    TMOD = 2;
+    T2MOD |= (bTMR_CLK | bT0_CLK);
+    TH0 = period;
+    TL0 = period;
     ET0 = 1;
     EA = 1;
     TR0 = 1;
 }
+
+void CDC_loop(void);
+#define SPECIAL_DELAY
+void delay(dword time) {
+    volatile dword waitTo = millis() + time;
+    while (waitTo > millis()) {
+        if(time > 50) CDC_loop();
+    }
+}
+
 
 #include "../../common/ticker.c"
