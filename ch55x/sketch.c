@@ -1,20 +1,22 @@
 #include "arduino.h"
 
 void setup() {
-    SerialBegin(115200);
+    //SerialBegin(115200);
     //pinMode(P32,PUSHPULL);
     //pinMode(P14,PUSHPULL);
-    pinMode(A14,INPUT);
+    // pinMode(A14,INPUT);
     //digitalWrite(P32,1);
-    //pinMode(PWM30,BIDIRECTIONAL);
+    pinMode(PWM34,OUTPUT);
+    //pinMode(D15,OUTPUT);
 }
 
 byte state = 0;
 dword moment = 0;
+int i;
 
 void loop() {
-    char sto = 100;
-    char nosto = -100;
+    //char sto = 100;
+    //char nosto = -100;
     /*if(SerialAvailable()) {putc(getc());}
     if(moment < millis()) {
         moment = millis() + 100;
@@ -22,12 +24,13 @@ void loop() {
         digitalWrite(P14,state);
         putc('*');
     }*/
-    /*word i = 0;
     for(i = 0; i < 256; i++) {
-        analogWrite(PWM30,i);
-        delay(10);
-    }*/
-    SerialPrintf(" test char: %c\n", '*');
+    //    SerialPrintf("*\n");
+        analogWrite(PWM34,i);
+        delay(2);
+    }
+    //SerialPrintf("*****************************\n");
+    /*SerialPrintf(" test char: %c\n", '*');
     delay(1000);
     SerialPrintf("10 signed...\n");
     delay(1000);
@@ -52,14 +55,11 @@ void loop() {
     SerialPrintf(" test long: 0x%lx\n", 65536 * 65536 - 1);
     delay(1000);
     SerialPrintf(" ADC A14: %d\n", analogRead(A14));
-    /*SerialPrintf("2 unsigned...\n");
-    delay(1000);
-    SerialPrintf(" test small int: 0b%bi\n", (uint8_t)255);
-    delay(1000);
-    SerialPrintf(" test short: 0b%b\n", 65535);
-    delay(1000);
-    SerialPrintf(" test long: 0b%bl\n", 65536 * 65536 - 1);
-    delay(1000);*/
     SerialPrintf(" test string %s","AAAA!\n");
-    delay(1000);
+    delay(1000);*/
+    /*digitalWrite(D15,1);
+    delay(100);
+    digitalWrite(D15,0);
+    delay(100);*/
+    //delay(100);
 }

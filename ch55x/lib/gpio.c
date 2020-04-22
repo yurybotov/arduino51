@@ -2,8 +2,9 @@
 #include "adc.h"
 #include "gpio.h"
 #include "pwm.h"
+#include "cdc.h"
 
-__idata byte pwm1value = 10, pwm2value = 10;
+volatile byte pwm1value = 100, pwm2value = 100;
 
 void PWMInterrupt(void) __interrupt (INT_NO_PWMX) {
     PWM_CTRL |= bPWM_IF_END;
@@ -13,13 +14,15 @@ void PWMInterrupt(void) __interrupt (INT_NO_PWMX) {
 
 void pwm_init(void) {
     SetPWMClk(31);
+    ForceClearPWMFIFO();
+    CancleClearPWMFIFO();
     PWM1OutPolarHighAct();
     PWM2OutPolarHighAct();
     PWM_CTRL |= bPWM_IF_END | bPWM_IE_END;
     IE_PWMX = 1;
     EA = 1;
-    SetPWM1Dat(0);
-    SetPWM2Dat(0);
+    SetPWM1Dat(pwm1value);
+    SetPWM2Dat(pwm2value);
 }
 
 void pinMode(byte pin, byte mode) {
@@ -31,6 +34,7 @@ void pinMode(byte pin, byte mode) {
             case 5:
                 PWM1PINCasual();
                 PWM1OutEnable();
+                SetPWM1Dat(pwm1value);
                 break;
             default:
                 break;
@@ -53,14 +57,17 @@ void pinMode(byte pin, byte mode) {
             case 0:
                 PWM1PINAlter();
                 PWM1OutEnable();
+                SetPWM1Dat(pwm1value);
                 break;
             case 4:
                 PWM2PINCasual();
                 PWM2OutEnable();
+                SetPWM2Dat(pwm2value);
                 break;
             case 1:
                 PWM2PINAlter();
                 PWM2OutEnable();
+                SetPWM2Dat(pwm2value);
                 break;
             default:
                 break;
@@ -141,6 +148,8 @@ void analogWrite(byte pin, word value) {
         if (GPIO_PORT(pin) == 1) {
             switch (GPIO_PIN(pin)) {
             case 5: //1
+                PWM1PINCasual();
+                PWM1OutEnable();
                 SetPWM1Dat(value);
                 pwm1value = value;
                 break;
@@ -150,14 +159,20 @@ void analogWrite(byte pin, word value) {
         } else if (GPIO_PORT(pin) == 3) {
             switch (GPIO_PIN(pin)) {
             case 0: //1_
+                PWM1PINAlter();
+                PWM1OutEnable();
                 SetPWM1Dat(value);
                 pwm1value = value;
                 break;
             case 4: //2
+                PWM2PINCasual();
+                PWM2OutEnable();
                 SetPWM2Dat(value);
                 pwm2value = value;
                 break;
             case 1: //2_
+                PWM2PINAlter();
+                PWM2OutEnable();
                 SetPWM2Dat(value);
                 pwm2value = value;
                 break;

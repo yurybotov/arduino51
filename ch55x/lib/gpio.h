@@ -4,34 +4,34 @@
 #include "../../common/exttypes.h"
 #include "../../common/utility.h"
 
-#define GPIO_PXX(PORT, PIN) (PORT + (PIN << 4))
-#define GPIO_PIN(P) ((P >> 4) & 0xF)
-#define GPIO_PORT(P) (P & 0xF)
+#define GPIO_PXX(PORT, PIN) (PORT + (PIN << 2))
+#define GPIO_PIN(P) ((P >> 2) & 0x7)
+#define GPIO_PORT(P) (P & 0x3)
 #define GPIO_PWM(P) ((P & 0x80) == 0x80)
 #define GPIO_ADC(P) ((P & 0x40) == 0x40)
 
-#define P11 GPIO_PXX(1, 1)
-#define P14 GPIO_PXX(1, 4)
-#define P15 GPIO_PXX(1, 5)
-#define P16 GPIO_PXX(1, 6)
-#define P17 GPIO_PXX(1, 7)
-#define P30 GPIO_PXX(3, 0)
-#define P31 GPIO_PXX(3, 1)
-#define P32 GPIO_PXX(3, 2)
-#define P33 GPIO_PXX(3, 3)
-#define P34 GPIO_PXX(3, 4)
-#define P36 GPIO_PXX(3, 6)
-#define P37 GPIO_PXX(3, 7)
+#define D11 GPIO_PXX(1, 1)
+#define D14 GPIO_PXX(1, 4)
+#define D15 GPIO_PXX(1, 5)
+#define D16 GPIO_PXX(1, 6)
+#define D17 GPIO_PXX(1, 7)
+#define D30 GPIO_PXX(3, 0)
+#define D31 GPIO_PXX(3, 1)
+#define D32 GPIO_PXX(3, 2)
+#define D33 GPIO_PXX(3, 3)
+#define D34 GPIO_PXX(3, 4)
+#define D36 GPIO_PXX(3, 6)
+#define D37 GPIO_PXX(3, 7)
 
-#define A11 (P11 | 0x40)
-#define A14 (P14 | 0x40)
-#define A15 (P15 | 0x40)
-#define A32 (P32 | 0x40)
+#define A11 (D11 | 0x40)
+#define A14 (D14 | 0x40)
+#define A15 (D15 | 0x40)
+#define A32 (D32 | 0x40)
 
-#define PWM15 (P15 | 0x80) // pwm1
-#define PWM30 (P30 | 0x80) // pwm1
-#define PWM34 (P34 | 0x80) // pwm2
-#define PWM31 (P31 | 0x80) // pwm2
+#define PWM15 (D15 | 0x80) // pwm1
+#define PWM30 (D30 | 0x80) // pwm1
+#define PWM34 (D34 | 0x80) // pwm2
+#define PWM31 (D31 | 0x80) // pwm2
 
 #define INPUT 0
 #define PUSHPULL 1
