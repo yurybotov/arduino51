@@ -1,8 +1,9 @@
 #include "arduino.h"
 
 void Timer0_ISR(void) __interrupt (INT_NO_TMR0);
+void UART0_ISR(void) __interrupt(INT_NO_UART0);
 void DeviceInterrupt(void) __interrupt (INT_NO_USB);
-//void Uart1_ISR(void) __interrupt (INT_NO_UART1);
+void UART1_ISR(void) __interrupt(INT_NO_UART1);
 void PWMInterrupt(void) __interrupt (INT_NO_PWMX);
 
 void CfgFsys() {

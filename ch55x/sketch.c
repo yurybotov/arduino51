@@ -8,6 +8,8 @@ void setup() {
     //digitalWrite(P32,1);
     pinMode(PWM34,OUTPUT);
     //pinMode(D15,OUTPUT);
+    UART0_begin(115200);
+    UART1_begin(9600);
 }
 
 byte state = 0;
@@ -15,6 +17,10 @@ dword moment = 0;
 int i;
 
 void loop() {
+    UART0_putc(0x55);
+    UART1_putc(0x55);
+    UART0_putc(0xAA);
+    UART1_putc(0xAA);    
     //char sto = 100;
     //char nosto = -100;
     /*if(SerialAvailable()) {putc(getc());}
@@ -24,11 +30,12 @@ void loop() {
         digitalWrite(P14,state);
         putc('*');
     }*/
-    for(i = 0; i < 256; i++) {
+    /*for(i = 0; i < 256; i++) {
     //    SerialPrintf("*\n");
         analogWrite(PWM34,i);
         delay(2);
     }
+    */
     //SerialPrintf("*****************************\n");
     /*SerialPrintf(" test char: %c\n", '*');
     delay(1000);
