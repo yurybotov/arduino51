@@ -13,23 +13,16 @@ void USBDeviceCfg(void);
 void SerialBegin(word speed);
 
 // print byte to Serial (CDC)
-void CDC_putc(byte c);
+void SerialPutc(byte c);
 
 
 void SerialPrintf(byte* format,...);
 
 // read byte from Serial
-byte CDC_getc(void);
-#define SerialRead CDC_getc
+byte SerialGetc(void);
+#define SerialRead SerialGetc
 
 // Check. If in Serial buffer has chars, return it qwantity, else 0.
 word SerialAvailable();
-
-/*
-#ifndef UART1_BAUD
-#define  UART1_BAUD    9600
-#endif
-void UART1Setup(void);
-void Config_Uart1(uint8_t cfg_uart[]);*/
 
 #endif

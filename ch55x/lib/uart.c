@@ -1,114 +1,76 @@
 #include "uart.h"
 #include "ch554.h"
+#include "gpio.h"
 #include <stdio.h>
 
-__xdata byte UART0_buffer[32];
-byte beginUART0Buffer = 0, endUART0Buffer = 0, lengthUART0Buffer = 0;
+implements_buffer(Serial0,32)
 
-void UART0_ISR(void) __interrupt(INT_NO_UART0) {
-    if (RI == 1) {
-        RI = 0;
-        UART0_buffer[endUART0Buffer++] = SBUF;
-        if (endUART0Buffer == 32)
-            endUART0Buffer = 0;
-        lengthUART0Buffer++;
-    }
-}
+// void UART0_ISR(void) __interrupt(INT_NO_UART0)
+implements_isr(Serial0,UART0,32,SBUF,RI)
 
-void UART0_begin(word speed) {
+//void Serial0Putc(byte c)
+implements_putc(Serial0,SBUF,TI)
+
+// byte Serial0Getc(void)
+implements_getc(Serial0,32)
+
+// word Serial0Available()
+implements_available(Serial0)
+
+// void Serial0Printf(const byte* format,...)
+implements_printf(Serial0)
+
+void Serial0Begin(word speed) {
+    byte coef = 256 - (1500000 / speed);
     SM0 = 0;
     SM1 = 1;
     SM2 = 0;
     REN = 1;
+    RCLK = 0;
+    TCLK = 0;
     T2MOD |= bTMR_CLK | bT1_CLK;
     PCON |= SMOD;
-    TH1 = 256 - (1500000 / speed);
-    TI = 0;
-    PIN_FUNC |= bUART0_PIN_X;
+    TMOD &= ~bT1_GATE;
+    TMOD &= ~bT1_CT;
+    TMOD |= bT1_M1;
+    TMOD &= ~bT1_M0;
+    TH1 = coef;
+    TL1 = coef;
+    TR1 = 1;
+    TI = 1;
+    //PIN_FUNC &= ~bUART0_PIN_X;
     ES = 1;
     EA = 1;
+    //pinMode(D31,OUTPUT);
+    //pinMode(D30,INPUT);
 }
 
-void UART0_putc(byte c) {
-    SBUF = c;
-    while(TI == 0);
-    TI = 0;
-}
+implements_buffer(Serial1,32)
 
-byte UART0_getc(void) {
-    if (lengthUART0Buffer > 0) {
-        byte c = UART0_buffer[beginUART0Buffer++];
-        if (beginUART0Buffer == 32)
-            beginUART0Buffer = 0;
-        lengthUART0Buffer--;
-        return c;
-    } else {
-        return 0;
-    }
-}
+// void UART1_ISR(void) __interrupt(INT_NO_UART1)
+implements_isr(Serial1,UART1,32,SBUF1,U1RI)
 
-word UART0_available() {
-    return lengthUART0Buffer;
-}
+//void Serial1Putc(byte c)
+implements_putc(Serial1,SBUF1,U1TI)
 
-static void UART0_send_char(char c, void* p) { (p); UART0_putc(c); }
-void UART0_printf(const byte* format,...) {
-    va_list args;
-    va_start(args,format);
-    _print_format( UART0_send_char, NULL, format, args );
-    va_end(args);
-}
+// byte Serial1Getc(void)
+implements_getc(Serial1,32)
 
-__xdata byte UART1_buffer[32];
-byte beginUART1Buffer = 0, endUART1Buffer = 0, lengthUART1Buffer = 0;
+// word Serial1Available()
+implements_available(Serial1)
 
-void UART1_ISR(void) __interrupt(INT_NO_UART1) {
-    if (U1RI == 1) {
-        U1RI = 0;
-        UART1_buffer[endUART1Buffer++] = SBUF1;
-        if (endUART1Buffer == 32)
-            endUART1Buffer = 0;
-        lengthUART1Buffer++;
-    }
-}
+// void Serial1Printf(const byte* format,...)
+implements_printf(Serial1)
 
-void UART1_begin(word speed) {
+void Serial1Begin(word speed) {
     U1SM0 = 0;
     U1SMOD = 1;
     U1REN = 1;
     SBAUD1 = 256 - (1500000 / speed);
     U1TI = 0;
-    PIN_FUNC |= bUART1_PIN_X;
+    //PIN_FUNC &= ~bUART1_PIN_X;
     IE_UART1 = 1;
     EA = 1;
-}
-
-void UART1_putc(byte c) {
-    SBUF1 = c;
-    while(U1TI == 0);
-    U1TI = 0;
-}
-
-byte UART1_getc(void) {
-    if (lengthUART1Buffer > 0) {
-        byte c = UART1_buffer[beginUART1Buffer++];
-        if (beginUART1Buffer == 32)
-            beginUART1Buffer = 0;
-        lengthUART1Buffer--;
-        return c;
-    } else {
-        return 0;
-    }
-}
-
-word UART1_available() {
-    return lengthUART1Buffer;
-}
-
-static void UART1_send_char(char c, void* p) { (p); UART1_putc(c); }
-void UART1_printf(const byte* format,...) {
-    va_list args;
-    va_start(args,format);
-    _print_format( UART1_send_char, NULL, format, args );
-    va_end(args);
+    //pinMode(D16,INPUT);
+    //pinMode(D17,OUTPUT);    
 }
