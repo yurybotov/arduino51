@@ -503,9 +503,7 @@ void DeviceInterrupt(void) __interrupt (INT_NO_USB) {                      //USB
 }
 
 void CDC_init() {
-    uint8_t Uart_Timeout = 0;
     delay(5);
-
     USBDeviceCfg();
     USBDeviceEndPointCfg();
     USBDeviceIntCfg();
@@ -516,38 +514,35 @@ void CDC_init() {
 
 __xdata byte SerialReceiveBuffer[64];
 byte beginReceiveBuffer = 0, endReceiveBuffer = 0, lengthReceiveBuffer = 0;
-__xdata byte SerialSendBuffer[64];
-byte beginSendBuffer = 0, endSendBuffer = 0, lengthSendBuffer = 0;
+byte lengthSendBuffer = 0;
 byte sendTimeout;
+
 void CDC_loop(void) {
     uint8_t length, i;
     if(UsbConfig) {
         if(USBByteCount) {
             SerialReceiveBuffer[endReceiveBuffer++] = Ep2Buffer[USBBufOutPoint++];
-            if (endReceiveBuffer == 32)
+            if (endReceiveBuffer == 64)
                 endReceiveBuffer = 0;
             lengthReceiveBuffer++;
             USBByteCount--;
             if(USBByteCount==0)
                 UEP2_CTRL = UEP2_CTRL & ~ MASK_UEP_R_RES | UEP_R_RES_ACK;
-
         }
         if(lengthSendBuffer)
             sendTimeout++;
         if(!UpPoint2_Busy) {
             length = lengthSendBuffer;
-            if(length>0) {
-                if(length>39 || sendTimeout > 100) {
+            if(length > 0) {
+                if(length > 39 || sendTimeout > 100) {
                     sendTimeout = 0;
-                    for(i = 0; i < length; i++) {
-                        *(Ep2Buffer+MAX_PACKET_SIZE+i) = SerialSendBuffer[beginSendBuffer++];
-                        if(beginSendBuffer == 64) beginSendBuffer = 0;
-                        lengthSendBuffer--;
-                    }
+                    lengthSendBuffer = 0;
                     UEP2_T_LEN = length;
-                    UEP2_CTRL = UEP2_CTRL & ~ MASK_UEP_T_RES | UEP_T_RES_ACK;
+                    UEP2_CTRL &= ~(MASK_UEP_T_RES | UEP_T_RES_ACK);
                     UpPoint2_Busy = 1;
                 }
+            } else {
+                sendTimeout = 0;
             }
         }
     }
@@ -558,9 +553,7 @@ void SerialBegin(word speed) { (speed); }
 uint8_t charCounter = 0;
 // print byte to Serial (CDC)
 void SerialPutc(byte c) {
-    SerialSendBuffer[endSendBuffer++] = c;
-    if (endSendBuffer == 64)
-        endSendBuffer = 0;
+    *(Ep2Buffer + MAX_PACKET_SIZE + lengthSendBuffer) = c;
     lengthSendBuffer++;
     if(++charCounter%8 == 0) CDC_loop();
 }

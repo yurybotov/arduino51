@@ -5,7 +5,7 @@
 
 const byte period = 0x12;
 
-__data volatile unsigned long milliseconds;
+__xdata volatile unsigned long milliseconds;
 __data volatile unsigned char microsecondsTens;
 
 void Timer0_ISR(void) __interrupt (INT_NO_TMR0) {
@@ -31,12 +31,12 @@ void ticker_init(void) {
 }
 
 void CDC_loop(void);
+
 #define SPECIAL_DELAY
 void delay(dword time) {
     volatile dword waitTo = millis() + time;
-    while (waitTo > millis()) {
-        if(time > 50) CDC_loop();
-    }
+    if(time > 50) CDC_loop();
+    while (waitTo > millis());
 }
 
 

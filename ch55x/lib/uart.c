@@ -20,8 +20,11 @@ implements_available(Serial0)
 // void Serial0Printf(const byte* format,...)
 implements_printf(Serial0)
 
-void Serial0Begin(word speed) {
+void Serial0Begin(dword speed) {
     byte coef = 256 - (1500000 / speed);
+    P3 |= bTXD | bRXD;
+    P3_DIR_PU |= bTXD | bRXD;
+    P3_MOD_OC |= bTXD | bRXD;    
     SM0 = 0;
     SM1 = 1;
     SM2 = 0;
@@ -59,7 +62,10 @@ implements_available(Serial1)
 // void Serial1Printf(const byte* format,...)
 implements_printf(Serial1)
 
-void Serial1Begin(word speed) {   
+void Serial1Begin(dword speed) {  
+    P1 |= bTXD1 | bRXD1;
+    P1_DIR_PU |= bTXD1 | bRXD1;
+    P1_MOD_OC |= bTXD1 | bRXD1;
     U1SMOD = 1;
     SBAUD1 = 256 - (uint8_t)(1500000 / speed);
     U1SM0 = 0;

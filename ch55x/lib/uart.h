@@ -4,7 +4,7 @@
 #include "stdarg.h"
 #include "../../common/serialtemplate.h"
 
-void Serial0Begin(word speed);
+void Serial0Begin(dword speed);
 
 // print byte to UART0
 void Serial0Putc(byte c);
@@ -18,7 +18,7 @@ byte Serial0Getc(void);
 // Check. If in Serial buffer has chars, return it qwantity, else 0.
 word Serial0Available();
 
-void Serial1Begin(word speed);
+void Serial1Begin(dword speed);
 
 // print byte to UART0
 void Serial1Putc(byte c);
