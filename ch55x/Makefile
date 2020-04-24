@@ -6,6 +6,7 @@ C_FILES = \
 	lib/ticker.c \
 	lib/cdc.c \
 	lib/adc.c \
+	lib/uart.c \
 	sketch.c
 
 pre-flash:

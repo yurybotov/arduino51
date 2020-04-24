@@ -72,11 +72,6 @@ unsigned char  __code Manuf_Des[]={
 __xdata uint8_t LineCoding[7]={0x00,0xe1,0x00,0x00,0x00,0x00,0x08};   //初始化波特率为57600，1停止位，无校验，8数据位。
 
 #define UART_REV_LEN  64                 //串口接收缓冲区大小
-//__idata uint8_t Receive_Uart_Buf[UART_REV_LEN];   //串口接收缓冲区
-//volatile __idata uint8_t Uart_Input_Point = 0;   //循环缓冲区写入指针，总线复位需要初始化为0
-//volatile __idata uint8_t Uart_Output_Point = 0;  //循环缓冲区取出指针，总线复位需要初始化为0
-//volatile __idata uint8_t UartByteCount = 0;      //当前缓冲区剩余待取字节数
-
 
 volatile __xdata uint8_t USBByteCount = 0;      //代表USB端点接收到的数据
 volatile __xdata uint8_t USBBufOutPoint = 0;    //取数据指针
@@ -347,11 +342,7 @@ void DeviceInterrupt(void) __interrupt (INT_NO_USB) {                      //USB
                                 if( CfgDesc[ 7 ] & 0x20 )
                                 {
                                     /* 休眠 */
-#ifdef DE_PRINTF
-                                    printf( "suspend\n" );                                                             //睡眠状态
-#endif
-                                    while ( XBUS_AUX & bUART0_TX )
-                                    {
+                                    while ( XBUS_AUX & bUART0_TX ) {
                                         ;    //等待发送完成
                                     }
                                     SAFE_MOD = 0x55;
@@ -427,30 +418,23 @@ void DeviceInterrupt(void) __interrupt (INT_NO_USB) {                      //USB
                         break;
                     }
                 }
-            }
-            else
-            {
+            } else {
                 len = 0xff;                                                         //包长度错误
             }
-            if(len == 0xff)
-            {
+            if(len == 0xff) {
                 SetupReq = 0xFF;
                 UEP0_CTRL = bUEP_R_TOG | bUEP_T_TOG | UEP_R_RES_STALL | UEP_T_RES_STALL;//STALL
             }
-            else if(len <= DEFAULT_ENDP0_SIZE)                                                       //上传数据或者状态阶段返回0长度包
-            {
+            else if(len <= DEFAULT_ENDP0_SIZE) {
                 UEP0_T_LEN = len;
                 UEP0_CTRL = bUEP_R_TOG | bUEP_T_TOG | UEP_R_RES_ACK | UEP_T_RES_ACK;//默认数据包是DATA1，返回应答ACK
-            }
-            else
-            {
+            } else {
                 UEP0_T_LEN = 0;  //虽然尚未到状态阶段，但是提前预置上传0长度数据包以防主机提前进入状态阶段
                 UEP0_CTRL = bUEP_R_TOG | bUEP_T_TOG | UEP_R_RES_ACK | UEP_T_RES_ACK;//默认数据包是DATA1,返回应答ACK
             }
             break;
         case UIS_TOKEN_IN | 0:                                                      //endpoint0 IN
-            switch(SetupReq)
-            {
+            switch(SetupReq) {
             case USB_GET_DESCRIPTOR:
                 len = SetupLen >= DEFAULT_ENDP0_SIZE ? DEFAULT_ENDP0_SIZE : SetupLen;                                 //本次传输长度
                 memcpy( Ep0Buffer, pDescr, len );                                   //加载上传数据
@@ -470,35 +454,24 @@ void DeviceInterrupt(void) __interrupt (INT_NO_USB) {                      //USB
             }
             break;
         case UIS_TOKEN_OUT | 0:  // endpoint0 OUT
-            if(SetupReq ==SET_LINE_CODING)  //设置串口属性
-            {
-                if( U_TOG_OK )
-                {
+            if(SetupReq ==SET_LINE_CODING) {
+                if( U_TOG_OK ) {
                     memcpy(LineCoding,UsbSetupBuf,USB_RX_LEN);
                     //Config_Uart1(LineCoding);-------------------------------------------------------------------???????????????????
                     UEP0_T_LEN = 0;
                     UEP0_CTRL |= UEP_R_RES_ACK | UEP_T_RES_ACK;  // 准备上传0包
                 }
-            }
-            else
-            {
+            } else {
                 UEP0_T_LEN = 0;
                 UEP0_CTRL |= UEP_R_RES_ACK | UEP_T_RES_NAK;  //状态阶段，对IN响应NAK
             }
             break;
-
-
-
         default:
             break;
         }
         UIF_TRANSFER = 0;                                                           //写0清空中断
     }
-    if(UIF_BUS_RST)                                                                 //设备模式USB总线复位中断
-    {
-#ifdef DE_PRINTF
-        printf( "reset\n" );                                                             //睡眠状态
-#endif
+    if(UIF_BUS_RST) {
         UEP0_CTRL = UEP_R_RES_ACK | UEP_T_RES_NAK;
         UEP1_CTRL = bUEP_AUTO_TOG | UEP_T_RES_NAK;
         UEP2_CTRL = bUEP_AUTO_TOG | UEP_T_RES_NAK | UEP_R_RES_ACK;
@@ -506,23 +479,14 @@ void DeviceInterrupt(void) __interrupt (INT_NO_USB) {                      //USB
         UIF_SUSPEND = 0;
         UIF_TRANSFER = 0;
         UIF_BUS_RST = 0;                                                             //清中断标志
-        //Uart_Input_Point = 0;   //循环缓冲区输入指针
-        //Uart_Output_Point = 0;  //循环缓冲区读出指针
-        //UartByteCount = 0;      //当前缓冲区剩余待取字节数
         USBByteCount = 0;       //USB端点收到的长度
         UsbConfig = 0;          //清除配置值
         UpPoint2_Busy = 0;
     }
-    if (UIF_SUSPEND)                                                                 //USB总线挂起/唤醒完成
-    {
+    if (UIF_SUSPEND) {
         UIF_SUSPEND = 0;
-        if ( USB_MIS_ST & bUMS_SUSPEND )                                             //挂起
-        {
-#ifdef DE_PRINTF
-            printf( "suspend\n" );                                                             //睡眠状态
-#endif
-            while ( XBUS_AUX & bUART0_TX )
-            {
+        if ( USB_MIS_ST & bUMS_SUSPEND ) {
+            while ( XBUS_AUX & bUART0_TX ) {
                 ;    //等待发送完成
             }
             SAFE_MOD = 0x55;
@@ -533,33 +497,13 @@ void DeviceInterrupt(void) __interrupt (INT_NO_USB) {                      //USB
             SAFE_MOD = 0xAA;
             WAKE_CTRL = 0x00;
         }
-    }
-    else {                                                                             //意外的中断,不可能发生的情况
+    } else {                                                                             //意外的中断,不可能发生的情况
         USB_INT_FG = 0xFF;                                                             //清中断标志
-
     }
 }
-/*******************************************************************************
-* Function Name  : Uart1_ISR()
-* Description    : 串口接收中断函数，实现循环缓冲接收
-*******************************************************************************/
-/*void Uart1_ISR(void) __interrupt (INT_NO_UART1)
-{
-    if(U1RI)   //收到数据
-    {
-        Receive_Uart_Buf[Uart_Input_Point++] = SBUF1;
-        UartByteCount++;                    //当前缓冲区剩余待取字节数
-        if(Uart_Input_Point>=UART_REV_LEN)
-            Uart_Input_Point = 0;           //写入指针
-        U1RI =0;
-    }
-
-}*/
 
 void CDC_init() {
-    uint8_t Uart_Timeout = 0;
     delay(5);
-
     USBDeviceCfg();
     USBDeviceEndPointCfg();
     USBDeviceIntCfg();
@@ -570,38 +514,35 @@ void CDC_init() {
 
 __xdata byte SerialReceiveBuffer[64];
 byte beginReceiveBuffer = 0, endReceiveBuffer = 0, lengthReceiveBuffer = 0;
-__xdata byte SerialSendBuffer[64];
-byte beginSendBuffer = 0, endSendBuffer = 0, lengthSendBuffer = 0;
+byte lengthSendBuffer = 0;
 byte sendTimeout;
+
 void CDC_loop(void) {
     uint8_t length, i;
     if(UsbConfig) {
         if(USBByteCount) {
             SerialReceiveBuffer[endReceiveBuffer++] = Ep2Buffer[USBBufOutPoint++];
-            if (endReceiveBuffer == 32)
+            if (endReceiveBuffer == 64)
                 endReceiveBuffer = 0;
             lengthReceiveBuffer++;
             USBByteCount--;
             if(USBByteCount==0)
                 UEP2_CTRL = UEP2_CTRL & ~ MASK_UEP_R_RES | UEP_R_RES_ACK;
-
         }
         if(lengthSendBuffer)
             sendTimeout++;
         if(!UpPoint2_Busy) {
             length = lengthSendBuffer;
-            if(length>0) {
-                if(length>39 || sendTimeout > 100) {
+            if(length > 0) {
+                if(length > 39 || sendTimeout > 100) {
                     sendTimeout = 0;
-                    for(i = 0; i < length; i++) {
-                        *(Ep2Buffer+MAX_PACKET_SIZE+i) = SerialSendBuffer[beginSendBuffer++];
-                        if(beginSendBuffer == 64) beginSendBuffer = 0;
-                        lengthSendBuffer--;
-                    }
+                    lengthSendBuffer = 0;
                     UEP2_T_LEN = length;
-                    UEP2_CTRL = UEP2_CTRL & ~ MASK_UEP_T_RES | UEP_T_RES_ACK;
+                    UEP2_CTRL &= ~(MASK_UEP_T_RES | UEP_T_RES_ACK);
                     UpPoint2_Busy = 1;
                 }
+            } else {
+                sendTimeout = 0;
             }
         }
     }
@@ -611,15 +552,13 @@ void SerialBegin(word speed) { (speed); }
 
 uint8_t charCounter = 0;
 // print byte to Serial (CDC)
-void CDC_putc(byte c) {
-    SerialSendBuffer[endSendBuffer++] = c;
-    if (endSendBuffer == 64)
-        endSendBuffer = 0;
+void SerialPutc(byte c) {
+    *(Ep2Buffer + MAX_PACKET_SIZE + lengthSendBuffer) = c;
     lengthSendBuffer++;
     if(++charCounter%8 == 0) CDC_loop();
 }
 
-static void CDC_send_char(char c, void* p) { (p); CDC_putc(c); }
+static void CDC_send_char(char c, void* p) { (p); SerialPutc(c); }
 void SerialPrintf(byte* format,...) {
     va_list args;
     va_start(args,format);
@@ -628,7 +567,7 @@ void SerialPrintf(byte* format,...) {
 }
 
 // read byte from Serial
-byte CDC_getc(void) {
+byte SerialGetc(void) {
     byte res = SerialReceiveBuffer[beginReceiveBuffer++];
     if(beginReceiveBuffer == 64) beginReceiveBuffer = 0;
     lengthReceiveBuffer--;
@@ -637,5 +576,3 @@ byte CDC_getc(void) {
 
 // Check. If in Serial buffer has chars, return it qwantity, else 0.
 word SerialAvailable() { return lengthReceiveBuffer;}
-
-//#include "../../common/uart.c"

@@ -1,10 +1,4 @@
 
-#define PWM_INTERRUPT   1
- 
-#if PWM_INTERRUPT
-extern void  PWMInterruptEnable();                                            //PWM�ж�ʹ��
-#endif
-
 #define SetPWMClk(CK_SE) (PWM_CK_SE = CK_SE)                                  //��Ƶ,Ĭ��ʱ��Fsys    
 
 #define SetPWM1Dat(dat)  (PWM_DATA1 = dat)                                    //����PWM���ռ�ձ�

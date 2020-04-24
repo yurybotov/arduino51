@@ -1,8 +1,9 @@
 #include "arduino.h"
 
 void Timer0_ISR(void) __interrupt (INT_NO_TMR0);
+void UART0_ISR(void) __interrupt(INT_NO_UART0);
 void DeviceInterrupt(void) __interrupt (INT_NO_USB);
-//void Uart1_ISR(void) __interrupt (INT_NO_UART1);
+void UART1_ISR(void) __interrupt(INT_NO_UART1);
 void PWMInterrupt(void) __interrupt (INT_NO_PWMX);
 
 void CfgFsys() {
@@ -37,6 +38,8 @@ void CfgFsys() {
 	SAFE_MOD = 0x00;
 }
 
+__xdata static uint32_t CDCLoopTimer;
+
 void main() {
     CfgFsys();
     ticker_init();
@@ -44,8 +47,9 @@ void main() {
     CDC_init();
 	delay(100);
     setup();
+	CDCLoopTimer = millis() + 100;
     while(1) { 
-        CDC_loop();
+        if(CDCLoopTimer < millis()) { CDCLoopTimer = millis() + 100; CDC_loop(); }
         loop();
     }
 }

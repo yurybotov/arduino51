@@ -13,7 +13,10 @@ FREQ_SYS = 24000000
 endif
 
 ifndef XRAM_SIZE
+#for 551, 552, 554
 XRAM_SIZE = 0x0400
+#for 559
+#XRAM_SIZE = 0x1800
 endif
 
 ifndef XRAM_LOC
@@ -21,7 +24,12 @@ XRAM_LOC = 0x0000
 endif
 
 ifndef CODE_SIZE
-CODE_SIZE = 0x2800
+#for 551
+#CODE_SIZE = 0x2800
+#for 552 and 554
+CODE_SIZE = 0x4000
+#for 559
+#CODE_SIZE = 0x10000
 endif
 
 ROOT_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))

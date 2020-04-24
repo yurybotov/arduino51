@@ -3,63 +3,72 @@
 #include "N76E003.h"
 #include "SFR_macro.h"
 #include <stdio.h>
+#include "../../common/utility.h"
 
-__xdata byte SerialBuffer[32];
-byte beginBuffer = 0, endBuffer = 0, lengthBuffer = 0;
+implements_buffer(Serial0,32)
 
-void SerialPort0_ISR(void) __interrupt(4) {
-    if (RI == 1) {
-        clr_RI;
-        SerialBuffer[endBuffer++] = SBUF;
-        if (endBuffer == 32)
-            endBuffer = 0;
-        lengthBuffer++;
-    }
-}
+// void UART0_ISR(void) __interrupt(INT_NO_UART0)
+implements_isr(Serial0,UART0,32,SBUF,RI,TI)
 
-void SerialBegin(word speed) {
+//void Serial0Putc(byte c)
+implements_putc(Serial0,SBUF,TI)
+
+// byte Serial0Getc(void)
+implements_getc(Serial0,32)
+
+// word Serial0Available()
+implements_available(Serial0)
+
+// void Serial0Printf(const byte* format,...)
+implements_printf(Serial0)
+
+void Serial0Begin(dword speed) {
+    byte coef = 256 - (1000000 / speed);
     P06_Quasi_Mode;
+    set_P06;
     P07_Quasi_Mode;
+    set_P07;
     SCON = 0x50;
     TMOD |= 0x20;
     set_SMOD;
     set_T1M;
     clr_BRCK;
-    TH1 = 256 - (1000000 / speed);
+    TH1 = coef;
+    TL1 = coef;
     set_TR1;
-    set_RB8;
     clr_TI;
     set_ES;
     set_EA;
 }
 
-void UART0_putc(byte c) {
-    TI = 0;
-    SBUF = c;
-    while (TI == 0)
-        ;
-}
+implements_buffer(Serial1,32)
 
-byte UART0_getc(void) {
-    if (lengthBuffer > 0) {
-        byte c = SerialBuffer[beginBuffer++];
-        if (beginBuffer == 32)
-            beginBuffer = 0;
-        lengthBuffer--;
-        return c;
-    } else {
-        return 0;
-    }
-}
+// void UART1_ISR(void) __interrupt(INT_NO_UART1)
+implements_isr(Serial1,UART1,32,SBUF_1,RI_1,TI_1)
 
-word SerialAvailable() {
-    return lengthBuffer;
-}
+//void Serial1Putc(byte c)
+implements_putc(Serial1,SBUF_1,TI_1)
 
-static void UART0_send_char(char c, void* p) { (p); UART0_putc(c); }
-void SerialPrintf(const byte* format,...) {
-    va_list args;
-    va_start(args,format);
-    _print_format( UART0_send_char, NULL, format, args );
-    va_end(args);
+// byte Serial1Getc(void)
+implements_getc(Serial1,32)
+
+// word Serial1Available()
+implements_available(Serial1)
+
+// void Serial1Printf(const byte* format,...)
+implements_printf(Serial1)
+
+void Serial1Begin(dword speed) {
+    P02_Quasi_Mode;
+    set_P02;
+    P16_Quasi_Mode;
+    set_P16;
+    SCON_1 = 0x50;
+    T3CON = 0x08;
+    clr_BRCK;
+    RH3 = highByte(65536 - (1000000/speed)); 
+    RL3 = lowByte(65536 - (1000000/speed)); 
+    set_TR3;
+    set_ES_1;
+    set_EA;
 }

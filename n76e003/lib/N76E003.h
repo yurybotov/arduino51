@@ -284,4 +284,24 @@ __sbit __at(0x81) MISO; // P0^1;
 __sbit __at(0x80) P00; // P0^0;
 __sbit __at(0x80) MOSI; // P0^0;
 
+/* Interrupt routine address and interrupt number */
+#define INT_NO_INT0       0         // interrupt number for INT0
+#define INT_NO_TMR0       1         // interrupt number for timer0
+#define INT_NO_INT1       2         // interrupt number for INT1
+#define INT_NO_TMR1       3         // interrupt number for timer1
+#define INT_NO_UART0      4         // interrupt number for UART0
+#define INT_NO_TMR2       5         // interrupt number for timer2
+#define INT_NO_I2C        6         // interrupt number for I2C
+#define INT_NO_PIF        7         // interrupt number for pin interrupt
+#define INT_NO_BOR        8         // interrupt number for brown-out
+#define INT_NO_SPI        9         // interrupt number for SPI
+#define INT_NO_WDT        10        // interrupt number for WDT
+#define INT_NO_ADC        11        // interrupt number for ADC
+#define INT_NO_CAP        12        // interrupt number for input capture
+#define INT_NO_PWM        13        // interrupt number for PWM
+#define INT_NO_FAULT      14        // interrupt number for fault brake
+#define INT_NO_UART1      15        // interrupt number for UART1
+#define INT_NO_TMR3       16        // interrupt number for timer3
+#define INT_NO_WAKE       17        // interrupt number for wake-up timer
+
 #endif
