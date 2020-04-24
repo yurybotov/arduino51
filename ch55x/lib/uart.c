@@ -6,7 +6,7 @@
 implements_buffer(Serial0,32)
 
 // void UART0_ISR(void) __interrupt(INT_NO_UART0)
-implements_isr(Serial0,UART0,32,SBUF,RI)
+implements_isr(Serial0,UART0,32,SBUF,RI,TI)
 
 //void Serial0Putc(byte c)
 implements_putc(Serial0,SBUF,TI)
@@ -38,17 +38,14 @@ void Serial0Begin(word speed) {
     TL1 = coef;
     TR1 = 1;
     TI = 1;
-    //PIN_FUNC &= ~bUART0_PIN_X;
     ES = 1;
     EA = 1;
-    //pinMode(D31,OUTPUT);
-    //pinMode(D30,INPUT);
 }
 
 implements_buffer(Serial1,32)
 
 // void UART1_ISR(void) __interrupt(INT_NO_UART1)
-implements_isr(Serial1,UART1,32,SBUF1,U1RI)
+implements_isr(Serial1,UART1,32,SBUF1,U1RI,U1TI)
 
 //void Serial1Putc(byte c)
 implements_putc(Serial1,SBUF1,U1TI)
@@ -62,15 +59,14 @@ implements_available(Serial1)
 // void Serial1Printf(const byte* format,...)
 implements_printf(Serial1)
 
-void Serial1Begin(word speed) {
-    U1SM0 = 0;
+void Serial1Begin(word speed) {   
     U1SMOD = 1;
-    U1REN = 1;
-    SBAUD1 = 256 - (1500000 / speed);
-    U1TI = 0;
+    SBAUD1 = 256 - (uint8_t)(1500000 / speed);
+    U1SM0 = 0;
+    U1REN = 1;  
+    //U1TI = 0;
+    //U1RI = 0;
     //PIN_FUNC &= ~bUART1_PIN_X;
     IE_UART1 = 1;
-    EA = 1;
-    //pinMode(D16,INPUT);
-    //pinMode(D17,OUTPUT);    
+    EA = 1; 
 }

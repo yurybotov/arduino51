@@ -1,7 +1,8 @@
 #include "arduino.h"
 
-void Timer0_ISR(void) __interrupt(1);
-void SerialPort0_ISR(void) __interrupt(4);
+void Timer0_ISR(void) __interrupt(INT_NO_TMR0);
+void UART0_ISR(void) __interrupt(INT_NO_UART0);
+void UART1_ISR(void) __interrupt(INT_NO_UART1);
 
 byte BIT_TMP;
 

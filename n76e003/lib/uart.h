@@ -2,21 +2,34 @@
 #define __SDCC_51_A_UART__
 #include "../../common/exttypes.h"
 #include "stdarg.h"
+#include "../../common/serialtemplate.h"
 
-void SerialBegin(word speed);
+void Serial0Begin(dword speed);
 
-// print byte to Serial (UART0)
-void UART0_putc(byte c);
-#define SerialPutc(c) UART0_putc(c)
+// print byte to UART0
+void Serial0Putc(byte c);
 
 
-void SerialPrintf(const byte* format,...);
+void Serial0Printf(const byte* format,...);
 
 // read byte from serial
-byte UART0_getc(void);
-#define SerialRead UART0_getc
+byte Serial0Getc(void);
 
 // Check. If in Serial buffer has chars, return it qwantity, else 0.
-word SerialAvailable();
+word Serial0Available();
+
+void Serial1Begin(dword speed);
+
+// print byte to UART0
+void Serial1Putc(byte c);
+
+
+void Serial1Printf(const byte* format,...);
+
+// read byte from serial
+byte Serial1Getc(void);
+
+// Check. If in Serial buffer has chars, return it qwantity, else 0.
+word Serial1Available();
 
 #endif

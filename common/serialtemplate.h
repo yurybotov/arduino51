@@ -3,11 +3,11 @@
 
 #define implements_buffer(name,size) \
 __xdata byte name##Buffer[size]; \
-byte begin##name##Buffer = 0; \
-byte end##name##Buffer = 0; \
-byte length##name##Buffer = 0;
+volatile byte begin##name##Buffer = 0; \
+volatile byte end##name##Buffer = 0; \
+volatile byte length##name##Buffer = 0;
 
-#define implements_isr(name,uart,size,data,flag) \
+#define implements_isr(name,uart,size,data,flag,flagtx) \
 void uart##_ISR(void) __interrupt(INT_NO_##uart) { \
     if (flag == 1) { \
         flag = 0; \
@@ -16,13 +16,14 @@ void uart##_ISR(void) __interrupt(INT_NO_##uart) { \
             end##name##Buffer = 0; \
         length##name##Buffer++; \
     } \
+    if(flagtx == 1) flagtx = 0; \
 }
 
 #define implements_putc(name,data,flag) \
 void name##Putc(byte c) { \
+    flag = 0; \
     data = c; \
     while(flag == 0); \
-    flag = 0; \
 }
 
 #define implements_getc(name,size) \

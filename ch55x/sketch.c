@@ -8,8 +8,8 @@ void setup() {
     //digitalWrite(P32,1);
     //pinMode(PWM34,OUTPUT);
     pinMode(D15,OUTPUT);
-    Serial0Begin(57600);
-    Serial1Begin(9600);
+    Serial0Begin(9600);
+    //Serial0Begin(19200);
 }
 
 byte state = 0;
@@ -17,22 +17,24 @@ dword moment = 0;
 int i;
 
 void loop() {
-    Serial1Putc('A');
+    //if(Serial0Available() > 0) Serial0Putc(Serial0Getc());
+    //Serial1Putc('A');
     Serial0Putc('A');
+    delay(200);
+    /*
     digitalWrite(D15,1);
     delay(200);
     Serial1Putc('a');
     Serial0Putc('a');
     digitalWrite(D15,0);
-    delay(200);   
+    delay(200);*/  
     //char sto = 100;
     //char nosto = -100;
-    /*if(SerialAvailable()) {putc(getc());}
-    if(moment < millis()) {
+    //if(SerialAvailable()) {putc(getc());}
+    /*if(moment < millis()) {
         moment = millis() + 100;
         state = state? 0: 1;
-        digitalWrite(P14,state);
-        putc('*');
+        digitalWrite(D15,state);
     }*/
     /*for(i = 0; i < 256; i++) {
     //    SerialPrintf("*\n");
