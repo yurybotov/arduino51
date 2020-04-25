@@ -10,5 +10,6 @@ byte SPITransfer(byte c) {
     SPDR = c;
     while (SPSR & 0x80 == 0)
         ;
+    clr_SPIF;
     return SPDR;
 }
