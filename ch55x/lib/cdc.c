@@ -14,6 +14,7 @@
 #include <stdio.h>
 #include "ticker.h"
 #include "cdc.h"
+#include "../../common/buffer.h"
 
 __xdata __at (0x0000) uint8_t  Ep0Buffer[DEFAULT_ENDP0_SIZE];       //端点0 OUT&IN缓冲区，必须是偶地址
 __xdata __at (0x0040) uint8_t  Ep1Buffer[DEFAULT_ENDP1_SIZE];       //端点1上传缓冲区
@@ -512,8 +513,8 @@ void CDC_init() {
     UEP2_T_LEN = 0;
 }
 
-__xdata byte SerialReceiveBuffer[64];
-byte beginReceiveBuffer = 0, endReceiveBuffer = 0, lengthReceiveBuffer = 0;
+/*__xdata byte SerialReceiveBuffer[64];
+byte beginReceiveBuffer = 0, endReceiveBuffer = 0, lengthReceiveBuffer = 0;*/
 byte lengthSendBuffer = 0;
 byte sendTimeout;
 
@@ -521,10 +522,11 @@ void CDC_loop(void) {
     uint8_t length, i;
     if(UsbConfig) {
         if(USBByteCount) {
-            SerialReceiveBuffer[endReceiveBuffer++] = Ep2Buffer[USBBufOutPoint++];
+            /*SerialReceiveBuffer[endReceiveBuffer++] = Ep2Buffer[USBBufOutPoint++];
             if (endReceiveBuffer == 64)
                 endReceiveBuffer = 0;
-            lengthReceiveBuffer++;
+            lengthReceiveBuffer++;*/
+            cbPut(Ep2Buffer[USBBufOutPoint++],Serial);
             USBByteCount--;
             if(USBByteCount==0)
                 UEP2_CTRL = UEP2_CTRL & ~ MASK_UEP_R_RES | UEP_R_RES_ACK;
@@ -558,21 +560,31 @@ void SerialPutc(byte c) {
     if(++charCounter%8 == 0) CDC_loop();
 }
 
-static void CDC_send_char(char c, void* p) { (p); SerialPutc(c); }
-void SerialPrintf(byte* format,...) {
-    va_list args;
-    va_start(args,format);
-    _print_format( CDC_send_char, NULL, format, args );
-    va_end(args);
-}
+// byte Serial0Getc(void)
+implements_getc(Serial)
+
+// word Serial0Available()
+implements_available(Serial)
+
+// void Serial0Printf(const byte* format,...)
+implements_printf(Serial)
+
+//static void CDC_send_char(char c, void* p) { (p); SerialPutc(c); }
+//void SerialPrintf(byte* format,...) {
+//    va_list args;
+//    va_start(args,format);
+//    _print_format( CDC_send_char, NULL, format, args );
+//    va_end(args);
+//}
 
 // read byte from Serial
-byte SerialGetc(void) {
-    byte res = SerialReceiveBuffer[beginReceiveBuffer++];
+//byte SerialGetc(void) {
+    /*byte res = SerialReceiveBuffer[beginReceiveBuffer++];
     if(beginReceiveBuffer == 64) beginReceiveBuffer = 0;
     lengthReceiveBuffer--;
-    return res;
-}
+    return res;*/
+//    return cbGet(Serial);
+//}
 
 // Check. If in Serial buffer has chars, return it qwantity, else 0.
-word SerialAvailable() { return lengthReceiveBuffer;}
+//word SerialAvailable() { /*return lengthReceiveBuffer;*/ cbCount(Serial);}

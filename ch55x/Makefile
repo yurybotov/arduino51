@@ -7,6 +7,7 @@ C_FILES = \
 	lib/cdc.c \
 	lib/adc.c \
 	lib/uart.c \
+	../common/buffer.c \
 	sketch.c
 
 pre-flash:

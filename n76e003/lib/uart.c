@@ -6,10 +6,8 @@
 #include "../../common/utility.h"
 #include "../../common/buffer.h"
 
-//implements_buffer(Serial0,32)
-
 // void UART0_ISR(void) __interrupt(INT_NO_UART0)
-implements_isr(Serial0,UART0,SBUF,RI,TI)
+implements_isr(Serial0,UART0,SBUF,RI)
 
 //void Serial0Putc(byte c)
 implements_putc(Serial0,SBUF,TI)
@@ -42,10 +40,8 @@ void Serial0Begin(dword speed) {
     set_EA;
 }
 
-//implements_buffer(Serial1,32)
-
 // void UART1_ISR(void) __interrupt(INT_NO_UART1)
-implements_isr(Serial1,UART1,SBUF_1,RI_1,TI_1)
+implements_isr(Serial1,UART1,SBUF_1,RI_1)
 
 //void Serial1Putc(byte c)
 implements_putc(Serial1,SBUF_1,TI_1)

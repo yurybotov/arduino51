@@ -42,6 +42,7 @@ __xdata static uint32_t CDCLoopTimer;
 
 void main() {
     CfgFsys();
+	cbInit();
     ticker_init();
 	pwm_init();
     CDC_init();

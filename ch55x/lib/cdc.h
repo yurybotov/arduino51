@@ -3,6 +3,7 @@
 #include "../../common/exttypes.h"
 #include "stdarg.h"
 #include "ticker.h"
+#include "../../common/serialtemplate.h"
 
 void CDC_init(void);
 void CDC_loop(void);
