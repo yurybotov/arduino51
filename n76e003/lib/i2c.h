@@ -2,7 +2,8 @@
 #define __SDCC_51_A_I2C__
 #include "../../common/exttypes.h"
 
-void I2CBegin(byte address);
+void I2CBeginSlave(byte address);
+void I2CBeginMaster();
 void I2CBeginTransmission(byte address);
 void I2CEndTransmission(void);
 void I2CWrite(byte b);

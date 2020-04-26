@@ -10,13 +10,13 @@ void setup() {
 
     //pinMode(D14, BIDIRECTIONAL);
     //pinMode(A17,INPUT);
-    pinMode(D04,OUTPUT);
-    digitalWrite(D04,1);
+    //pinMode(D04,OUTPUT);
+    //digitalWrite(D04,1);
 
-    pinMode(D00,OUTPUT);
-    pinMode(D01,BIDIRECTIONAL);
-    digitalWrite(D01,1);
-    pinMode(D10,OUTPUT);
+    //pinMode(D00,OUTPUT);
+    //pinMode(D01,BIDIRECTIONAL);
+    //digitalWrite(D01,1);
+    //pinMode(D10,OUTPUT);
 
     /*SPIBegin();
     SPIBeginTransaction(SPISettings(SPI_SPEED_1M, SPI_MSBFIRST, SPI_MODE0));
@@ -42,8 +42,8 @@ void loop() {
     //Serial0Printf("ADC0: %d\n", adc0);
     //Serial1Printf("ADC0: %d\n", adc0);
     //pinMode(D14, BIDIRECTIONAL);
-   /* while(Serial0Available() > 0) Serial0Printf("%c",Serial0Getc());
-    for (i = 0; i < 5; i++) {
+    if(Serial0Available() > 0) Serial0Printf("%c",Serial0Getc());
+    /*for (i = 0; i < 5; i++) {
         digitalWrite(D14, 0);
         delay(100);
         digitalWrite(D14, 1);
@@ -62,7 +62,7 @@ void loop() {
     digitalWrite(D14, 1);
     delay(100);
     */
-    SPIBegin();
+    /*SPIBegin();
     SPIBeginTransaction(SPISettings(SPI_SPEED_2M, SPI_MSBFIRST, SPI_MODE0));
     digitalWrite(D04,0);
     SPITransfer(0x9f);
@@ -77,5 +77,5 @@ void loop() {
     Serial0Printf("0x%2x%2x",res2,res3);
     Serial0Printf("%2x%2x\n",res4,res5);
     //Serial0Printf("%x%x\n",res5,res6);
-    delay(400);
+    delay(400);*/
 }

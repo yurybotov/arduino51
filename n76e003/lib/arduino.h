@@ -6,6 +6,7 @@
 #include "N76E003.h"
 #include "../../common/exttypes.h"
 #include "../../common/utility.h"
+#include "../../common/buffer.h"
 
 #include "gpio.h"
 #include "spi.h"

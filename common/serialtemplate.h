@@ -1,12 +1,13 @@
 #ifndef __SDCC_51_A_SERIAL_TEMPLATES__
 #define __SDCC_51_A_SERIAL_TEMPLATES__
-
+/*
 #define implements_buffer(name,size) \
 __xdata byte name##Buffer[size]; \
 volatile byte begin##name##Buffer = 0; \
 volatile byte end##name##Buffer = 0; \
 volatile byte length##name##Buffer = 0;
-
+*/
+/*
 #define implements_isr(name,uart,size,data,flag,flagtx) \
 void uart##_ISR(void) __interrupt(INT_NO_##uart) { \
     if (flag == 1) { \
@@ -18,6 +19,15 @@ void uart##_ISR(void) __interrupt(INT_NO_##uart) { \
     } \
     if(flagtx == 1) flagtx = 0; \
 }
+*/
+#define implements_isr(name,uart,data,flag,flagtx) \
+void uart##_ISR(void) __interrupt(INT_NO_##uart) { \
+    if (flag == 1) { \
+        flag = 0; \
+        cbPut(data,name); \
+    } \
+    if(flagtx == 1) flagtx = 0; \
+}
 
 #define implements_putc(name,data,flag) \
 void name##Putc(byte c) { \
@@ -25,7 +35,7 @@ void name##Putc(byte c) { \
     data = c; \
     while(flag == 0); \
 }
-
+/*
 #define implements_getc(name,size) \
 byte name##Getc(void) { \
     if (length##name##Buffer > 0) { \
@@ -38,10 +48,20 @@ byte name##Getc(void) { \
         return 0; \
     } \
 }
-
+*/
+#define implements_getc(name) \
+byte name##Getc(void) { \
+    return cbGet(name); \
+}
+/*
 #define implements_available(name) \
 word name##Available() { \
     return length##name##Buffer; \
+}
+*/
+#define implements_available(name) \
+word name##Available() { \
+    return cbCount(name); \
 }
 
 #define implements_printf(name) \
