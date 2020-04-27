@@ -1,12 +1,15 @@
+/********************************** (C) COPYRIGHT *******************************
+* File Name          : CDC.C
+* Author             : WCH
+* Version            : V1.0
+* Date               : 2017/03/01
+* Description        : CH554做CDC设备转串口，选择串口1
+*******************************************************************************/
 #include <string.h>
 
 #include <ch554.h>
 #include <ch554_usb.h>
-#include <stdio.h>
-#include "ticker.h"
 #include "cdc.h"
-#include "../../common/buffer.h"
-
 
 __xdata __at (0x0000) uint8_t  Ep0Buffer[DEFAULT_ENDP0_SIZE];       //端点0 OUT&IN缓冲区，必须是偶地址
 __xdata __at (0x0040) uint8_t  Ep1Buffer[DEFAULT_ENDP1_SIZE];       //端点1上传缓冲区
@@ -64,7 +67,7 @@ unsigned char  __code Manuf_Des[]={
 //cdc参数
 __xdata uint8_t LineCoding[7]={0x00,0xe1,0x00,0x00,0x00,0x00,0x08};   //初始化波特率为57600，1停止位，无校验，8数据位。
 
-#define UART_REV_LEN  64                 //串口接收缓冲区大小
+//#define UART_REV_LEN  64                 //串口接收缓冲区大小
 //__idata uint8_t Receive_Uart_Buf[UART_REV_LEN];   //串口接收缓冲区
 //volatile __idata uint8_t Uart_Input_Point = 0;   //循环缓冲区写入指针，总线复位需要初始化为0
 //volatile __idata uint8_t Uart_Output_Point = 0;  //循环缓冲区取出指针，总线复位需要初始化为0
@@ -154,6 +157,12 @@ void Config_Uart1(uint8_t *cfg_uart)
 * Function Name  : DeviceInterrupt()
 * Description    : CH559USB中断处理函数
 *******************************************************************************/
+__xdata byte tempbuf[64];
+byte tempto = 0;
+byte tempfrom = 0;
+byte tempcnt = 0;
+
+
 void DeviceInterrupt(void) __interrupt (INT_NO_USB)                       //USB中断服务程序,使用寄存器组1
 {
     uint16_t len;
@@ -540,13 +549,10 @@ void DeviceInterrupt(void) __interrupt (INT_NO_USB)                       //USB�
     }
 
 }*/
-
-
 //主函数
-void CDC_init()
-{
-    
-    
+//main1()
+//{
+    uint8_t Uart_Timeout = 0;
     //CfgFsys( );                                                           //CH559时钟选择配置
     //mDelaymS(5);                                                          //修改主频等待内部晶振稳定,必加
     //mInitSTDIO( );                                                        //串口0,可以用于调试
@@ -555,6 +561,8 @@ void CDC_init()
 #ifdef DE_PRINTF
     printf("start ...\n");
 #endif
+void SerialBegin(dword speed) {
+    (speed);
     USBDeviceCfg();
     USBDeviceEndPointCfg();                                               //端点配置
     USBDeviceIntCfg();                                                    //中断初始化
@@ -564,69 +572,55 @@ void CDC_init()
 }
 
 
-byte lengthSendBuffer = 0;
-byte sendTimeout = 0;
-uint8_t charCounter = 0;
 
-void CDC_loop(void) {
-    uint8_t length;
-    if(UsbConfig)
-    {
-        if(USBByteCount)   //USB接收端点有数据
-        {
+void CDC_loop() {
+    byte i, length;
+    if(UsbConfig) {
+        if(USBByteCount && !cbFull()) {  //USB接收端点有数据
+            //CH554UART1SendByte(Ep2Buffer[USBBufOutPoint++]);
             //cbPut(Ep2Buffer[USBBufOutPoint++],Serial);
-            for(USBBufOutPoint = 0; USBBufOutPoint < USBByteCount; USBBufOutPoint) {
-                *(Ep2Buffer+MAX_PACKET_SIZE+USBBufOutPoint) = *(Ep2Buffer+USBBufOutPoint);
+            //tempbuf[tempto++] = Ep2Buffer[USBBufOutPoint++];
+            //if (tempto == 64) tempto = 0;
+            /*while(USBByteCount) {
+                tempbuf[tempto++] = Ep2Buffer[USBBufOutPoint++];
+                tempcnt++;
+                USBByteCount--;
             }
-            
-            lengthSendBuffer = USBByteCount;
-            USBByteCount = 0;
+            //tempcnt++;
+            //USBByteCount--;
+            if(USBByteCount==0)
+                UEP2_CTRL = UEP2_CTRL & ~ MASK_UEP_R_RES | UEP_R_RES_ACK;*/
+            i = 8;
+            while(USBByteCount && i && !cbFull()) {
+                cbPut(Ep2Buffer[USBBufOutPoint++],Serial);
+                USBByteCount--;
+                i--;
+            }
             if(USBByteCount==0)
                 UEP2_CTRL = UEP2_CTRL & ~ MASK_UEP_R_RES | UEP_R_RES_ACK;
 
         }
-        //if(lengthSendBuffer)
-        //    Uart_Timeout++;
-        if(lengthSendBuffer > 0 & !UpPoint2_Busy)   //端点不繁忙（空闲后的第一包数据，只用作触发上传）
-        {
-            length = lengthSendBuffer;
-            if(length>0)
-            {
-                //if(length>39 || Uart_Timeout>100)
-                {
-                    //Uart_Timeout = 0;
-                    //if(Uart_Output_Point+length>UART_REV_LEN)
-                    //    length = UART_REV_LEN-Uart_Output_Point;
-                    //UartByteCount -= length;
+        length = cbCount(Serial);
+        //length = tempcnt;
+        if(length > 0) {
+            Uart_Timeout++;
+            if(!UpPoint2_Busy) {   //端点不繁忙（空闲后的第一包数据，只用作触发上传）
+                if(length > 39 || Uart_Timeout>100) {
+                    Uart_Timeout = 0;
+                    //tempcnt = 0;
+                    //tempto = 0;
                     //写上传端点
-                    //memcpy(Ep2Buffer+MAX_PACKET_SIZE,&Receive_Uart_Buf[Uart_Output_Point],length);
+                    //memcpy(Ep2Buffer+MAX_PACKET_SIZE,tempbuf,length);
+                    //for(i = 0; i < length; i++) { Ep2Buffer[MAX_PACKET_SIZE+i] = tempbuf[i]; }
                     //Uart_Output_Point+=length;
                     //if(Uart_Output_Point>=UART_REV_LEN)
-                    //    Uart_Output_Point = 0;                   
+                    //    Uart_Output_Point = 0;
+                    for(i = 0; i < length; i++) { Ep2Buffer[MAX_PACKET_SIZE+i] = cbGet(Serial); }
                     UEP2_T_LEN = length;                                                    //预使用发送长度一定要清空
                     UEP2_CTRL = UEP2_CTRL & ~ MASK_UEP_T_RES | UEP_T_RES_ACK;            //应答ACK
                     UpPoint2_Busy = 1;
-                    lengthSendBuffer = 0;
                 }
             }
         }
     }
 }
-
-void SerialBegin(word speed) { (speed); CDC_init(); }
-
-// print byte to Serial (CDC)
-void SerialPutc(byte c) {
-    *(Ep2Buffer + MAX_PACKET_SIZE + lengthSendBuffer) = c;
-    lengthSendBuffer++;
-    //if(++charCounter%8 == 0) CDC_loop();
-}
-
-// byte Serial0Getc(void)
-implements_getc(Serial)
-
-// word Serial0Available()
-implements_available(Serial)
-
-// void Serial0Printf(const byte* format,...)
-implements_printf(Serial)

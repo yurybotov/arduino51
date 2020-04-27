@@ -7,6 +7,7 @@ void UART1_ISR(void) __interrupt(INT_NO_UART1);
 byte BIT_TMP;
 
 void main() {
+    cbInit();
     ticker_init();
     pwm_init();
     setup();

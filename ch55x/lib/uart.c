@@ -2,17 +2,16 @@
 #include "ch554.h"
 #include "gpio.h"
 #include <stdio.h>
-
-implements_buffer(Serial0,32)
+#include "../../common/buffer.h"
 
 // void UART0_ISR(void) __interrupt(INT_NO_UART0)
-implements_isr(Serial0,UART0,32,SBUF,RI,TI)
+implements_isr(Serial0,UART0,SBUF,RI)
 
 //void Serial0Putc(byte c)
 implements_putc(Serial0,SBUF,TI)
 
 // byte Serial0Getc(void)
-implements_getc(Serial0,32)
+implements_getc(Serial0)
 
 // word Serial0Available()
 implements_available(Serial0)
@@ -45,16 +44,14 @@ void Serial0Begin(dword speed) {
     EA = 1;
 }
 
-implements_buffer(Serial1,32)
-
 // void UART1_ISR(void) __interrupt(INT_NO_UART1)
-implements_isr(Serial1,UART1,32,SBUF1,U1RI,U1TI)
+implements_isr(Serial1,UART1,SBUF1,U1RI)
 
 //void Serial1Putc(byte c)
 implements_putc(Serial1,SBUF1,U1TI)
 
 // byte Serial1Getc(void)
-implements_getc(Serial1,32)
+implements_getc(Serial1)
 
 // word Serial1Available()
 implements_available(Serial1)
@@ -70,9 +67,6 @@ void Serial1Begin(dword speed) {
     SBAUD1 = 256 - (uint8_t)(1500000 / speed);
     U1SM0 = 0;
     U1REN = 1;  
-    //U1TI = 0;
-    //U1RI = 0;
-    //PIN_FUNC &= ~bUART1_PIN_X;
     IE_UART1 = 1;
     EA = 1; 
 }

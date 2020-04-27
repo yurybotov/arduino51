@@ -3,10 +3,9 @@
 
 #include "ch554.h"
 #include "gpio.h"
+#include "pwm.h"
 #include "ticker.h"
 #include "cdc.h"
-#include "uart.h"
-#include "../../common/buffer.h"
 
 void setup(void);
 void loop(void);

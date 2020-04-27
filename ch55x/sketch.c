@@ -1,14 +1,14 @@
 #include "arduino.h"
 
 void setup() {
-    //SerialBegin(115200);
+    SerialBegin(115200);
     //pinMode(P32,PUSHPULL);
     //pinMode(P14,PUSHPULL);
     // pinMode(A14,INPUT);
     //digitalWrite(P32,1);
     //pinMode(PWM34,OUTPUT);
     pinMode(D15,OUTPUT);
-    Serial1Begin(57600);
+    //SerialBegin(19200);
     //Serial0Begin(19200);
 }
 
@@ -17,7 +17,7 @@ dword moment = 0;
 int i;
 
 void loop() {
-    if(Serial1Available() > 0) Serial1Printf("%c", Serial1Getc());
+    if(SerialAvailable() > 0) SerialPutc(SerialGetc());
     //Serial1Putc('A');
     //Serial1Putc('A');
     /*
@@ -30,11 +30,10 @@ void loop() {
     //char sto = 100;
     //char nosto = -100;
     //if(SerialAvailable()) {putc(getc());}
-   /* if(moment < millis()) {
+    /*if(moment < millis()) {
         moment = millis() + 100;
         state = state? 0: 1;
         digitalWrite(D15,state);
-        Serial0Putc('A');
     }*/
     /*for(i = 0; i < 256; i++) {
     //    SerialPrintf("*\n");
