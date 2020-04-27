@@ -1,10 +1,10 @@
 #include "arduino.h"
 
 //void Timer0_ISR(void) __interrupt (INT_NO_TMR0);
-void UART0_ISR(void) __interrupt(INT_NO_UART0);
+//void UART0_ISR(void) __interrupt(INT_NO_UART0);
 void DeviceInterrupt(void) __interrupt (INT_NO_USB);
-void UART1_ISR(void) __interrupt(INT_NO_UART1);
-void PWMInterrupt(void) __interrupt (INT_NO_PWMX);
+//void UART1_ISR(void) __interrupt(INT_NO_UART1);
+//void PWMInterrupt(void) __interrupt (INT_NO_PWMX);
 
 void CfgFsys() {
 // 		SAFE_MOD = 0x55;
@@ -43,10 +43,9 @@ __xdata static uint32_t CDCLoopTimer;
 void main() {
     CfgFsys();
 	cbInit();
-    //ticker_init();
-	//pwm_init();
-    //CDC_init();
-	//delay(100);
+    ticker_init();
+	pwm_init();
+	delay(5);
     setup();
 	//CDCLoopTimer = millis() + 100;
     while(1) {

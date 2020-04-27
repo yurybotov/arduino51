@@ -1,7 +1,9 @@
 
 dword millis() { return milliseconds; }
 
+#ifndef NO_MICROS
 dword micros() { return milliseconds*1000 + microsecondsTens*10; }
+#endif
 
 #ifndef SPECIAL_DELAY
 void delay(dword time) {

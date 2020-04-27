@@ -2,10 +2,10 @@ TARGET = arduino
 
 C_FILES = \
 	lib/main.c \
-	lib/gpio.c \
 	lib/cdc.c \
+	lib/gpio.c \
 	lib/adc.c \
-	lib/uart.c \
+	lib/ticker.c \
 	../common/buffer.c \
 	sketch.c
 

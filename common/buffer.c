@@ -1,10 +1,10 @@
 #include "buffer.h"
 
-__xdata byte commonbuffer[COMMONBUFFERSIZE];
-__xdata byte typebuffer[COMMONBUFFERSIZE/2];
-__xdata byte availablebuffer[6];
-__xdata byte writepositionbuffer[6];
-__xdata byte readpositionbuffer[6];
+__xdata volatile byte commonbuffer[COMMONBUFFERSIZE];
+__xdata volatile byte typebuffer[COMMONBUFFERSIZE/2];
+__xdata volatile byte availablebuffer[6];
+__xdata volatile byte writepositionbuffer[6];
+__xdata volatile byte readpositionbuffer[6];
 
 void cbInit(void) {
     byte i;
@@ -23,8 +23,7 @@ enum DEVICES cbGetType(byte pos) {
 }
 
 void cbPutType(byte pos, enum DEVICES device) {
-    byte t;
-    t = typebuffer[pos/2];
+    byte t = typebuffer[pos/2];
     if(pos%2) {
         t = (t & 0xf) | (device << 4);
     } else {
@@ -33,7 +32,7 @@ void cbPutType(byte pos, enum DEVICES device) {
     typebuffer[pos/2] = t;
 }
 
-byte cbFull(void) { return availablebuffer[0] == 0 ? 1 : 0; }
+byte cbFull(void) { return cbCount(BLANK) == 0? 1 : 0; }
 
 void cbPut(byte b, enum DEVICES device) {
     byte wp;
@@ -46,7 +45,7 @@ void cbPut(byte b, enum DEVICES device) {
                 writepositionbuffer[device] = wp;
                 availablebuffer[device]++;
                 availablebuffer[0]--;
-                break;
+                return;
             } else {
                 wp++;
                 if(wp == COMMONBUFFERSIZE) 
