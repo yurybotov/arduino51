@@ -3,7 +3,7 @@
 void setup() {
 //    SerialBegin(115200);
 
-    pinMode(D15,OUTPUT);
+    pinMode(PWM15,OUTPUT);
 }
 
 byte state = 0;
@@ -15,7 +15,8 @@ void loop() {
 
     if(moment < millis()) {
         moment = millis() + 100;
-        state = state? 0: 1;
-        digitalWrite(D15,state);
+        analogWrite(PWM15,state);
+        state += 20;
+        if(state>250) state = 0;
     }
 }
