@@ -161,12 +161,12 @@ void loop() {
 #include "arduino.h"
 
 void setup() {
-    pinMode(A03,INPUT);
+    pinMode(A11,INPUT);
     pinMode(PWM14,OUTPUT);
 }
 
 void loop() {
-    analogWrite(PWM14,analogRead(A03));
+    analogWrite(PWM14,analogRead(A11));
     delay(10);
 }
 ```
