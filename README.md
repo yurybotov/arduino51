@@ -33,3 +33,5 @@
 - `b = analogRead(A12);`
 
 К слову, режимы отличаются от ардуино: `BIDIRECTIONAL,OUTPUT==PUSHPULL,INPUT`
+
+
