@@ -7,8 +7,8 @@ void I2CBeginMaster();
 void I2CBeginTransmission(byte address);
 void I2CEndTransmission(void);
 void I2CWrite(byte b);
-byte I2CAvailable(void);
-byte I2CRead(void);
+#define I2CAvailable() cbCount(I2C)
+#define I2CRead() cbGet(I2C)
 void I2CRequestFrom(byte address, byte quantity, byte stop);
 
 #define I2C_STANDART 100000

@@ -42,14 +42,6 @@ void I2CWrite(byte b) {
     while (!SI);
 }
 
-byte I2CAvailable(void) {
-    return cbCount(I2C);
-}
-
-byte I2CRead(void) {
-    return cbGet(I2C);
-}
-
 void I2CRequestFrom(byte address, byte quantity, byte stop) {
     byte i;
     /* Step5 */

@@ -13,10 +13,10 @@ void Serial0Putc(byte c);
 void Serial0Printf(const byte* format,...);
 
 // read byte from serial
-byte Serial0Getc(void);
+#define Serial0Read() cbGet(Serial0)
 
 // Check. If in Serial buffer has chars, return it qwantity, else 0.
-word Serial0Available();
+#define Serial0Available() cdCount(Serial0)
 
 void Serial1Begin(dword speed);
 
@@ -27,9 +27,9 @@ void Serial1Putc(byte c);
 void Serial1Printf(const byte* format,...);
 
 // read byte from serial
-byte Serial1Getc(void);
+#define Serial1Read() cbGet(Serial1)
 
 // Check. If in Serial buffer has chars, return it qwantity, else 0.
-word Serial1Available();
+#define Serial1Available() cdCount(Serial1)
 
 #endif
