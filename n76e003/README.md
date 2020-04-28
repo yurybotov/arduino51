@@ -174,3 +174,44 @@ SPI реализован только в режиме `Master`. Пином `CS` 
 `map(x, in_min, in_max, out_min, out_max)` - пересчитывает значение из одного диапазона в другой
 
 `sq(x)` - возвращает квадрат числа 
+
+## Примеры
+
+### Blink
+
+`void setup() {`
+
+`    pinMode(D14,OUTPUT);`
+
+`}`
+
+`void loop() {`
+
+`    digitalWrite(D14,HIGH);`
+
+`    delay(1000);`
+
+`    digitalWrite(D14,LOW);`
+
+`    delay(1000);`
+
+`}`
+
+### Analog read to serial
+
+`void setup() {`
+
+`    pinMode(A03,INPUT);`
+
+`    Serial0Begin(9600);`
+
+`}`
+
+`void loop() {`
+
+`    Serial0Printf("A03 = %d\n", analogRead(A03));`
+
+`    delay(1000);`
+
+`}`
+
