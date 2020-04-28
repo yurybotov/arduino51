@@ -2,6 +2,7 @@ TARGET = arduino
 
 C_FILES = \
 	lib/main.c \
+	lib/ticker.c \
 	lib/gpio.c \
 	lib/cdc.c \
 	lib/adc.c \

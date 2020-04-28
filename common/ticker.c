@@ -13,11 +13,13 @@ void delay(dword time) {
 }
 #endif
 
+#ifndef NO_MICROS
 void delayMicroseconds(dword time) {
     volatile dword waitTo = micros() + time;
     while (waitTo > micros())
         ;
 }
+#endif
 
 dword pulseIn(byte pin, bool value, dword timeOut) {
     volatile dword start = millis();

@@ -19,10 +19,10 @@ void SerialPutc(byte c);
 
 void SerialPrintf(byte* format,...);
 
-// read byte from Serial
-byte SerialGetc(void);
+// read byte from serial
+#define SerialRead() cbGet(Serial)
 
 // Check. If in Serial buffer has chars, return it qwantity, else 0.
-word SerialAvailable();
+#define SerialAvailable() cdCount(Serial)
 
 #endif

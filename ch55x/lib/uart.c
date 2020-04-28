@@ -11,10 +11,10 @@ implements_isr(Serial0,UART0,SBUF,RI)
 implements_putc(Serial0,SBUF,TI)
 
 // byte Serial0Getc(void)
-implements_getc(Serial0)
+//implements_getc(Serial0)
 
 // word Serial0Available()
-implements_available(Serial0)
+//implements_available(Serial0)
 
 // void Serial0Printf(const byte* format,...)
 implements_printf(Serial0)
@@ -51,10 +51,10 @@ implements_isr(Serial1,UART1,SBUF1,U1RI)
 implements_putc(Serial1,SBUF1,U1TI)
 
 // byte Serial1Getc(void)
-implements_getc(Serial1)
+//implements_getc(Serial1)
 
 // word Serial1Available()
-implements_available(Serial1)
+//implements_available(Serial1)
 
 // void Serial1Printf(const byte* format,...)
 implements_printf(Serial1)

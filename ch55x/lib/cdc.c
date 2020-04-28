@@ -623,10 +623,10 @@ void SerialPutc(byte c) {
 }
 
 // byte Serial0Getc(void)
-implements_getc(Serial)
+//implements_getc(Serial)
 
 // word Serial0Available()
-implements_available(Serial)
+//implements_available(Serial)
 
 // void Serial0Printf(const byte* format,...)
-implements_printf(Serial)
+//implements_printf(Serial)
