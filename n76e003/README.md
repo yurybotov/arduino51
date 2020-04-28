@@ -179,39 +179,31 @@ SPI реализован только в режиме `Master`. Пином `CS` 
 
 ### Blink
 
-`void setup() {`
+```c
+void setup() {
+    pinMode(D14,OUTPUT);
+}
 
-`    pinMode(D14,OUTPUT);`
+void loop() {
+    digitalWrite(D14,HIGH);
+    delay(1000);
 
-`}`
-
-`void loop() {`
-
-`    digitalWrite(D14,HIGH);`
-
-`    delay(1000);`
-
-`    digitalWrite(D14,LOW);`
-
-`    delay(1000);`
-
-`}`
+    digitalWrite(D14,LOW);
+    delay(1000);
+}
+```
 
 ### Analog read to serial
 
-`void setup() {`
+```c
+void setup() {
+    pinMode(A03,INPUT);
+    Serial0Begin(9600);
+}
 
-`    pinMode(A03,INPUT);`
-
-`    Serial0Begin(9600);`
-
-`}`
-
-`void loop() {`
-
-`    Serial0Printf("A03 = %d\n", analogRead(A03));`
-
-`    delay(1000);`
-
-`}`
+void loop() {
+    Serial0Printf("A03 = %d\n", analogRead(A03));
+    delay(1000);
+}
+```
 
