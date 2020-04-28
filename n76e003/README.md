@@ -180,6 +180,8 @@ SPI реализован только в режиме `Master`. Пином `CS` 
 ### Blink
 
 ```c
+#include "arduino.h"
+
 void setup() {
     pinMode(D14,OUTPUT);
 }
@@ -196,6 +198,8 @@ void loop() {
 ### Analog read to serial
 
 ```c
+#include "arduino.h"
+
 void setup() {
     pinMode(A03,INPUT);
     Serial0Begin(9600);
@@ -207,3 +211,43 @@ void loop() {
 }
 ```
 
+### Analog to PWM
+
+```c
+#include "arduino.h"
+
+void setup() {
+    pinMode(A03,INPUT);
+    pinMode(PWM14,OUTPUT);
+}
+
+void loop() {
+    analogWrite(PWM14,analogRead(A03));
+    delay(10);
+}
+```
+
+### I2C read from EEPROM
+
+```c
+#include "arduino.h"
+
+void setup() {    
+    Serial0Begin(19200);
+    I2CBeginMaster();
+    I2CSetClock(I2C_HIGH);
+}
+
+void loop() {
+    I2CBeginTransmission(0x50); // 24c04 address 0x50
+    I2CWrite(0);                // read from 0 address
+    I2CWrite(0);                //
+    I2CRequestFrom(0x50, 32, 1); // read 32 bytes to buffer and close
+    I2CEndTransmission();
+    while(I2CAvailable()) {     // if i2c data exists in buffer
+        Serial0Printf("%c",I2CRead()); // print it
+    }
+    Serial0Putc('\n');
+    delay(1000);
+}
+```
