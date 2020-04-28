@@ -23,5 +23,3 @@
 byte SPITransfer(byte c);
 
 #endif
-
-// not tested!
