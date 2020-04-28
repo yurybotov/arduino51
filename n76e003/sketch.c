@@ -1,7 +1,7 @@
 #include "arduino.h"
 
 
-byte res1,res2,res3,res4,res5,res6;
+//byte res1,res2,res3,res4,res5,res6;
 
 void setup() {
     
@@ -33,16 +33,28 @@ void setup() {
     Serial0Printf("0x%x%x",res1,res2);
     Serial0Printf("%x%x",res3,res4);
     Serial0Printf("%x%x\n",res5,res6);*/
+    I2CBeginMaster();
+    I2CSetClock(I2C_LOW);
 }
 
 void loop() {
+    I2CBeginTransmission(0x50);
+    I2CWrite(0);
+    I2CWrite(0);
+    I2CRequestFrom(0x50,32,1);
+    I2CEndTransmission();
+    while(I2CAvailable()) {
+        Serial0Printf("%c",I2CRead());
+    }
+    Serial0Putc('\n');
+    delay(1000);
     //int i, j;
     //int adc0 = analogRead(A17);
     //Serial1Putc('*');
     //Serial0Printf("ADC0: %d\n", adc0);
     //Serial1Printf("ADC0: %d\n", adc0);
     //pinMode(D14, BIDIRECTIONAL);
-    if(Serial0Available() > 0) Serial0Printf("%c",Serial0Getc());
+    //if(Serial0Available() > 0) Serial0Printf("%c",Serial0Getc());
     /*for (i = 0; i < 5; i++) {
         digitalWrite(D14, 0);
         delay(100);
