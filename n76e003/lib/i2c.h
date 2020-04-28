@@ -9,14 +9,14 @@ void I2CEndTransmission(void);
 void I2CWrite(byte b);
 byte I2CAvailable(void);
 byte I2CRead(void);
-byte I2CRequestFrom(byte address, byte quantity, byte stop);
+void I2CRequestFrom(byte address, byte quantity, byte stop);
 
-#define I2C_STANDART
-#define I2C_FAST
-#define I2C_LOW
-#define I2C_HIGHSPEED
+#define I2C_STANDART 100000
+#define I2C_FAST 400000
+#define I2C_LOW  40000
+#define I2C_HIGHSPEED 1000000
 
-void I2CSetClock();
+void I2CSetClock(dword speed);
 
 void I2COnReceive(void (*handler)(byte)); // if master
 void I2COnRequest(void (*handler)(byte)); // if slave

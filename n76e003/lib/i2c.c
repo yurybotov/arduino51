@@ -1,6 +1,54 @@
 #include "i2c.h"
 #include "N76E003.h"
 
+void I2CBeginSlave(byte address) {
+
+}
+
+void I2CBeginMaster() {
+
+}
+
+void I2CBeginTransmission(byte address) {
+
+}
+
+void I2CEndTransmission(void) {
+
+}
+
+void I2CWrite(byte b) {
+
+}
+
+byte I2CAvailable(void) {
+
+}
+
+byte I2CRead(void) {
+
+}
+
+byte I2CRequestFrom(byte address, byte quantity, byte stop) {
+    
+}
+
+#define I2C_STANDART
+#define I2C_FAST
+#define I2C_LOW
+#define I2C_HIGHSPEED
+
+void I2CSetClock() {
+    
+}
+
+void I2COnReceive(void (*handler)(byte)); // if master
+void I2COnRequest(void (*handler)(byte)); // if slave
+
+
+
+
+
 void I2C_ISR(void) __interrupt(6) {
     switch (I2STAT) {
     //===============================================
