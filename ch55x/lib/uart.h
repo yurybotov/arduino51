@@ -21,7 +21,7 @@ void Serial0Printf(const byte* format,...);
 
 void Serial1Begin(dword speed);
 
-// print byte to UART0
+// print byte to UART1
 void Serial1Putc(byte c);
 
 

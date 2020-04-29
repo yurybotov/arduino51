@@ -1,5 +1,8 @@
 TARGET = arduino
 
+XRAM_SIZE = 0x300
+XRAM_LOC = 0x100
+
 C_FILES = \
 	lib/main.c \
 	lib/ticker.c \

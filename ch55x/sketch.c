@@ -1,9 +1,9 @@
 #include "arduino.h"
 
 void setup() {
-    Serial0Begin(19200);
+    SerialBegin(19200);
 
-    pinMode(PWM15,OUTPUT);
+    pinMode(D15,OUTPUT);
     pinMode(A11,INPUT);
 }
 
@@ -12,13 +12,12 @@ dword moment = 0;
 int i;
 
 void loop() {
-    //if(Serial0Available() > 0) Serial0Putc(Serial0Read());
+    if(SerialAvailable() > 0) SerialPutc(SerialRead());
 
     if(moment < millis()) {
-        moment = millis() + 1000;
-        Serial0Printf("Adc11 = %d\n\r",analogRead(A11));
-        analogWrite(PWM15,state);
-        state += 20;
-        if(state>250) state = 0;
+        moment = millis() + 200;
+        //SerialPrintf("Adc11 = %d\n\r",(int16_t)analogRead(A11));
+        digitalWrite(PWM15,state);
+        state = ~state & 1;
     }
 }

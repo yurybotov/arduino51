@@ -38,19 +38,18 @@ void CfgFsys() {
 	SAFE_MOD = 0x00;
 }
 
-__xdata static uint32_t CDCLoopTimer;
+__xdata dword CDCTimeout; 
 
 void main() {
     CfgFsys();
 	cbInit();
     ticker_init();
 	pwm_init();
-    //CDC_init();
-	//delay(100);
     setup();
-	//CDCLoopTimer = millis() + 100;
+	CDCTimeout = millis() + 100;
     while(1) {
 		loop();
-        CDC_loop();
+        CDCReceive();
+		if(CDCTimeout > millis()) { CDCTimeout = millis() + 100; CDCSend(); }
     }
 }
