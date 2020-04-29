@@ -1,7 +1,7 @@
 #include "arduino.h"
 
 void setup() {
-//    SerialBegin(115200);
+    Serial0Begin(19200);
 
     pinMode(PWM15,OUTPUT);
 }
@@ -11,7 +11,7 @@ dword moment = 0;
 int i;
 
 void loop() {
-    //if(SerialAvailable() > 0) SerialPutc(SerialGetc());
+    if(Serial0Available() > 0) Serial0Putc(Serial0Read());
 
     if(moment < millis()) {
         moment = millis() + 100;

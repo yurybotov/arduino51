@@ -3,6 +3,7 @@
 #include "../../common/exttypes.h"
 #include "stdarg.h"
 #include "../../common/serialtemplate.h"
+#include "../../common/buffer.h"
 
 void Serial0Begin(dword speed);
 
@@ -16,7 +17,7 @@ void Serial0Printf(const byte* format,...);
 #define Serial0Read() cbGet(Serial0)
 
 // Check. If in Serial buffer has chars, return it qwantity, else 0.
-#define Serial0Available() cdCount(Serial0)
+#define Serial0Available() cbCount(Serial0)
 
 void Serial1Begin(dword speed);
 
@@ -30,6 +31,6 @@ void Serial1Printf(const byte* format,...);
 #define Serial1Read() cbGet(Serial1)
 
 // Check. If in Serial buffer has chars, return it qwantity, else 0.
-#define Serial1Available() cdCount(Serial1)
+#define Serial1Available() cbCount(Serial1)
 
 #endif
