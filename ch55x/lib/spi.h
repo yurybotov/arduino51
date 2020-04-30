@@ -1,72 +1,44 @@
 #pragma once
 
-#include <stdint.h>
+#ifndef __SDCC_51_A_SPI__
+#define __SDCC_51_A_SPI__
+#include "../../common/exttypes.h"
+#include "../../common/utility.h"
 
+#define SPI_MSBFIRST 0x0
+#define SPI_LSBFIRST 0x10
 
-#define  SPI_CK_SET( n ) (SPI0_CK_SE = n)                                     //SPIÊ±ÖÓÉèÖÃº¯Êý 
+#define SPI_MODE0 0x0
+#define SPI_MODE3 0x8
 
-#define SPIMasterAssertCS() (SCS = 0)
-#define SPIMasterDeassertCS() (SCS = 1)
+#define SPI_SPEED_1M 0x8
+#define SPI_SPEED_2M 0x4
+#define SPI_SPEED_4M 0x2
+#define SPI_SPEED_8M 0x1
 
-/*******************************************************************************
-* Function Name  : SPIMasterModeSet( uint8_t mode ) 
-* Description    : SPIÖ÷»úÄ£Ê½³õÊ¼»¯
-* Input          : uint8_t mode						 
-* Output         : None
-* Return         : None
-*******************************************************************************/
-void SPIMasterModeSet(uint8_t mode);
+#define SPIBegin() \
+    bitClear(SPI0_SETUP, 4); \
+    bitClear(SPI0_SETUP,7); \
+    bitClear(SPI0_CTRL, 3); \
+    SPI0_CK_SE = 24; \
+    P1_MOD_OC &= 0x0F; \
+    P1_DIR_PU |= 0xB0; \
+    P1_DIR_PU &= 0xBF;
 
-/*******************************************************************************
-* Function Name  : CH554SPIInterruptInit()
-* Description    : CH554SPIÖÐ¶Ï³õÊ¼»¯
-* Input          : None
-* Output         : None
-* Return         : None
-*******************************************************************************/
-void CH554SPIInterruptInit();
+#define SPIBeginTransaction(mode) \
+    bitWrite(SPI0_SETUP, 4, bitRead(mode,4)); \
+    bitClear(SPI0_SETUP,7); \
+    bitWrite(SPI0_CTRL, 3, bitRead(mode,7)); \
+    SPI0_CK_SE = (mode & 0xf)*3; \
+    P1_MOD_OC &= 0x0F; \
+    P1_DIR_PU |= 0xB0; \
+    P1_DIR_PU &= 0xBF;
 
-/*******************************************************************************
-* Function Name  : CH554SPIMasterWrite(uint8_t dat)
-* Description    : CH554Ó²¼þSPIÐ´Êý¾Ý£¬Ö÷»úÄ£Ê½
-* Input          : uint8_t dat   Êý¾Ý
-* Output         : None
-* Return         : None
-*******************************************************************************/
-void CH554SPIMasterWrite(uint8_t dat);
+#define SPISettings(speed, msblsb, mode) ((speed) | (msblsb) | ((mode) << 4))
 
-/*******************************************************************************
-* Function Name  : CH554SPIMasterRead( )
-* Description    : CH554Ó²¼þSPI0¶ÁÊý¾Ý£¬Ö÷»úÄ£Ê½
-* Input          : None
-* Output         : None
-* Return         : uint8_t ret   
-*******************************************************************************/
-uint8_t CH554SPIMasterRead();
+#define SPIEndTransaction()
+#define SPIEnd() 
 
-/*******************************************************************************
-* Function Name  : SPISlvModeSet( ) 
-* Description    : SPI´Ó»úÄ£Ê½³õÊ¼»¯
-* Input          : None						 
-* Output         : None
-* Return         : None
-*******************************************************************************/
-void SPISlvModeSet( );
+byte SPITransfer(byte c);
 
-/*******************************************************************************
-* Function Name  : CH554SPISlvWrite(uint8_t dat)
-* Description    : CH554Ó²¼þSPIÐ´Êý¾Ý£¬´Ó»úÄ£Ê½
-* Input          : uint8_t dat   Êý¾Ý
-* Output         : None
-* Return         : None
-*******************************************************************************/
-void CH554SPISlvWrite(uint8_t dat);
-
-/*******************************************************************************
-* Function Name  : CH554SPISlvRead( )
-* Description    : CH554Ó²¼þSPI0¶ÁÊý¾Ý£¬´Ó»úÄ£Ê½
-* Input          : None
-* Output         : None
-* Return         : uint8_t ret   
-*******************************************************************************/
-uint8_t CH554SPISlvRead();
+#endif

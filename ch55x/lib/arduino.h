@@ -6,6 +6,7 @@
 #include "ticker.h"
 #include "cdc.h"
 #include "uart.h"
+#include "spi.h"
 #include "../../common/buffer.h"
 
 void setup(void);

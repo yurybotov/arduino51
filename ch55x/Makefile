@@ -10,6 +10,7 @@ C_FILES = \
 	lib/cdc.c \
 	lib/adc.c \
 	lib/uart.c \
+	lib/spi.c \
 	../common/buffer.c \
 	sketch.c
 
