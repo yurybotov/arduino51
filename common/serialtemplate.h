@@ -17,10 +17,6 @@ void name##Putc(byte c) { \
     flagtx = 0; \
 }
 
-#define implements_getc(name) byte name##Getc(void) { return cbGet(name); }
-
-#define implements_available(name) word name##Available() { return cbCount(name); }
-
 #define implements_printf(name) \
 static void name##SendChar(char c, void* p) { (p); name##Putc(c); } \
 void name##Printf(const byte* format,...) { \

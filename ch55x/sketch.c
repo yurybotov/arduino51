@@ -17,7 +17,7 @@ void loop() {
     if(moment < millis()) {
         moment = millis() + 200;
         //SerialPrintf("Adc11 = %d\n\r",(int16_t)analogRead(A11));
-        digitalWrite(PWM15,state);
+        digitalWrite(D15,state);
         state = ~state & 1;
     }
 }
