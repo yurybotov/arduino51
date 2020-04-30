@@ -12,12 +12,12 @@ void ticker_init(void);
 // milliseconds from uC start
 dword millis();
 
-dword micros();
+//dword micros();
 
 // delay in milliseconds
 void delay(dword time);
 
-void delayMicroseconds(dword time);
+//void delayMicroseconds(dword time);
 
 // pulse length measure
 dword pulseIn(byte pin, bool value, dword timeOut);
@@ -25,4 +25,5 @@ dword pulseIn(byte pin, bool value, dword timeOut);
 // pceudo SPI realisation
 void shiftOut(byte dataPin, byte clockPin, byte bitOrder, byte value);
 byte shiftIn(byte dataPin, byte clockPin, byte bitOrder);
+
 #endif
