@@ -1,23 +1,24 @@
 #include "uart.h"
+#include "../../common/buffer.h"
 #include "ch554.h"
 #include "gpio.h"
 #include <stdio.h>
-#include "../../common/buffer.h"
+
 
 // void UART0_ISR(void) __interrupt(INT_NO_UART0)
-implements_isr(Serial0,UART0,SBUF,RI)
+implements_isr(Serial0, UART0, SBUF, RI)
 
-//void Serial0Putc(byte c)
-implements_putc(Serial0,SBUF,TI)
+    //void Serial0Putc(byte c)
+    implements_putc(Serial0, SBUF, TI)
 
-// void Serial0Printf(const byte* format,...)
-implements_printf(Serial0)
+    // void Serial0Printf(const byte* format,...)
+    implements_printf(Serial0)
 
-void Serial0Begin(dword speed) {
+        void Serial0Begin(dword speed) {
     byte coef = 256 - (1500000 / speed);
     P3 |= bTXD | bRXD;
     P3_DIR_PU |= bTXD | bRXD;
-    P3_MOD_OC |= bTXD | bRXD;    
+    P3_MOD_OC |= bTXD | bRXD;
     SM0 = 0;
     SM1 = 1;
     SM2 = 0;
@@ -39,22 +40,22 @@ void Serial0Begin(dword speed) {
 }
 
 // void UART1_ISR(void) __interrupt(INT_NO_UART1)
-implements_isr(Serial1,UART1,SBUF1,U1RI)
+implements_isr(Serial1, UART1, SBUF1, U1RI)
 
-//void Serial1Putc(byte c)
-implements_putc(Serial1,SBUF1,U1TI)
+    //void Serial1Putc(byte c)
+    implements_putc(Serial1, SBUF1, U1TI)
 
-// void Serial1Printf(const byte* format,...)
-implements_printf(Serial1)
+    // void Serial1Printf(const byte* format,...)
+    implements_printf(Serial1)
 
-void Serial1Begin(dword speed) {  
+        void Serial1Begin(dword speed) {
     P1 |= bTXD1 | bRXD1;
     P1_DIR_PU |= bTXD1 | bRXD1;
     P1_MOD_OC |= bTXD1 | bRXD1;
     U1SMOD = 1;
     SBAUD1 = 256 - (uint8_t)(1500000 / speed);
     U1SM0 = 0;
-    U1REN = 1;  
+    U1REN = 1;
     IE_UART1 = 1;
-    EA = 1; 
+    EA = 1;
 }

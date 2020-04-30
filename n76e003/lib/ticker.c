@@ -1,9 +1,9 @@
 #include "ticker.h"
+#include "../../common/utility.h"
 #include "Function_define.h"
 #include "N76E003.h"
 #include "SFR_macro.h"
 #include "gpio.h"
-#include "../../common/utility.h"
 
 const byte period = 0x5F;
 
@@ -12,10 +12,10 @@ volatile unsigned char microsecondsTens;
 
 void Timer0_ISR(void) __interrupt(1) {
     microsecondsTens++;
-    if(microsecondsTens == 100) {
+    if (microsecondsTens == 100) {
         microsecondsTens = 0;
         milliseconds++;
-    } 
+    }
 }
 
 void ticker_init(void) {

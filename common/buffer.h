@@ -2,7 +2,11 @@
 #define __SDCC_51_A_BUFFER__
 #include "exttypes.h"
 
-enum DEVICES {BLANK,Serial0,Serial1,I2C,Serial};
+enum DEVICES { BLANK,
+    Serial0,
+    Serial1,
+    I2C,
+    Serial };
 
 #define COMMONBUFFERSIZE 128
 

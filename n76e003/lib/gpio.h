@@ -35,8 +35,8 @@
 #define OUTPUT PUSHPULL
 #define OPENDRAIN 3
 #define BIDIRECTIONAL 0
-#define ADC (0x40+2)
-#define PWM (0x80+1)
+#define ADC (0x40 + 2)
+#define PWM (0x80 + 1)
 
 // called on start in main.c
 void pwm_init(void);

@@ -1,5 +1,5 @@
-#include <ch554.h>
 #include "spi.h"
+#include <ch554.h>
 
 byte SPITransfer(byte c) {
     //while (S0_FREE)
