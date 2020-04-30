@@ -27,6 +27,10 @@
 
 `BIDIRECTIONAL` - стандартный для x51 вариант: выход без подтяжки, при записи в него единицы можно использовать его как вход
 
+`ADC` - аналоговый вход
+
+`PWM` - псевдо-аналоговый PWM выход
+
 `byte digitalRead(byte PIN)` - прочитать значение пина (0/1), читается не то что было записано в порт, а реальное состояние вывода
 
 `void digitalWrite(byte PIN, byte value)` - записать значение `value` (0/1) в пин
@@ -37,9 +41,9 @@
 
 `LOW` = 0
 
-`word analogRead(byte PIN)` - прочитать аналоговое значение с ADC. Естественно это возможно только на тех ногах на которых он доступен: `A17, A30, A07, A06, A05, A04, A03`. Необходимо предварительно использовать `pinMode(Axx,INPUT)`. Диапазон преобразования [0...Vcc] -> `[0..4095]`.
+`word analogRead(byte PIN)` - прочитать аналоговое значение с ADC. Естественно это возможно только на тех ногах на которых он доступен: `D17, D30, D07, D06, D05, D04, D03`. Необходимо предварительно использовать `pinMode(Dxx,ADC)`. Диапазон преобразования [0...Vcc] -> `[0..4095]`.
 
-`void analogWrite(byte PIN, word value)` - установить значение PWM. Допустимо только для тех ног которые поддерживают PWM: `PWM12, PWM14, PWM11, PWM10, PWM05, PWM04, PWM00, PWM01, PWM15, PWM03`. Важно: число каналов PWM меньше чем число выводов, некоторые выводы нельзя использовать для PWM одновременно: PWM14 и PWM11, PWM10 и PWM05, PWM04 и PWM00, PWM15 и PWM03. Для инициализации необходимо использовать `pinMode(PWMxx, OUTPUT)`. Частота PWM установлена примерно в `2кГц`, диапазон уровней `[0..2047]` -> [0..Vcc].
+`void analogWrite(byte PIN, word value)` - установить значение PWM. Допустимо только для тех ног которые поддерживают PWM: `D12, D14, D11, D10, D05, D04, D00, D01, D15, D03`. **Важно: число каналов PWM меньше чем число выводов, некоторые выводы нельзя использовать для PWM одновременно: D14 и D11, D10 и D05, D04 и D00, D15 и D03.** Для инициализации необходимо использовать `pinMode(Dxx, PWM)`. Частота PWM установлена примерно в `2кГц`, диапазон уровней `[0..2047]` -> [0..Vcc].
 
 ### Функции времени
 
@@ -201,12 +205,12 @@ void loop() {
 #include "arduino.h"
 
 void setup() {
-    pinMode(A03,INPUT);
+    pinMode(D03,ADC);
     Serial0Begin(9600);
 }
 
 void loop() {
-    Serial0Printf("A03 = %d\n", analogRead(A03));
+    Serial0Printf("D03 = %d\n", analogRead(D03));
     delay(1000);
 }
 ```
@@ -217,12 +221,12 @@ void loop() {
 #include "arduino.h"
 
 void setup() {
-    pinMode(A03,INPUT);
-    pinMode(PWM14,OUTPUT);
+    pinMode(D03,ADC);
+    pinMode(D14,PWM);
 }
 
 void loop() {
-    analogWrite(PWM14,analogRead(A03));
+    analogWrite(D14,analogRead(D03));
     delay(10);
 }
 ```
@@ -235,7 +239,7 @@ void loop() {
 void setup() {    
     Serial0Begin(19200);
     I2CBeginMaster();
-    I2CSetClock(I2C_HIGH);
+    I2CSetClock(I2C_FAST);
 }
 
 void loop() {

@@ -1,23 +1,19 @@
 #include "arduino.h"
 
-// for example 24c04 i2c reading
+dword next;
+int value = 0;
 
 void setup() {   
     Serial0Begin(19200);
-
-    I2CBeginMaster();
-    I2CSetClock(I2C_HIGH);
+    next = millis() + 500;
+    pinMode(D11,ADC);
 }
 
+
+
 void loop() {
-    I2CBeginTransmission(0x50);
-    I2CWrite(0);
-    I2CWrite(0);
-    I2CRequestFrom(0x50,32,1);
-    I2CEndTransmission();
-    while(I2CAvailable()) {
-        Serial0Printf("%c",I2CRead());
+    if(next < millis()) {
+        next = millis() + 500;
+        Serial0Printf("A11 = %d\n", analogRead(D11));
     }
-    Serial0Putc('\n');
-    delay(1000);
 }
