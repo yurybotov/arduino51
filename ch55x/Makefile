@@ -11,6 +11,7 @@ C_FILES = \
 	lib/adc.c \
 	lib/uart.c \
 	lib/spi.c \
+	lib/eeprom.c \
 	../common/buffer.c \
 	../common/utility.c \
 	sketch.c

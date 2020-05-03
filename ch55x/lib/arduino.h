@@ -8,6 +8,7 @@
 #include "spi.h"
 #include "ticker.h"
 #include "uart.h"
+#include "eeprom.h"
 
 void setup(void);
 void loop(void);

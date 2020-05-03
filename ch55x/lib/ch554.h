@@ -50,8 +50,7 @@ SFR(GLOBAL_CFG, 0xB1); // global config, Write@SafeMode
 
 /* Clock and Sleep and Power Registers */
 SFR(PCON, 0x87); // power control and reset flag
-#define SMOD 0x80 // baud rate selection for UART0 mode 1/2/3: 0=slow(Fsys/128 @mode2, TF1/32 @mode1/3, no effect for TF2), \
-    //   1=fast(Fsys/32 @mode2, TF1/16 @mode1/3, no effect for TF2)
+#define SMOD 0x80 // baud rate selection for UART0 mode 1/2/3: 0=slow(Fsys/128 @mode2, TF1/32 @mode1/3, no effect for TF2), 1=fast(Fsys/32 @mode2, TF1/16 @mode1/3, no effect for TF2)
 #define bRST_FLAG1 0x20 // ReadOnly: recent reset flag high bit
 #define bRST_FLAG0 0x10 // ReadOnly: recent reset flag low bit
 #define MASK_RST_FLAG 0x30 // ReadOnly: bit mask of recent reset flag
@@ -345,8 +344,7 @@ SBIT(C_T2, 0xC8, 1); // timer2 clock source selection: 0=timer base internal clo
 SBIT(CP_RL2, 0xC8, 0); // timer2 function selection (force 0 if RCLK=1 or TCLK=1): 0=timer and auto reload if count overflow or T2EX edge, 1=capture by T2EX edge
 SFR(T2MOD, 0xC9); // timer 2 mode and timer 0/1/2 clock mode
 #define bTMR_CLK 0x80 // fastest internal clock mode for timer 0/1/2 under faster clock mode: 0=use divided clock, 1=use original Fsys as clock without dividing
-#define bT2_CLK 0x40 // timer2 internal clock frequency selection: 0=standard clock, Fsys/12 for timer mode, Fsys/4 for UART0 clock mode, \
-    //   1=faster clock, Fsys/4 @bTMR_CLK=0 or Fsys @bTMR_CLK=1 for timer mode, Fsys/2 @bTMR_CLK=0 or Fsys @bTMR_CLK=1 for UART0 clock mode
+#define bT2_CLK 0x40 // timer2 internal clock frequency selection: 0=standard clock, Fsys/12 for timer mode, Fsys/4 for UART0 clock mode,   1=faster clock, Fsys/4 @bTMR_CLK=0 or Fsys @bTMR_CLK=1 for timer mode, Fsys/2 @bTMR_CLK=0 or Fsys @bTMR_CLK=1 for UART0 clock mode
 #define bT1_CLK 0x20 // timer1 internal clock frequency selection: 0=standard clock, Fsys/12, 1=faster clock, Fsys/4 if bTMR_CLK=0 or Fsys if bTMR_CLK=1
 #define bT0_CLK 0x10 // timer0 internal clock frequency selection: 0=standard clock, Fsys/12, 1=faster clock, Fsys/4 if bTMR_CLK=0 or Fsys if bTMR_CLK=1
 #define bT2_CAP_M1 0x08 // timer2 capture mode high bit
