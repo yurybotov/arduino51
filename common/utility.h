@@ -3,6 +3,7 @@
 //
 #ifndef __SDCC_51_A_UTILITY__
 #define __SDCC_51_A_UTILITY__
+#include "exttypes.h"
 
 #define bit(b) (1 << (b))
 #define bitClear(x, b) ((x) &= ~(1 << (b)))
@@ -26,5 +27,9 @@
 
 #define HIGH 1
 #define LOW 0
+
+// pceudo SPI realisation
+void shiftOut(byte dataPin, byte clockPin, byte bitOrder, byte value);
+byte shiftIn(byte dataPin, byte clockPin, byte bitOrder);
 
 #endif

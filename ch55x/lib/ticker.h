@@ -22,8 +22,4 @@ void delay(dword time);
 // pulse length measure
 dword pulseIn(byte pin, bool value, dword timeOut);
 
-// pceudo SPI realisation
-void shiftOut(byte dataPin, byte clockPin, byte bitOrder, byte value);
-byte shiftIn(byte dataPin, byte clockPin, byte bitOrder);
-
 #endif

@@ -12,6 +12,7 @@ C_FILES = \
 	lib/uart.c \
 	lib/spi.c \
 	../common/buffer.c \
+	../common/utility.c \
 	sketch.c
 
 pre-flash:

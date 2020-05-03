@@ -17,19 +17,27 @@
 #define SPI_SPEED_8M 0x1
 
 #define SPIBegin()           \
-    bitClear(SPI0_SETUP, 4); \
+    SPI0_CK_SE = 24;         \
     bitClear(SPI0_SETUP, 7); \
     bitClear(SPI0_CTRL, 3);  \
-    SPI0_CK_SE = 24;         \
+    bitClear(SPI0_SETUP, 4); \
+    bitSet(SPI0_CTRL, 0);    \
+    bitSet(SPI0_CTRL, 5);    \
+    bitSet(SPI0_CTRL, 6);    \ 
+    bitClear(SPI0_CTRL, 7);  \
     P1_MOD_OC &= 0x0F;       \
     P1_DIR_PU |= 0xB0;       \
     P1_DIR_PU &= 0xBF;
 
 #define SPIBeginTransaction(mode)              \
-    bitWrite(SPI0_SETUP, 4, bitRead(mode, 4)); \
+    SPI0_CK_SE = (mode & 0xf) * 3;             \
     bitClear(SPI0_SETUP, 7);                   \
     bitWrite(SPI0_CTRL, 3, bitRead(mode, 7));  \
-    SPI0_CK_SE = (mode & 0xf) * 3;             \
+    bitWrite(SPI0_SETUP, 4, bitRead(mode, 4)); \
+    bitSet(SPI0_CTRL, 0);                      \
+    bitSet(SPI0_CTRL, 5);                      \
+    bitSet(SPI0_CTRL, 6);                      \
+    bitClear(SPI0_CTRL, 7);                    \
     P1_MOD_OC &= 0x0F;                         \
     P1_DIR_PU |= 0xB0;                         \
     P1_DIR_PU &= 0xBF;

@@ -8,6 +8,7 @@ C_FILES = \
 	lib/spi.c \
 	lib/i2cmaster.c \
 	../common/buffer.c \
+	../common/utility.c \
 	sketch.c
 
 pre-flash:
