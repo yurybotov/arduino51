@@ -4,10 +4,6 @@
 #include "SFR_Macro.h"
 #include "i2c.h"
 
-
-void I2CBeginSlave(byte address) {
-}
-
 void I2CBeginMaster() {
     P13_OpenDrain_Mode; // don't forget the pull high resister in circuit
     P14_OpenDrain_Mode; // don't forget the pull high resister in circuit

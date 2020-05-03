@@ -17,7 +17,7 @@ void shiftOut(byte dataPin, byte clockPin, byte bitOrder, byte value) {
 
 byte shiftIn(byte dataPin, byte clockPin, byte bitOrder) {
     byte res = 0;
-    byte i, j;   
+    byte i;   
     for (i = 0; i < 8; i++) {
         digitalWrite(clockPin,1);
         if (bitOrder) { // msb

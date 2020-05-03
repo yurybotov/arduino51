@@ -6,7 +6,7 @@ int value = 0;
 void setup() {   
     Serial0Begin(19200);
     next = millis() + 500;
-    pinMode(D11,ADC);
+    //pinMode(D11,ADC);
 }
 
 
@@ -14,6 +14,11 @@ void setup() {
 void loop() {
     if(next < millis()) {
         next = millis() + 500;
-        Serial0Printf("A11 = %d\n", analogRead(D11));
+        //Serial0Printf("A11 = %d\n", analogRead(D11));
+        EEPROMWrite(0,'A');
+        EEPROMWrite(1,'b');
+        EEPROMWrite(2,'c');
+        EEPROMWrite(1,'B');
+        Serial0Printf("%c%c%c\n",EEPROMRead(0),EEPROMRead(1),EEPROMRead(2));
     }
 }

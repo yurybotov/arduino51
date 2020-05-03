@@ -13,6 +13,7 @@
 #include "spi.h"
 #include "ticker.h"
 #include "uart.h"
+#include "eeprom.h"
 
 extern void setup(void);
 extern void loop(void);

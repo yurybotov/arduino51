@@ -6,6 +6,7 @@ C_FILES = \
 	lib/ticker.c \
 	lib/uart.c \
 	lib/spi.c \
+	lib/eeprom.c \
 	lib/i2cmaster.c \
 	../common/buffer.c \
 	../common/utility.c \
