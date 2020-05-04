@@ -5,6 +5,7 @@
 #include <ch554.h>
 #include <ch554_usb.h>
 
+#ifdef USE_SERIAL
 
 __xdata __at(0x0000) uint8_t Ep0Buffer[DEFAULT_ENDP0_SIZE];
 __xdata __at(0x0040) uint8_t Ep1Buffer[DEFAULT_ENDP1_SIZE];
@@ -538,7 +539,7 @@ void SerialPutc(byte c) {
 
 implements_printf(Serial)
 
-    void CDCReceive(void) {
+void CDCReceive(void) {
     if (UsbConfig) {
         if (USBByteCount && !cbFull()) {
             byte i = 8;
@@ -569,3 +570,5 @@ void CDCSend(void) {
         }
     }
 }
+
+#endif

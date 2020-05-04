@@ -3,7 +3,7 @@
 #include "config.h"
 #include "exttypes.h"
 
-#if defined(USE_SERIAL0) || defined(USE_SERIAL1) || defined(USE_I2C)
+#if defined(USE_SERIAL0) || defined(USE_SERIAL1) || defined(USE_I2C) || defined(USE_SERIAL)
 
 enum DEVICES { BLANK,
     Serial0,
