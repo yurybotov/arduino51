@@ -3,6 +3,7 @@
 //
 #ifndef __SDCC_51_A_UTILITY__
 #define __SDCC_51_A_UTILITY__
+#include "config.h"
 #include "exttypes.h"
 
 #define bit(b) (1 << (b))
@@ -29,7 +30,9 @@
 #define LOW 0
 
 // pceudo SPI realisation
+#ifdef USE_SOFTWARE_SPI
 void shiftOut(byte dataPin, byte clockPin, byte bitOrder, byte value);
 byte shiftIn(byte dataPin, byte clockPin, byte bitOrder);
+#endif
 
 #endif

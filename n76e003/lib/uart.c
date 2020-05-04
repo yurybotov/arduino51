@@ -6,17 +6,18 @@
 #include "SFR_macro.h"
 #include <stdio.h>
 
+#ifdef USE_SERIAL0
 
 // void UART0_ISR(void) __interrupt(INT_NO_UART0)
 implements_isr(Serial0, UART0, SBUF, RI)
 
-    //void Serial0Putc(byte c)
-    implements_putc(Serial0, SBUF, TI)
+//void Serial0Putc(byte c)
+implements_putc(Serial0, SBUF, TI)
 
-    // void Serial0Printf(const byte* format,...)
-    implements_printf(Serial0)
+// void Serial0Printf(const byte* format,...)
+implements_printf(Serial0)
 
-        void Serial0Begin(dword speed) {
+void Serial0Begin(dword speed) {
     byte coef = 256 - (1000000 / speed);
     P06_Quasi_Mode;
     set_P06;
@@ -35,16 +36,20 @@ implements_isr(Serial0, UART0, SBUF, RI)
     set_EA;
 }
 
+#endif
+
+#ifdef USE_SERIAL1
+
 // void UART1_ISR(void) __interrupt(INT_NO_UART1)
 implements_isr(Serial1, UART1, SBUF_1, RI_1)
 
-    //void Serial1Putc(byte c)
-    implements_putc(Serial1, SBUF_1, TI_1)
+//void Serial1Putc(byte c)
+implements_putc(Serial1, SBUF_1, TI_1)
 
-    // void Serial1Printf(const byte* format,...)
-    implements_printf(Serial1)
+// void Serial1Printf(const byte* format,...)
+implements_printf(Serial1)
 
-        void Serial1Begin(dword speed) {
+void Serial1Begin(dword speed) {
     P02_Quasi_Mode;
     set_P02;
     P16_Quasi_Mode;
@@ -58,3 +63,5 @@ implements_isr(Serial1, UART1, SBUF_1, RI_1)
     set_ES_1;
     set_EA;
 }
+
+#endif
