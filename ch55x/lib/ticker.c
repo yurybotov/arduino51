@@ -29,13 +29,18 @@ void ticker_init(void) {
     TR0 = 1;
 }
 
-void CDC_loop(void);
-
 #define SPECIAL_DELAY
+
 void delay(dword time) {
     volatile dword waitTo = millis() + time;
-    while (waitTo > millis()) { if(time > 50) CDCReceive(); }
+    while (waitTo > millis()) { 
+#ifdef USE_SERIAL
+        if(time > 50) CDCReceive(); 
+#endif
+    }
+#ifdef USE_SERIAL
     if(time > 100) CDCSend();
+#endif
 }
 
 #include "../../common/ticker.c"

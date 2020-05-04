@@ -1,10 +1,18 @@
 #include "arduino.h"
 
 void Timer0_ISR(void) __interrupt(INT_NO_TMR0);
+#ifdef USE_SERIAL0
 void UART0_ISR(void) __interrupt(INT_NO_UART0);
+#endif
+#ifdef USE_SERIAL
 void DeviceInterrupt(void) __interrupt(INT_NO_USB);
+#endif
+#ifdef USE_SERIAL1
 void UART1_ISR(void) __interrupt(INT_NO_UART1);
+#endif
+#ifdef USE_PWM
 void PWMInterrupt(void) __interrupt(INT_NO_PWMX);
+#endif
 
 void CfgFsys() {
     // 		SAFE_MOD = 0x55;
@@ -38,21 +46,31 @@ void CfgFsys() {
     SAFE_MOD = 0x00;
 }
 
+#ifdef USE_SERIAL
 __xdata dword CDCTimeout;
+#endif
 
 void main() {
     CfgFsys();
+#if defined(USE_SEROAL0) || defined(USE_SERIAL1) || defined(USE_SERIAL)
     cbInit();
+#endif
     ticker_init();
+#ifdef USE_PWM
     pwm_init();
+#endif
     setup();
+#ifdef USE_SERIAL
     CDCTimeout = millis() + 100;
+#endif
     while (1) {
         loop();
+#ifdef USE_SERIAL
         CDCReceive();
         if (CDCTimeout > millis()) {
             CDCTimeout = millis() + 100;
             CDCSend();
         }
+#endif
     }
 }

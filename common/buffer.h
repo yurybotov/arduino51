@@ -1,6 +1,9 @@
 #ifndef __SDCC_51_A_BUFFER__
 #define __SDCC_51_A_BUFFER__
+#include "config.h"
 #include "exttypes.h"
+
+#if defined(USE_SERIAL0) || defined(USE_SERIAL1) || defined(USE_I2C) || defined(USE_SERIAL)
 
 enum DEVICES { BLANK,
     Serial0,
@@ -15,5 +18,7 @@ byte cbFull(void);
 void cbPut(byte b, enum DEVICES device);
 byte cbGet(enum DEVICES device);
 byte cbCount(enum DEVICES device);
+
+#endif
 
 #endif

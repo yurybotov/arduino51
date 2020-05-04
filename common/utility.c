@@ -2,6 +2,8 @@
 #include "ticker.h"
 #include "gpio.h"
 
+#ifdef USE_SOFTWARE_SPI
+
 void shiftOut(byte dataPin, byte clockPin, byte bitOrder, byte value) {
     byte i;
     for (i = 0; i < 8; i++) {
@@ -29,3 +31,5 @@ byte shiftIn(byte dataPin, byte clockPin, byte bitOrder) {
     }
     return res;
 }
+
+#endif

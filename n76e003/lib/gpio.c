@@ -3,8 +3,9 @@
 #include "N76E003.h"
 #include "SFR_macro.h"
 
-extern byte BIT_TMP;
+byte BIT_TMP;
 
+#ifdef USE_PWM
 void pwm_init(void) {
     PWM_CLOCK_FSYS;
     PWM_IMDEPENDENT_MODE;
@@ -13,11 +14,13 @@ void pwm_init(void) {
     PWMPL = 0xCF;
     set_LOAD;
 }
+#endif
 
 void pinMode(byte pin, byte mode) {
     if (GPIO_PORT(pin) == 0) {
         bitWrite(P0M2, (GPIO_PIN(pin)), (mode & 1));
         bitWrite(P0M1, (GPIO_PIN(pin)), ((mode >> 1) & 1));
+#ifdef USE_PWM
         if (GPIO_PWM(mode)) {
             switch (GPIO_PIN(pin)) {
             case 0:
@@ -59,10 +62,12 @@ void pinMode(byte pin, byte mode) {
                 break;
             }
         }
+#endif
     }
     if (GPIO_PORT(pin) == 1) {
         bitWrite(P1M2, (GPIO_PIN(pin)), (mode & 1));
         bitWrite(P1M1, (GPIO_PIN(pin)), ((mode >> 1) & 1));
+#ifdef USE_PWM
         if (GPIO_PWM(mode)) {
             switch (GPIO_PIN(pin)) {
             case 0:
@@ -104,6 +109,7 @@ void pinMode(byte pin, byte mode) {
                 break;
             }
         }
+#endif
     }
     if (GPIO_PORT(pin) == 3) {
         bitWrite(P3M2, (GPIO_PIN(pin)), (mode & 1));
@@ -140,6 +146,7 @@ void digitalWrite(byte pin, byte value) {
     }
 }
 
+#ifdef USE_ADC
 word analogRead(byte pin) {
     word result;
     if (GPIO_PORT(pin) == 0) {
@@ -192,7 +199,9 @@ word analogRead(byte pin) {
     result += ADCRL;
     return result & 0xfff;
 }
+#endif
 
+#ifdef USE_PWM
 void analogWrite(byte pin, word value) {
     if (GPIO_PORT(pin) == 0) {
         switch (GPIO_PIN(pin)) {
@@ -255,3 +264,4 @@ void analogWrite(byte pin, word value) {
     set_LOAD;
     set_PWMRUN;
 }
+#endif

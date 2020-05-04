@@ -1,10 +1,13 @@
 #ifndef __SDCC_51_A_CDC__
 #define __SDCC_51_A_CDC__
+#include "config.h"
 #include "../../common/buffer.h"
 #include "../../common/exttypes.h"
 #include "../../common/serialtemplate.h"
 #include <stdarg.h>
 #include <stdio.h>
+
+#ifdef USE_SERIAL
 
 void SerialBegin(dword speed);
 
@@ -21,5 +24,7 @@ void SerialPrintf(byte* format, ...);
 
 void CDCReceive(void);
 void CDCSend(void);
+
+#endif
 
 #endif

@@ -2,8 +2,11 @@
 
 #ifndef __SDCC_51_A_SPI__
 #define __SDCC_51_A_SPI__
+#include "config.h"
 #include "../../common/exttypes.h"
 #include "../../common/utility.h"
+
+#ifdef USE_SPI
 
 #define SPI_MSBFIRST 0x0
 #define SPI_LSBFIRST 0x10
@@ -48,5 +51,7 @@
 #define SPIEnd()
 
 byte SPITransfer(byte c);
+
+#endif
 
 #endif

@@ -1,5 +1,6 @@
 #ifndef __SDCC_51_A_TIMER__
 #define __SDCC_51_A_TIMER__
+#include "config.h"
 #include "../../common/exttypes.h"
 #include "stdbool.h"
 

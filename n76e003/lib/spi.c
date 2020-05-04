@@ -3,6 +3,8 @@
 #include "N76E003.h"
 #include "SFR_Macro.h"
 
+#ifdef USE_SPI
+
 byte SPITransfer(byte c) {
     while (SPSR & 0x2 != 0)
         ;
@@ -13,3 +15,5 @@ byte SPITransfer(byte c) {
     clr_SPIF;
     return SPDR;
 }
+
+#endif

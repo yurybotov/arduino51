@@ -2,6 +2,8 @@
 #include "ch554.h"
 #include "../../common/utility.h"
 
+#ifdef USE_EEPROM
+
 void EEPROMWriteByte(byte address, byte c) {
     SAFE_MOD = 0x55; SAFE_MOD = 0xAA; GLOBAL_CFG |= bDATA_WE; SAFE_MOD = 0;
     ROM_ADDR_H = DATA_FLASH_ADDR >> 8;
@@ -24,3 +26,5 @@ void EEPROMWrite(byte address, byte c) {
         return;
     EEPROMWriteByte(address, c);
 }
+
+#endif

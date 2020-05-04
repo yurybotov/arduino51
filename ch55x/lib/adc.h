@@ -1,7 +1,14 @@
+#ifndef __SDCC_51_A_ADC__
+#define __SDCC_51_A_ADC__
+#include "config.h"
 #include "../../common/exttypes.h"
 
-void ADCInit(uint8_t div);
+#ifdef USE_ADC
+
+#define ADCInit(div) ADC_CFG &= ~bADC_CLK | div; ADC_CFG |= bADC_EN;
 
 uint8_t ADC_ChannelSelect(uint8_t ch);
 
-uint8_t VoltageCMPModeInit(uint8_t fo,uint8_t re);
+#endif
+
+#endif

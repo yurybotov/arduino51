@@ -2,6 +2,9 @@
 #include "N76E003.h"
 #include "../../common/utility.h"
 
+
+#ifdef USE_EEPROM
+
 volatile unsigned char __code __at 0x4700 tempEEPROM[128];
 volatile unsigned char __code __at 0x4780 EEPROM[128];
 
@@ -85,3 +88,5 @@ void EEPROMWrite(byte address, byte c) {
         EEPROMCopyPageWithChange(EEPROM, tempEEPROM, 130, 0);
     }
 }
+
+#endif

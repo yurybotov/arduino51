@@ -1,5 +1,6 @@
 #ifndef __SDCC_51_A_GPIO__
 #define __SDCC_51_A_GPIO__
+#include "config.h"
 
 #include "../../common/exttypes.h"
 #include "../../common/utility.h"
@@ -8,8 +9,12 @@
 #define GPIO_PIN(P) ((P >> 2) & 0x7)
 #define GPIO_PORT(P) (P & 0x3)
 
+#ifdef USE_PWM
 #define GPIO_PWM(M) ((M & 0x80) == 0x80)
+#endif
+#ifdef USE_ADC
 #define GPIO_ADC(M) ((M & 0x40) == 0x40)
+#endif
 
 #define D05 GPIO_PXX(0, 5)
 #define D06 GPIO_PXX(0, 6)
@@ -35,11 +40,17 @@
 #define OUTPUT PUSHPULL
 #define OPENDRAIN 3
 #define BIDIRECTIONAL 0
+#ifdef USE_ADC
 #define ADC (0x40 + 2)
+#endif
+#ifdef USE_PWM
 #define PWM (0x80 + 1)
+#endif
 
 // called on start in main.c
+#ifdef USE_PWM
 void pwm_init(void);
+#endif
 
 // pin mode set
 void pinMode(byte pin, byte mode);
@@ -51,9 +62,13 @@ byte digitalRead(byte pin);
 void digitalWrite(byte pin, byte value);
 
 // read ADC value on Dxx pin, read range [0...4095]
+#ifdef USE_ADC
 word analogRead(byte pin);
+#endif
 
 // set PWM value to Dxx pin, value can be in range of [0...2047]
+#ifdef USE_PWM
 void analogWrite(byte pin, word value);
+#endif
 
 #endif

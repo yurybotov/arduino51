@@ -4,6 +4,8 @@
 #include "SFR_Macro.h"
 #include "gpio.h"
 
+#ifdef USE_PIN_INTERRUPT
+
 void dumb(void) { }
 
 void (*handler[8])(void) = { dumb, dumb, dumb, dumb, dumb, dumb, dumb, dumb };
@@ -70,3 +72,5 @@ void detachInterrupt(byte pin) {
     bitClear(PIPEN, GPIO_PIN(pin));
     set_EA;
 }
+
+#endif

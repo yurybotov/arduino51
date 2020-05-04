@@ -1,6 +1,9 @@
 #ifndef __SDCC_51_A_I2C__
 #define __SDCC_51_A_I2C__
+#include "config.h"
 #include "../../common/exttypes.h"
+
+#ifdef USE_I2C
 
 //void I2CBeginSlave(byte address);
 void I2CBeginMaster();
@@ -23,4 +26,5 @@ void I2CSetClock(dword speed);
 
 #endif
 
+#endif
 // master only
