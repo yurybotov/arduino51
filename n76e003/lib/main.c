@@ -3,6 +3,7 @@
 void Timer0_ISR(void) __interrupt(INT_NO_TMR0);
 void UART0_ISR(void) __interrupt(INT_NO_UART0);
 void UART1_ISR(void) __interrupt(INT_NO_UART1);
+void PIN_INTERRUPT_ISR(void) __interrupt (INT_NO_PIF);
 
 byte BIT_TMP;
 

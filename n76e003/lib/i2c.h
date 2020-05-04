@@ -13,7 +13,7 @@ void I2CRequestFrom(byte address, byte quantity, byte stop);
 
 #define I2C_STANDART 100000
 #define I2C_FAST 400000
-#define I2C_LOW 40000
+#define I2C_SLOW 40000
 #define I2C_HIGHSPEED 1000000
 
 void I2CSetClock(dword speed);

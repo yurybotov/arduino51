@@ -8,6 +8,7 @@ C_FILES = \
 	lib/spi.c \
 	lib/eeprom.c \
 	lib/i2cmaster.c \
+	lib/pinterrupt.c \
 	../common/buffer.c \
 	../common/utility.c \
 	sketch.c

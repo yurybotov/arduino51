@@ -14,6 +14,7 @@
 #include "ticker.h"
 #include "uart.h"
 #include "eeprom.h"
+#include "pinterrupt.h"
 
 extern void setup(void);
 extern void loop(void);
