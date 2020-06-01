@@ -712,4 +712,24 @@ SFR(PWMCR, 0xfe);
 #define I2CTXD      (*(unsigned char volatile xdata *)0xfe86)
 #define I2CRXD      (*(unsigned char volatile xdata *)0xfe87)
 
+#define INT_NO_INT0     0
+#define INT_NO_TIMER0   1
+#define INT_NO_INT1     2
+#define INT_NO_TIMER1   3
+#define INT_NO_UART1    4
+#define INT_NO_ADC      5
+#define INT_NO_LVD      6
+#define INT_NO_PCA      7
+#define INT_NO_UART2    8
+#define INT_NO_SPI      9
+#define INT_NO_INT2     10
+#define INT_NO_INT3     11
+#define INT_NO_TIMER2   12
+#define INT_NO_INT4     16
+#define INT_NO_UART3    17
+#define INT_NO_UART4    18
+#define INT_NO_TIMER3   19
+#define INT_NO_TIMER4   20
+#define INT_NO_CMP      21
+
 #endif

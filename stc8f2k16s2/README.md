@@ -161,6 +161,22 @@ void loop() {
 }
 ```
 
+### Serial1 Echo
+
+```c
+#include "arduino.h"
+
+void setup() {
+    Serial1Begin(9600);
+}
+
+void loop() {
+    if(Serial1Available()) {
+        Serial1Putc(Serial1Read());
+    }
+}
+```
+
 ### I2C read from 24c04 EEPROM
 
 ```c

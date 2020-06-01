@@ -5,6 +5,7 @@ void setup() {
 }
 
 void loop() {
-    Serial0Printf("Hello World!\n");
-    delay(1000);
+    if(Serial0Available()) {
+        Serial0Putc(Serial0Read());
+    }
 }

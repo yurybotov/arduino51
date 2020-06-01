@@ -1,12 +1,12 @@
 #include "arduino.h"
 
-void Timer0_ISR(void) __interrupt(1);
+void Timer0_ISR(void) __interrupt(INT_NO_TIMER0);
 
 #ifdef USE_SERIAL0
-void UART0_ISR(void) __interrupt(INT_NO_UART0);
+void UART1_ISR(void) __interrupt(INT_NO_UART1);
 #endif
 #ifdef USE_SERIAL1
-void UART1_ISR(void) __interrupt(INT_NO_UART1);
+void UART2_ISR(void) __interrupt(INT_NO_UART2);
 #endif
 #ifdef USE_PIN_INTERRUPT
 //void PIN_INTERRUPT_ISR(void) __interrupt (INT_NO_PIF);
@@ -17,9 +17,7 @@ void main() {
     cbInit();
 #endif
     ticker_init();
-#ifdef USE_PWM
-//    pwm_init();
-#endif
+
     setup();
     while (1) {
         loop();

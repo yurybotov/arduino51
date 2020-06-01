@@ -5,6 +5,7 @@ C_FILES = \
 	lib/ticker.c \
 	lib/uart.c \
 	lib/main.c \
+	../common/buffer.c \
 	../common/utility.c \
 	sketch.c
 
