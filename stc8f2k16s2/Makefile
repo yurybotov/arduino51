@@ -1,6 +1,9 @@
 TARGET = arduino
 
 C_FILES = \
+	lib/gpio.c \
+	lib/ticker.c \
+	lib/uart.c \
 	lib/main.c \
 	../common/utility.c \
 	sketch.c

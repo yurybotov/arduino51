@@ -9,8 +9,8 @@
 #include "../../common/utility.h"
 
 
-//#include "gpio.h"
-//#include "ticker.h"
+#include "gpio.h"
+#include "ticker.h"
 
 #ifdef USE_I2C
 //#include "i2c.h"
@@ -21,11 +21,11 @@
 #endif
 
 #if defined(USE_SERIAL0) || defined(USE_SERIAL1)
-//#include "uart.h"
+#include "uart.h"
 #endif
 
 #if defined(USE_SERIAL0) || defined(USE_SERIAL1) || defined(USE_I2C)
-//#include "../../common/buffer.h"
+#include "../../common/buffer.h"
 #endif
 
 #ifdef USE_EEPROM
