@@ -37,21 +37,7 @@ void Serial0Begin(dword speed) {
     pinMode(D30,BIDIRECTIONAL);
     digitalWrite(D31,HIGH);
     digitalWrite(D30,HIGH);
-    //P06_Quasi_Mode;
-    //set_P06;
-    //P07_Quasi_Mode;
-    //set_P07;
-    //SCON = 0x50;
-    //TMOD |= 0x20;
-    //set_SMOD;
-    //set_T1M;
-    //clr_BRCK;
-    //TH1 = coef;
-    //TL1 = coef;
-    //set_TR1;
-    //clr_TI;
-    //set_ES;
-    //set_EA;
+
 	SCON = 0x50;		//8bit and variable baudrate
 	AUXR |= 0x40;		//Timer1's clock is Fosc (1T)
 	AUXR &= 0xFE;		//Use Timer1 as baudrate generator
@@ -95,19 +81,7 @@ void Serial1Begin(dword speed) {
     pinMode(D10,BIDIRECTIONAL);
     digitalWrite(D11,HIGH);
     digitalWrite(D10,HIGH);
-    //P02_Quasi_Mode;
-    //set_P02;
-    //P16_Quasi_Mode;
-    //set_P16;
-    //SCON_1 = 0x50;
-    //T3CON = 0x08;
-    //clr_BRCK;
-    //RH3 = highByte(65536 - (1000000 / speed));
-    //RL3 = lowByte(65536 - (1000000 / speed));
-    //set_TR3;
-    //set_ES_1;
-    //set_EA;
-    
+
     S2CON = 0x50;		//8bit and variable baudrate
 	AUXR |= 0x04;		//Timer2's clock is Fosc (1T)
 	T2L = lowByte(coef);		//Initial timer value
