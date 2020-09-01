@@ -16,6 +16,10 @@
 #include "i2c.h"
 #endif
 
+#ifdef USE_I2C_SLAVE
+#include "i2c.h"
+#endif
+
 #ifdef USE_SPI
 #include "spi.h"
 #endif
@@ -24,7 +28,7 @@
 #include "uart.h"
 #endif
 
-#if defined(USE_SERIAL0) || defined(USE_SERIAL1) || defined(USE_I2C)
+#if defined(USE_SERIAL0) || defined(USE_SERIAL1) || defined(USE_I2C) || defined(USE_I2C_SLAVE)
 #include "../../common/buffer.h"
 #endif
 

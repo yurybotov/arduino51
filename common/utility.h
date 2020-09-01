@@ -29,6 +29,8 @@
 #define HIGH 1
 #define LOW 0
 
+extern void (*reset)(void);
+
 // pceudo SPI realisation
 #ifdef USE_SOFTWARE_SPI
 void shiftOut(byte dataPin, byte clockPin, byte bitOrder, byte value);

@@ -1,16 +1,16 @@
 #include "buffer.h"
 
-#if defined(USE_SERIAL0) || defined(USE_SERIAL1) || defined(USE_I2C) || defined(USE_SERIAL)
+#if defined(USE_SERIAL0) || defined(USE_SERIAL1) || defined(USE_I2C) || defined(USE_I2C_SLAVE) || defined(USE_SERIAL)
 
 __xdata volatile byte commonbuffer[COMMONBUFFERSIZE];
 __xdata volatile byte typebuffer[COMMONBUFFERSIZE / 2];
-__xdata volatile byte availablebuffer[6];
-__xdata volatile byte writepositionbuffer[6];
-__xdata volatile byte readpositionbuffer[6];
+__xdata volatile byte availablebuffer[8];
+__xdata volatile byte writepositionbuffer[8];
+__xdata volatile byte readpositionbuffer[8];
 
 void cbInit(void) {
     byte i;
-    for (i = 0; i < 6; i++) {
+    for (i = 0; i < 8; i++) {
         availablebuffer[i] = 0;
         writepositionbuffer[i] = 0;
         readpositionbuffer[i] = 0;

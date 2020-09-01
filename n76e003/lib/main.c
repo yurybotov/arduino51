@@ -8,6 +8,11 @@ void UART0_ISR(void) __interrupt(INT_NO_UART0);
 #ifdef USE_SERIAL1
 void UART1_ISR(void) __interrupt(INT_NO_UART1);
 #endif
+
+#ifdef USE_I2C_SLAVE
+void I2C_ISR(void) __interrupt(INT_NO_I2C);
+#endif
+
 #ifdef USE_PIN_INTERRUPT
 void PIN_INTERRUPT_ISR(void) __interrupt (INT_NO_PIF);
 #endif

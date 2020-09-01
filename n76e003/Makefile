@@ -8,6 +8,7 @@ C_FILES = \
 	lib/spi.c \
 	lib/eeprom.c \
 	lib/i2cmaster.c \
+	lib/i2cslave.c \
 	lib/pinterrupt.c \
 	../common/buffer.c \
 	../common/utility.c \

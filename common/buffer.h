@@ -3,13 +3,16 @@
 #include "config.h"
 #include "exttypes.h"
 
-#if defined(USE_SERIAL0) || defined(USE_SERIAL1) || defined(USE_I2C) || defined(USE_SERIAL)
+#if defined(USE_SERIAL0) || defined(USE_SERIAL1) || defined(USE_I2C) || defined(USE_I2C_SLAVE) || defined(USE_SERIAL)
 
-enum DEVICES { BLANK,
+enum DEVICES { 
+    BLANK,
     Serial0,
     Serial1,
     I2C,
-    Serial };
+    I2COUT,
+    Serial
+};
 
 #define COMMONBUFFERSIZE 128
 
